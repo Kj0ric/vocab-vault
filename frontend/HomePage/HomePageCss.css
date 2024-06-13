@@ -203,19 +203,7 @@ body {
   margin: 0; /* Remove default margin */
 }
 
-#more-info-button {
-  padding: 10px 20px; /* Add padding to the button */
-  font-size: 16px; /* Increase font size */
-  background-color: #333; /* Button background color */
-  color: white; /* Button text color */
-  border: none; /* Remove default border */
-  cursor: pointer; /* Change cursor on hover */
-  border-radius: 8px;
-}
 
-#more-info-button:hover {
-  background-color: red; /* Change background color on hover */
-}
 
 /* Star rating styles */
 .rating {
@@ -242,3 +230,28 @@ body {
 .sticky .dropdown-content{
   position: fixed;
 }
+
+.button {
+  padding: 10px 20px; /* Add padding to the button */
+  font-size: 16px; /* Increase font size */
+  background-color: #333; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* Remove default border */
+  cursor: pointer; /* Change cursor on hover */
+  border-radius: 8px;
+}
+
+.button:hover {
+  background-color: red; /* Change background color on hover */
+}
+
+
+.button.red {
+  background-color: #ff5050;
+}
+
+.button.red:hover {
+  background-color: red; /* Change background color on hover */
+}
+
+
