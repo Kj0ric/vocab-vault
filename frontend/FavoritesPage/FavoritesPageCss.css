@@ -162,6 +162,7 @@ p {
 }
 
 #NewWordTitle {
+  margin-top: 60px;
   padding-left: 120px;
   padding-top: 10px;
   width: 380px;
