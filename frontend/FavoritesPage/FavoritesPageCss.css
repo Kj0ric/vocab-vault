@@ -151,6 +151,30 @@ body {
   padding-top: 60px;
 } 
 
+h3 {
+  margin-left: 10px;
+}
+
+p {
+  margin-left: 10px;
+
+}
+
+#NewWordTitle {
+  padding-left: 120px;
+  padding-top: 10px;
+  width: 380px;
+  height: 50px;
+  border-style:ridge;
+  border-width: 4px;
+}
+
 .sticky .dropdown-content{
   position: fixed;
+}
+
+.TextContainer {
+  margin-left: 10px;
+  width: 900px;
+  word-break: break-word;
 }
