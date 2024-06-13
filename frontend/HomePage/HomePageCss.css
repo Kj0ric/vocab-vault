@@ -98,9 +98,10 @@ body {
 
   }
 
-  .floatingButtonText {
-    
+  /*
+  .floatingButtonText { 
   }
+  */
 
   .floatingButtonCalendar {
     position: fixed;
@@ -128,7 +129,7 @@ body {
 
 .floatingButtonAdd {
     position: fixed;
-    bottom: 50px;
+    bottom: 40px;
     right: 0;
     padding: 10px 20px;
     margin: 10px;
