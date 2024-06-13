@@ -98,76 +98,37 @@ body {
 
   }
 
-  .floatingButtonContainer {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-start;
-    align-items: center;
-    position: fixed;
-    right: 50px; /* Positions container to the right */
-    bottom: 120px; /* Positions container at the bottom */
-  }
-
-  .buttonDescription {
-    display: inline-block;
-    margin-right: 40px; /* Adds distance between the button and itself */
-    padding: 10px;
-    background-color: #b8b2b2;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
   /* This changes the style of the floating calendar button*/
-  .floatingButtonCalendar {
+  .floatingButton {
     position: fixed;
-    bottom: 10px;
+    bottom: 0;
     right: 0;
-    padding: 20px 20px;
-    margin: 20px;
+    padding: 10px 20px;
+    margin: 10px;
     margin-bottom: 40px;
-    background-color: #b8b2b2;
-    color: rgb(0, 0, 0);
+    background-color: #ff0000;
+    color: white;
     border: none;
     cursor: pointer;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;    /* This makes the button circular */
-    background-image: url("images/calendar-icon.png"); /* This adds the calendar icon */
-    background-repeat: no-repeat; /* This prevents the icon from repeating */
-    background-position: center; /* This centers the icon */
-    background-size: 60%; /* This makes the icon half the size of the button */
-}
-
-.floatingButtonCalendar:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    width: 100px;
+    border-radius: 16px;    
 }
 
 /* This changes the style of the floating plusbutton button*/
-.floatingButtonAdd {
-  position: fixed;
-  bottom: 75px;
-  right: 0px;
-  padding: 20px 20px;
-  margin: 20px;
-  margin-bottom: 40px;
-  background-color: #b8b2b2;
-  color: rgb(0, 0, 0);
-  border: none;
-  cursor: pointer;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;    /* This makes the button circular */
-  background-image: url(images/plus-icon.png); /* This adds the calendar icon */
-  background-repeat: no-repeat; /* This prevents the icon from repeating */
-  background-position: center; /* This centers the icon */
-  background-size: 60%; /* This makes the icon half the size of the button */
+.floatingButton2 {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 10px 20px;
+    margin: 10px;
+    margin-bottom: 100px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    border-radius: 16px;  
 }
-
-.floatingButtonAdd:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
-
 /* This changes the style of the variables displaying text in the down right corner*/
 .window-size {
     position: fixed;
@@ -190,6 +151,37 @@ body {
 .sticky + .content {
   padding-top: 60px;
 } 
+
+#NewWordTitle {
+  padding-left: 120px;
+  padding-top: 10px;
+  width: 380px;
+  height: 50px;
+  border-style:ridge;
+  border-width: 4px;
+}
+
+#AddButton {
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+p {
+  margin-left: 10px;
+  font-size: 30px;
+}
+
+input {
+  margin-left: 10px;
+  width: 180px;
+  height: 20px;
+}
+
+#MeaningInput {
+  height: 60px;
+  width: 400px;
+  margin-left: 10px;
+}
 
 .sticky .dropdown-content{
   position: fixed;

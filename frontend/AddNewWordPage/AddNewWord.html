@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="AddNewWordCss.css">
+<script type="text/javascript" src="AddNewWordJS.js"></script>
+<body>
+
+<!---this shows some variables that are useful for to design the website-->
+<div class="window-size" id="windowSize"></div>
+
+<!---These two are the two buttons in the down right corner-->
+<a href="#Calendar" class="floatingButton">Calendar</a>
+<a href="AddNewWord.html"class="floatingButton2">PlusButton</a>
+
+<!---This object is the navigation bar in the top of the website-->
+<div class="navbar" id="navbar">
+    <!---This is the home button-->
+    <a href="../HomePage/HomePage.html">Home</a>
+    
+    <!---This is the Languages dropdown menu-->
+    <div class="dropdown">
+        <button class="dropbtn" href="frontend\Test document.html">Languages 
+        <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+        <a href="#link1">English</a>
+        <a href="#link2">French</a>
+        <a href="#link3">German</a>
+        </div>
+        
+    </div> 
+    
+    <!---This is the search bar-->
+    <div type = "search" id="search">
+        <input type="text" placeholder="Search..">
+    </div> 
+    
+    <!---This is the Favorites button-->
+    <a href="../FavoritesPage/FavoritesPage.html" id="favorites">Favorites</a>
+    
+    <!---This is the Account dropdown menu-->
+    <div id="accountButton" class="dropdown">
+        <button  class="dropbtn" href="#account">Account 
+        <i  class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+        <a href="../accountpage/accountpage.html">Account</a>
+        <a href="#link2">Profile</a>
+        <a href="../FavoritesPage/FavoritesPage.html">Favorites</a>
+        </div>
+        
+    </div> 
+    
+</div>
+
+<!---Some useless text to enable scrolling-->
+<h1 id="NewWordTitle">Add new word</h1>
+
+<p>New word</p>
+<div type = "input" id="WordNameInput">
+    <input type="text" placeholder="Name of the new word">
+</div>
+
+<label for="cars">Part of speech:</label>
+  <select name="cars" id="cars" multiple>
+    <option value="volvo">Noun</option>
+    <option value="saab">Verb</option>
+    <option value="opel">Adjective</option>
+    <option value="audi">I don't know any others</option>
+  </select>
+
+<p>Pronunciation</p>
+<div type = "input" id="PronunciationInput">
+    <input type="text" placeholder="Pronunciation of the new word">
+</div>
+
+<p>Meaning</p>
+<div type = "input" >
+    <textarea id="MeaningInput" type="text" placeholder="Meaning of the new word"></textarea>
+</div>
+
+<button id="AddButton">Add New Word</button>
+</body>
+</html>
