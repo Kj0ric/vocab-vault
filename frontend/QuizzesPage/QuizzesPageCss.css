@@ -99,35 +99,35 @@ body {
   }
 
   /* This changes the style of the floating calendar button*/
-  .floatingButton {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    padding: 10px 20px;
-    margin: 10px;
-    margin-bottom: 40px;
-    background-color: #ff0000;
-    color: white;
-    border: none;
-    cursor: pointer;
-    width: 100px;
-    border-radius: 16px;    
+.floatingButton {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px 20px;
+  margin: 10px;
+  margin-bottom: 40px;
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+  border-radius: 16px;    
 }
 
 /* This changes the style of the floating plusbutton button*/
 .floatingButton2 {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    padding: 10px 20px;
-    margin: 10px;
-    margin-bottom: 100px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    width: 100px;
-    border-radius: 16px;  
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px 20px;
+  margin: 10px;
+  margin-bottom: 100px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+  border-radius: 16px;  
 }
 /* This changes the style of the variables displaying text in the down right corner*/
 .window-size {
@@ -152,43 +152,40 @@ body {
   padding-top: 60px;
 } 
 
-#NewWordTitle {
-  margin-top: 60px;
-  padding-left: 120px;
-  padding-top: 10px;
-  width: 380px;
-  height: 50px;
-  border-style:ridge;
-  border-width: 4px;
-}
-
-#AddButton {
-  margin-left: 30px;
-  margin-top: 20px;
-}
-
-p {
-  margin-left: 10px;
-  font-size: 30px;
-}
-
-input {
-  margin-left: 10px;
-  width: 180px;
-  height: 20px;
-}
-
-#MeaningInput {
-  height: 60px;
-  width: 400px;
-  margin-left: 10px;
-}
-
 .sticky .dropdown-content{
   position: fixed;
 }
 
-#Choose {
-     margin-left: 10px;
-  width: 400px;
+.FlashCardsButton {
+  
+  position: fixed;
+  bottom: 0;
+  right: 1;
+  padding: 230px 230px;
+  margin: 10px; 
+  margin-bottom: 100px; 
+  margin-left: 100px; 
+  background-color: #253a99;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+  border-radius: 16px;  
+}
+
+.WordleButton {
+  position: fixed;
+  bottom: 0;
+  right: 1;
+  padding: 230px 230px;
+  margin: 10px;
+  margin-bottom: 100px;
+  margin-left: 800px; 
+  background-color: #120e0e;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+  border-radius: 16px;  
+
 }
