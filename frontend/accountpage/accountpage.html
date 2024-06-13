@@ -2,8 +2,8 @@
 <html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="AddNewWordCss.css">
-<script type="text/javascript" src="AddNewWordJS.js"></script>
+<link rel="stylesheet" href="accountpagecss.css">
+<script type="text/javascript" src="accountpagejs.js"></script>
 <body>
 
 <!---this shows some variables that are useful for to design the website-->
@@ -11,7 +11,8 @@
 
 <!---These two are the two buttons in the down right corner-->
 <a href="#Calendar" class="floatingButton">Calendar</a>
-<a href="AddNewWord.html"class="floatingButton2">PlusButton</a>
+<a href="../AddNewWordPage/AddNewWord.html" id="plusButton" class="floatingButton2">PlusButton</a>
+
 
 <!---This object is the navigation bar in the top of the website-->
 <div class="navbar" id="navbar">
@@ -45,7 +46,7 @@
         <i  class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-        <a href="../accountpage/accountpage.html">Account</a>
+        <a href="accountpage.html">Account</a>
         <a href="../QuizzesPage/QuizzesPage.html">Quizzes</a>
         <a href="../FavoritesPage/FavoritesPage.html">Favorites</a>
         </div>
@@ -55,37 +56,20 @@
 </div>
 
 <!---Some useless text to enable scrolling-->
-<h1 id="NewWordTitle">Add new word</h1>
-
-<p>New word</p>
-<div type = "input" id="WordNameInput">
-    <input type="text" placeholder="Name of the new word">
+<div id="profile">
+    <h1>Profile picture</h1>
+    <img src="profile.png" alt="profile" />
 </div>
-
-<p>Part of speech</p>
-<div id="Choose" type="Choose">
-    <form>
-        <input type="radio" id="html" name="fav_language" value="HTML">
-        <label for="html">Verb</label><br>
-        <input type="radio" id="css" name="fav_language" value="CSS">
-        <label for="css">noun</label><br>
-        <input type="radio" id="javascript" name="fav_language" value="JavaScript">
-        <label for="javascript">adjective</label>
-        <input type="radio" id="javascript" name="fav_language" value="JavaScript">
-        <label for="javascript">anything else</label>
+<div id="account_info">
+    <form action="/action_page.php">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" placeholder="John Doe"><br>
+        <label for="pwd">Password:</label><br>
+        <input type="password" id="pwd" name="pwd" placeholder="password"><br><br>
+        <input type="submit" value="Submit">
     </form>
 </div>
 
-<p>Pronunciation</p>
-<div type = "input" id="PronunciationInput">
-    <input type="text" placeholder="Pronunciation of the new word">
-</div>
 
-<p>Meaning</p>
-<div type = "input" >
-    <textarea id="MeaningInput" type="text" placeholder="Meaning of the new word"></textarea>
-</div>
-
-<button id="AddButton">Add New Word</button>
 </body>
 </html>
