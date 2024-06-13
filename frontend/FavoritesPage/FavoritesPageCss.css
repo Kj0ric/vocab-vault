@@ -177,6 +177,29 @@ p {
 
 .TextContainer {
   margin-left: 10px;
+  margin-bottom: 10px;
   width: 900px;
   word-break: break-word;
+}
+
+.RemoveWordButton {
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.FavoritesContainer {
+  width: 1000px;
+  border-style: solid;
+  border-color: #9a9a9a;
+  border-width: 1px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: background-color 0.5s;
+}
+
+.FavoritesContainer.red {
+  background-color: rgb(254, 82, 82);
+  color: white;
+  font-weight: bold;
 }
