@@ -74,6 +74,18 @@ function combinedScrollFunctions() {
     adjustButtonMargins();
 }
 
+function changeFavoritesButtonText(button) {
+    
+    if (button.textContent == 'Add to Favorites') {
+        button.textContent = 'Added to Favorites'
+        button.classList.add('red')
+    } else {
+        button.textContent = 'Add to Favorites'
+        button.classList.remove('red') 
+    }
+
+}
+
 window.onresize = adjustButtonMargins;
 window.onload = adjustButtonMargins;
 window.onscroll = combinedScrollFunctions;
