@@ -57,7 +57,7 @@ function adjustButtonMargins() {
 
 
     // displays the width, height and margin values
-    document.getElementById('windowSize').innerText = `Width: ${width}px, Height: ${height}px, MarginValue: ${marginValue}, SearcBarWidth: ${searchBarWidthNumber}, scrollY: ${window.scrollY}`;
+    document.getElementById('windowSize').innerText = `Width: ${width}px, Height: ${height}px, MarginValue: ${marginValue}, wordName: ${wordName}, scrollY: ${window.scrollY}`;
 }
 
 function makeNavBarSticky() {
@@ -92,6 +92,39 @@ function combinedScrollFunctions() {
     makeNavBarSticky();
     adjustButtonMargins();
 }
+
+let wordName = '';
+let wordDescription = '';
+
+function changeColor(button) {
+    const container = button.parentNode;
+    const textContainer = container.querySelector('.TextContainer');
+    
+    if (wordName != container.querySelector('h3').textContent && container.querySelector('h3').textContent != 'Deleted from favorites')  {
+        wordName = container.querySelector('h3').textContent
+    }
+
+    if (wordDescription != textContainer.textContent && textContainer.textContent != '')  {
+        wordDescription = textContainer.textContent
+    }
+
+    // Check if the container already has the 'red' class
+    if (container.classList.contains('red')) {
+        // If it has the class, remove it to revert the color
+        container.classList.remove('red');
+        button.textContent = 'Deleted from favorites';
+        container.querySelector('h3').textContent = wordName;
+        textContainer.textContent = wordDescription;
+        
+    } else {
+        // If it doesn't have the class, add the 'red' class to change the color
+        container.classList.add('red');
+        button.textContent = 'Undo delete';
+        container.querySelector('h3').textContent = 'Deleted from favorites';
+        textContainer.textContent = "";
+    }  
+}
+
 
 window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
 window.onload = adjustButtonMargins; //activates the adjustButtonMargins function when the browser loads
