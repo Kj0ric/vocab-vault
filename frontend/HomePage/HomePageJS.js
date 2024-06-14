@@ -105,12 +105,19 @@ window.onload = function() {
         var calendarEl = document.getElementById('calendar');
   
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+          initialView: 'dayGridMonth',
+          headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'today'
+          },
+          handleWindowResize: true,
+          contentHeight: 400,
+
         });
       
         calendar.render();
     }
-
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
