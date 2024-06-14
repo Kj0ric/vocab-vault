@@ -113,7 +113,27 @@ window.onload = function() {
           },
           handleWindowResize: true,
           contentHeight: 400,
-
+          events: [
+            {
+                title: 'Word of the day',
+                start: '2024-06-12', 
+                url: '../Favorite1Page/Favorite1Page.html'
+            },
+            {
+                title: 'Word of the day',
+                start: '2024-06-13', 
+                url: '../Favorite2Page/Favorite2Page.html'
+            },
+            {
+                title: 'Word of the day',
+                start: '2024-06-14', 
+                url: '../Favorite3Page/Favorite3Page.html'
+            }
+        ],
+        eventClick: function(info) {
+            window.open(info.event.url);
+            info.jsEvent.preventDefault();
+        }
         });
       
         calendar.render();
