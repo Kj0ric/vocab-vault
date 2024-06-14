@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.render();
   });
   
-  // Get the modal
+/*   // Get the modal
   var modal = document.getElementById("calendarModal");
   
   // Get the button that opens the modal
@@ -32,4 +32,4 @@ document.addEventListener('DOMContentLoaded', function() {
     if (event.target == modal) {
       modal.style.display = "none";
     }
-  }
+  } */

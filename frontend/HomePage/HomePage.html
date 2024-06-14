@@ -7,17 +7,15 @@
     <link rel="stylesheet" href="HomePageCss.css">
     
     <!--Include Calendar styles-->
-    <link rel="stylesheet" type="text/css" href="../CalendarPopup/calendar.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../CalendarPopup/calendar.css"> -->
 
-    <!--Include HomePage scripts-->
-    <script type="text/javascript" src="HomePageJS.js"></script>
+    <!--Include FullCalendar JS library-->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
+
 </head>
 <body>
 
 <div class="window-size" id="windowSize"></div>
-
-<a href="#CalendarLink" class="floatingButtonCalendar"></a>
-<a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
 
 <div class="navbar" id="navbar">
     <a href="HomePage.html">Home</a>
@@ -91,12 +89,27 @@
     </div>
 </div>
 
+<a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
+<a class="floatingButtonCalendar"></a>
+
+<div id="calendarModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span> <!--Clickable 'X' element-->
+        <div id="calendar"></div> <!--Calendar element-->
+    </div>
+</div>
+
+<!--Include HomePage scripts-->
+<script type="text/javascript" src="HomePageJS.js" defer></script>
+
 <!--Include calendar HTML-->
-<object data="../CalendarPopup/calendar.html"></object>
+<!-- <object data="../CalendarPopup/calendar.html"></object> -->
+
+<!--Placeholder for the calendar-->
+<!-- <div id="calendarContainer"></div> -->
 
 <!--Include calendar script-->
-<script type="text/javascript" src="../CalendarPopup/calendar.js"></script>
-
+<!-- <script type="text/javascript" src="../CalendarPopup/calendar.js"></script> -->
 
 </body>
 </html>

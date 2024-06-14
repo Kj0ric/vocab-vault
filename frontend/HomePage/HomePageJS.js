@@ -89,3 +89,40 @@ function changeFavoritesButtonText(button) {
 window.onresize = adjustButtonMargins;
 window.onload = adjustButtonMargins;
 window.onscroll = combinedScrollFunctions;
+
+// This code makes the calendar pop
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+  
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+    });
+  
+    calendar.render();
+  });
+
+// Get the modal
+var modal = document.getElementById("calendarModal");
+
+// Get the button that opens the modal
+var btn = document.querySelector(".floatingButtonCalendar");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
