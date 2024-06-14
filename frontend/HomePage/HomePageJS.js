@@ -1,5 +1,11 @@
 window.onload = function() {
     function adjustButtonMargins() {
+        /*
+        This function changes the size of the dropdown buttons and the search bar.
+        It also govens the text dispaying variables in the down right corner.
+    
+        This function has no parameters and returns nothing
+        */
         const buttons = document.querySelectorAll('.dropdown .dropbtn'); //selects all dropdown buttons
         const dropdown = document.querySelectorAll('.dropdown-content a:hover');
         const width = window.innerWidth; //grabs the width of the browser window
@@ -54,6 +60,11 @@ window.onload = function() {
     }
 
     function makeNavBarSticky() {
+        /*
+        This function makes the navbar sticky when the user scrolls down, it also makes it not sticky anymore when the user scrolls back up
+        
+        This function has no parameters and returns nothing
+        */
         var navbar = document.getElementById("navbar");
 
         var sticky = navbar.offsetTop;
@@ -70,20 +81,14 @@ window.onload = function() {
     }
 
     function combinedScrollFunctions() {
+        /*
+        This function combines the makeNavBarSticky and adjustButtonMArgins functions so they can both be activated when scrolling
+        (the adjustButtonMargins fuction needs to be activated to adjust show the current distance scrolled by the user)
+    
+        This function has no parameters and returns nothing
+        */
         makeNavBarSticky();
         adjustButtonMargins();
-    }
-
-    function changeFavoritesButtonText(button) {
-    
-        if (button.textContent == 'Add to Favorites') {
-            button.textContent = 'Added to Favorites'
-            button.classList.add('red')
-        } else {
-            button.textContent = 'Add to Favorites'
-            button.classList.remove('red') 
-        }
-    
     }
 
     window.onresize = adjustButtonMargins;
@@ -116,17 +121,17 @@ window.onload = function() {
           events: [
             {
                 title: 'Word of the day',
-                start: '2024-06-12', 
+                start: '2024-06-13', 
                 url: '../Favorite1Page/Favorite1Page.html'
             },
             {
                 title: 'Word of the day',
-                start: '2024-06-13', 
+                start: '2024-06-14', 
                 url: '../Favorite2Page/Favorite2Page.html'
             },
             {
                 title: 'Word of the day',
-                start: '2024-06-14', 
+                start: '2024-06-15', 
                 url: '../Favorite3Page/Favorite3Page.html'
             }
         ],

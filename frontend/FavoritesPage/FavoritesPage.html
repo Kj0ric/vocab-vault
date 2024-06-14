@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="FavoritesPageCss.css">
-<script type="text/javascript" src="FavoritesPageJS.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="FavoritesPageCss.css">
+    <script type="text/javascript" src="FavoritesPageJS.js"></script>
+    <!--Include FullCalendar JS library-->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
+</head>
 <body>
 
 <!---this shows some variables that are useful for to design the website-->
 <div class="window-size" id="windowSize"></div>
-
-<!---These two are the two buttons in the down right corner-->
-<a href="#CalendarLink" class="floatingButtonCalendar"></a>
-<a href="../AddNewWordPage/AddNewWord.html" id="plusButton" class="floatingButtonAdd"></a>
 
 <!---This object is the navigation bar in the top of the website-->
 <div class="navbar" id="navbar">
@@ -127,6 +127,16 @@
     </div>
 </div>
 
+<!--Calendar and Add button elements-->
+<a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
+<a class="floatingButtonCalendar"></a>
+
+<div id="calendarModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span> <!--Clickable 'X' element-->
+        <div id="calendar"></div> <!--Calendar element-->
+    </div>
+</div>
 
 </body>
 </html>
