@@ -289,4 +289,8 @@ body {
   background-color: red; /* Change background color on hover */
 }
 
+#calendar {
+  max-width: 400px;
+  margin: 40px auto;
+}
 

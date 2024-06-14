@@ -86,6 +86,14 @@ function changeFavoritesButtonText(button) {
 
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+    });
+    calendar.render();
+  });
+
 window.onresize = adjustButtonMargins;
 window.onload = adjustButtonMargins;
 window.onscroll = combinedScrollFunctions;
