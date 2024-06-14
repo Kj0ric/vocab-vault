@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Include HomePage styles-->
+    <link rel="stylesheet" href="HomePageCss.css">
+    
+    <!--Include Calendar styles-->
+    <!-- <link rel="stylesheet" type="text/css" href="../CalendarPopup/calendar.css"> -->
+
+    <!--Include FullCalendar JS library-->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
+
+</head>
+<body>
+
+<div class="window-size" id="windowSize"></div>
+
+<div class="navbar" id="navbar">
+    <a href="HomePage.html">Home</a>
+    <div class="dropdown">
+        <button class="dropbtn" href="#account">Languages 
+        <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+        <a href="#link1">English</a>
+        <a href="#link2">French</a>
+        <a href="#link3">German</a>
+        </div>
+        
+    </div> 
+    
+    
+    <div type = "search" id="search">
+        <input type="text" placeholder="Search..">
+    </div> 
+    
+
+    <a href="../FavoritesPage/FavoritesPage.html" id="favorites">Favorites</a>
+    
+    <div id="accountButton" class="dropdown">
+        <button  class="dropbtn" href="#account">Account 
+        <i  class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+        <a href="../accountpage/accountpage.html">Account</a>
+        <a href="../QuizzesPage/QuizzesPage.html">Quizzes</a>
+        <a href="../FavoritesPage/FavoritesPage.html">Favorites</a>
+        </div>
+        
+    </div> 
+    
+</div>
+
+
+<h1 id="wordoftheday">efficacious</h1>
+
+
+<div class="content">
+    <div id="explainbox">
+        <h3> Pronounciation: </h3>
+        <div>/ˌɒnəmatəˈpiːə/</div>
+        <h3> Part of speech: </h3>
+        <div>Noun</div>
+        <h3> Meaning:</h3>
+        <div class="description">
+            <div class="definition">
+                The formation of a word from a sound associated with what is named (e.g. cuckoo, sizzle). "A relatively large number of bird names arise by onomatopoeia."
+            </div>
+            <div class="usage">
+                The use of onomatopoeia for literary effect. "The language in her picture books is notable for its playfulness and onomatopoeia."
+            </div>
+        </div>
+    </div>
+    
+    <div class="right-container">
+        <div id="datebox">
+            <h3 id="Date">Date __/__/____</h3>
+        </div>
+        <button class="button" onclick="changeFavoritesButtonText(this)" >Add to Favorites</button>
+        <div class="rating">
+            <span class="star" data-value="5">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="1">&#9733;</span>
+        </div>
+    </div>
+</div>
+
+<a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
+<a class="floatingButtonCalendar"></a>
+
+<div id="calendarModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span> <!--Clickable 'X' element-->
+        <div id="calendar"></div> <!--Calendar element-->
+    </div>
+</div>
+
+<!--Include HomePage scripts-->
+<script type="text/javascript" src="HomePageJS.js" defer></script>
+
+<!--Include calendar HTML-->
+<!-- <object data="../CalendarPopup/calendar.html"></object> -->
+
+<!--Placeholder for the calendar-->
+<!-- <div id="calendarContainer"></div> -->
+
+<!--Include calendar script-->
+<!-- <script type="text/javascript" src="../CalendarPopup/calendar.js"></script> -->
+
+</body>
+</html>
