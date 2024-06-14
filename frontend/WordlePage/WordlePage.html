@@ -2,26 +2,26 @@
 <html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="QuizzesPageCss.css">
-<script type="text/javascript" src="QuizzesPageJS.js"></script>
+<link rel="stylesheet" href="WordlePageCss.css">
+<script type="text/javascript" src="WordlePageJS.js"></script>
 <body>
 
-<!---this shows some variables that are useful for to design the website-->
 <div class="window-size" id="windowSize"></div>
 
-<!---These two are the two buttons in the down right corner-->
+<!---Calendar and Add buttons--->
+<!--
+    <div class="floatingButtonContainer">
+        <div class="floatingButtonText"></div>
+        <button id="calendarButton" class=""floatingButtonCalendar"></button>
+    </div
+-->
 <a href="#CalendarLink" class="floatingButtonCalendar"></a>
 <a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
 
-
-<!---This object is the navigation bar in the top of the website-->
 <div class="navbar" id="navbar">
-    <!---This is the home button-->
     <a href="../HomePage/HomePage.html">Home</a>
-    
-    <!---This is the Languages dropdown menu-->
     <div class="dropdown">
-        <button class="dropbtn" href="frontend\Test document.html">Languages 
+        <button class="dropbtn" href="#account">Languages 
         <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
@@ -32,22 +32,21 @@
         
     </div> 
     
-    <!---This is the search bar-->
+    
     <div type = "search" id="search">
         <input type="text" placeholder="Search..">
     </div> 
     
-    <!---This is the Favorites button-->
+
     <a href="../FavoritesPage/FavoritesPage.html" id="favorites">Favorites</a>
     
-    <!---This is the Account dropdown menu-->
     <div id="accountButton" class="dropdown">
         <button  class="dropbtn" href="#account">Account 
         <i  class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-        <a href="#link1">Account</a>
-        <a href="QuizzesPage.html">Quizzes</a>
+        <a href="../accountpage/accountpage.html">Account</a>
+        <a href="../QuizzesPage/QuizzesPage.html">Quizzes</a>
         <a href="../FavoritesPage/FavoritesPage.html">Favorites</a>
         </div>
         
@@ -55,8 +54,11 @@
     
 </div>
 
-<a href="#Flashcards" class="FlashCardsButton">Flash Cards</a>
-<a href="../wordlePage/WordlePage.html" class="WordleButton">Wordle</a>
+<button onclick="refresh()">New puzzle</button>
+<p>Try opening this in an incognito tab if the puzzle has the same answer every time</p>
+<p>This way of randomly selecting a word is only used for this frontend prototype and will be changed in the final version</p>
+
+
 
 </body>
 </html>
