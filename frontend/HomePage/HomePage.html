@@ -3,24 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--Include FullCalendar JS library-->
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
-    <script src="https://unpkg.com/fullcalendar@5.10.1/main.min.js"></script>
-
+    <!--Include HomePage styles-->
     <link rel="stylesheet" href="HomePageCss.css">
+    
+    <!--Include Calendar styles-->
+    <link rel="stylesheet" type="text/css" href="../CalendarPopup/calendar.css">
+
+    <!--Include HomePage scripts-->
     <script type="text/javascript" src="HomePageJS.js"></script>
 </head>
 <body>
 
 <div class="window-size" id="windowSize"></div>
 
-<!---Calendar and Add buttons--->
-<!--
-    <div class="floatingButtonContainer">
-        <div class="floatingButtonText"></div>
-        <button id="calendarButton" class=""floatingButtonCalendar"></button>
-    </div
--->
 <a href="#CalendarLink" class="floatingButtonCalendar"></a>
 <a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
 
@@ -96,11 +91,12 @@
     </div>
 </div>
 
-</div> class=
+<!--Include calendar HTML-->
+<object data="../CalendarPopup/calendar.html"></object>
 
+<!--Include calendar script-->
+<script type="text/javascript" src="../CalendarPopup/calendar.js"></script>
 
-<!--Calendar popup-->
-<div id='calendar'></div>
 
 </body>
 </html>
