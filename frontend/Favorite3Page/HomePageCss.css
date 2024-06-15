@@ -2,12 +2,14 @@ body {
     font-family: Arial, Helvetica, sans-serif;
   }
   
+  /* This changes the style of the navigation bar*/
   .navbar {
     overflow: hidden;
     background-color: #333;
     border-radius: 8px;
   }
   
+  /* This changes the style of the normal buttons of the navigation bar */
   .navbar a {
     float: left;
     font-size: 16px;
@@ -17,11 +19,13 @@ body {
     text-decoration: none;
   }
   
+  /* This changes the style of the dropdown menus in the navigation bar*/
   .dropdown {
     float: left;
     overflow: hidden;
-  }
+  } 
   
+  /* This changes the style of the dropdown menus in the navigation bar*/
   .dropdown .dropbtn {
     font-size: 16px;  
     border: none;
@@ -35,10 +39,12 @@ body {
     padding-right: 30px;
   }
   
+  /* This makes the buttons turn red when they are being hovered over */
   .navbar a:hover, .dropdown:hover .dropbtn {
     background-color: red;
   }
   
+  /* This changes the style of the buttons in the dropdown menus*/
   .dropdown-content {
     display: none;
     position: absolute;
@@ -48,6 +54,7 @@ body {
     z-index: 1;
   }
   
+  /* This changes the style of the text in the buttons of the dropdown menus*/
   .dropdown-content a {
     float: none;
     color: black;
@@ -57,14 +64,17 @@ body {
     text-align: left;
   }
   
+  /* This turns the buttons in the dropdown menus grey when hovered over */
   .dropdown-content a:hover {
-    background-color: #ddd;
+    background-color: #bebebe;
   }
-  
+
+  /* This makes dropdown menu content visible when hovered over */
   .dropdown:hover .dropdown-content {
     display: block;
   }
   
+  /* This changes the style of the search bar*/
   .navbar input[type= text] {
     float: left;
     padding: 6px;
@@ -77,29 +87,19 @@ body {
     border-radius: 5px;
   }
 
+  /* This makes the account button be at the right side of the navbar */
   #accountButton {
     float: right;
   }
 
+  /* This makes the favorites button be at the right side of the navbar */
   #favorites {
     float: right;
-
   }
 
-  /*Calendar and Add buttons*/
-  .floatingButtonContainer {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-start;
-    align-items: center;
-    position: fixed;
-    right: 50px;
-    bottom: 120px;
-
-  }
-
+  /* This styles the Calendar button */
   .floatingButtonCalendar {
-    position: fixed;
+    position: fixed; /* The element is positioned relative to the browser window and will not move even if the page is scrolled. */
     bottom: 20px;
     right: 0;
     padding: 0;
@@ -107,23 +107,25 @@ body {
     margin-bottom: 40px;
     color: white;
     border: none;
-    cursor: pointer;
+    cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
     width: 70px;
     height: 70px;
-    border-radius: 50%;    
+    border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
     background-image: url(../images/calendar-icon.png);
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; /* The background image will not repeat. */
     background-position: center;
     background-size: 60%;
 }
 
+/* This applies a shadow effect to the calendar button when hovered over */
 .floatingButtonCalendar:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+/* This styles the Add button */
 .floatingButtonAdd {
-    position: fixed;
+    position: fixed; /* The element is positioned relative to the browser window and will not move even if the page is scrolled. */
     bottom: 40px;
     right: 0;
     padding: 0;
@@ -131,10 +133,10 @@ body {
     margin-bottom: 100px;
     color: white;
     border: none;
-    cursor: pointer;
+    cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
     width: 70px;
     height: 70px;
-    border-radius: 50%;
+    border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
     background-image: url(../images/plus-icon.png);
     background-repeat: no-repeat;
@@ -142,10 +144,12 @@ body {
     background-size: 60%;
 }
 
+/* This applies a shadow effect to the Add button when hovered over */
 .floatingButtonAdd:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+/* This changes the style of the variables displaying text in the down right corner*/
 .window-size {
     position: fixed;
     bottom: 0;
@@ -156,19 +160,21 @@ body {
     border-radius: 5px;
 }
 
+/* This changes the style of the navbar when the user scrolls down (makes the navbar stay in the top of the screen rather than vanishing)*/
 .sticky {
   position: fixed;
   top: 0;
   width: 100%;
 }
 
+/* This makes the text and navbar not overlap */
 .sticky + .content {
   padding-top: 60px;
 } 
 
 /* webpage part*/
 
-
+/* This changes the style of the word of the day box */
 #wordoftheday {
   margin-left: 2%;
   margin-top: 5%;
@@ -182,6 +188,7 @@ body {
   border-radius: 8px;
 }
 
+/* This changes the style of the word of the day contents */
 .content {
   display: flex;
   align-items: flex-start; /* Align children to the start of the container */
@@ -189,6 +196,7 @@ body {
   margin-top: 0%;
 }
 
+/* This changes the style of the word of the day definition */
 #explainbox {
   border-style: ridge;
   border-width: 4px;
@@ -199,6 +207,7 @@ body {
   border-radius: 8px;
 }
 
+/* This changes the style of the word of the day usage */
 .description {
   margin-bottom: 20px; /* Add margin to the bottom */
 }
@@ -209,12 +218,14 @@ body {
   border: 1px solid #ccc; /* Optional: add border for visual separation */
 }
 
+/* This changes the style of the right container (date, add-to-favourites button, and rating) */
 .right-container {
   display: flex;
   flex-direction: column;
 
 }
 
+/* This changes the style of the date box */
 #datebox {
   box-sizing: border-box;
   width: 250px;
@@ -233,27 +244,28 @@ body {
   margin: 0; /* Remove default margin */
 }
 
-
-
 /* Star rating styles */
 .rating {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  direction: rtl; 
 }
-
+/* Style for each star */
 .star {
   font-size: 2em;
   color: gray;
   cursor: pointer;
+  direction: ltr; 
 }
-.star:hover ~ .star,
-.star:hover{
+/* Change star color to gold on hover and for preceding siblings */
+.star:hover,
+.star:hover ~ .star {
   color: gold;
 }
-
-.star ~ .star.selected,
-.star.selected {
+/* Change star color to gold when selected and for preceding siblings */
+.star.selected,
+.star.selected ~ .star {
   color: gold;
 }
 
@@ -319,17 +331,17 @@ body {
 
 /* Reduce the padding around the day numbers */
 .fc-daygrid-day {
-  padding: 1px; /* Adjust as needed */
+  padding: 1px; 
 }
 
 /* Reduce the font size of the day numbers */
 .fc-daygrid-day-number {
-  font-size: 0.8em; /* Adjust as needed */
+  font-size: 0.8em; 
 }
 
 /* Reduce the padding around the day numbers */
 .fc-daygrid-day-frame {
-  padding: 2.5px; /* Adjust as needed */
+  padding: 2.5px; 
 }
 
 /* Close Button */

@@ -6,10 +6,10 @@ function adjustButtonMargins() {
     This function has no parameters and returns nothing
     */
     const buttons = document.querySelectorAll('.dropdown .dropbtn'); //selects all dropdown buttons
-    const dropdown = document.querySelectorAll('.dropdown-content a:hover');
+    const dropdown = document.querySelectorAll('.dropdown-content a:hover'); //should select all buttons in the dropdown menus
     const width = window.innerWidth; //grabs the width of the browser window
     const height = window.innerHeight; //grabs the height of the browser window
-    const searchBar = document.querySelector('.navbar input[type= text]');
+    const searchBar = document.querySelector('.navbar input[type= text]'); //selects the searchbar
     
     let marginValue;
     let marginValueNumber;
@@ -33,7 +33,8 @@ function adjustButtonMargins() {
         button.style.paddingRight = marginValue;
         button.style.paddingLeft = marginValue;
     });
-
+    
+    // doesn't work, but the idea was that it changes the size of the buttons in the dropdown menu to match the dropdown buttons
     dropdown.forEach(button => {
         button.style.paddingRight = marginValue;
         button.style.paddingLeft = marginValue;
@@ -64,16 +65,17 @@ function makeNavBarSticky() {
     
     This function has no parameters and returns nothing
     */
-    var navbar = document.getElementById("navbar");
+    var navbar = document.getElementById("navbar"); // this selects the navbar
 
-    var sticky = navbar.offsetTop;
+    var sticky = navbar.offsetTop; //this is a variable that hold the distance between the top of the page and the top of the navbar
 
-    navbar.classList.add("sticky")
+    // this makes the navbar sticky when the navbar reaches the top of the screen
     if (window.scrollY >= sticky) {
         navbar.classList.add("sticky")
     
     }
     
+    //this makes the navbar not sticky anymore when the user has scrolled back up
     if (window.scrollY < 8) {
         navbar.classList.remove("sticky");
     }
@@ -90,10 +92,6 @@ function combinedScrollFunctions() {
     adjustButtonMargins();
     calendarFunction();
 }
-
-window.onresize = adjustButtonMargins;
-window.onscroll = combinedScrollFunctions;
-window.onload = combinedScrollFunctions;
 
 function calendarFunction() {
     // Get the modal
@@ -157,81 +155,15 @@ function calendarFunction() {
         }
     }
 }
+window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
+window.onload = combinedScrollFunctions; //activates the combinedScrollFunctions function when the browser loads
+window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
 
-function displayProfilePic() {
-    const input = document.getElementById('photo');
-    const img = document.getElementById('profilePic');
-    
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
 
-      reader.onload = function (e) {
-        img.src = e.target.result;
-        img.style.display = 'block';
-      };
-
-      reader.readAsDataURL(input.files[0]);
-    }
+function goToHomePage() {
+    window.location.href = "../HomePage/HomePage.html";  // Redirect to HomePage.html
   }
 
-  function submitForm() {
-    const formData = new FormData(document.getElementById('profileForm'));
-
-    for (const pair of formData.entries()) {
-      console.log(pair[0] + ': ' + pair[1]);
-    }
-  }
-/* here the acount change function start */
-  let editMode = false; // Initial state: Display mode
-
-  let savedValues = {
-      name: 'John Doe',
-      email: 'example@example.com',
-      gender: 'male',
-      age: '30'
-  };
-  
-  function toggleEdit() {
-      editMode = !editMode; // Toggle edit mode
-  
-      const nameDisplay = document.getElementById('nameDisplay');  
-      const emailDisplay = document.getElementById('emailDisplay');
-      const genderDisplay = document.getElementById('genderDisplay');
-      const ageDisplay = document.getElementById('ageDisplay');
-  
-      if (editMode) {
-          nameDisplay.innerHTML = '<input type="text" id="nameInput" value="' + savedValues.name + '">';
-          emailDisplay.innerHTML = '<input type="email" id="emailInput" value="' + savedValues.email + '">';
-          genderDisplay.innerHTML = '<select id="genderSelect"><option value="male">male</option><option value="female">female</option><option value="other">other</option></select>'; 
-          ageDisplay.innerHTML = '<input type="text" id="ageInput" value="' + savedValues.age + '">';
-          
-          document.querySelector('button').innerHTML = 'Submit';
-      } else {
-          if (confirm('Are you sure you want to discard changes?')) {
-              nameDisplay.innerHTML = savedValues.name;
-              emailDisplay.innerHTML = savedValues.email;
-              genderDisplay.innerHTML = savedValues.gender;
-              ageDisplay.innerHTML = savedValues.age;
-  
-              document.querySelector('button').innerHTML = 'Change';}
-   
-            else {
-                        editMode = true; // Stay in edit mode if the user cancels going back to view mode
-                    }
-                }
-  }
-  
-  function saveChanges() {
-      savedValues.name = document.getElementById('nameInput').value;
-      savedValues.email = document.getElementById('emailInput').value;
-      savedValues.gender = document.getElementById('genderSelect').value;
-      savedValues.age = document.getElementById('ageInput').value;
-  
-      // Update display with the new values - This section can be customized based on how you want to handle the changes visually
-      document.getElementById('nameDisplay').innerHTML = savedValues.name;
-      document.getElementById('emailDisplay').innerHTML = savedValues.email;
-      document.getElementById('genderDisplay').innerHTML = savedValues.gender;
-      document.getElementById('ageDisplay').innerHTML = savedValues.age;
-  
-      toggleEdit(); // Switch back to view mode after saving changes
-  }
+function register() {
+    window.location.href = "../accountpage/accountpage.html";
+}

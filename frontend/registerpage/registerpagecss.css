@@ -92,10 +92,10 @@ body {
     float: right;
   }
 
-/* This makes the log_in button be at the right side of the navbar*/
-#log_in {
-  float: right;
-}
+  /* This makes the favorites button be at the right side of the navbar */
+  #favorites {
+    float: right;
+  }
 
   /* This styles the Calendar button */
   .floatingButtonCalendar {
@@ -172,128 +172,80 @@ body {
   padding-top: 60px;
 } 
 
-/* webpage part*/
-
-/* This changes the style of the word of the day box */
-#wordoftheday {
-  margin-left: 2%;
-  margin-top: 5%;
-  border-style:ridge;
-  border-width: 4px;
-  display: inline-block;
-  padding: 10px;
-  width: 900px;
-  height: 150px;
-  font-size: 4em;
-  border-radius: 8px;
-}
-
-/* This changes the style of the word of the day contents */
-.content {
-  display: flex;
-  align-items: flex-start; /* Align children to the start of the container */
-  margin-left: 2%;
-  margin-top: 0%;
-}
-
-/* This changes the style of the word of the day definition */
-#explainbox {
-  border-style: ridge;
-  border-width: 4px;
-  padding: 10px;
-  width: 400px;
-  height: 400px;
-  margin-right: 20px;
-  border-radius: 8px;
-}
-
-/* This changes the style of the word of the day usage */
-.description {
-  margin-bottom: 20px; /* Add margin to the bottom */
-}
-
-.definition,
-.usage {
-  padding: 10px; /* Add padding to create space inside the div */
-  border: 1px solid #ccc; /* Optional: add border for visual separation */
-}
-
-/* This changes the style of the right container (date, add-to-favourites button, and rating) */
-.right-container {
-  display: flex;
-  flex-direction: column;
-
-}
-
-/* This changes the style of the date box */
-#datebox {
-  box-sizing: border-box;
-  width: 250px;
-  height: 50px;
-  position: relative;
-  display: flex;
-  align-items: center; /* Vertically center content */
-  justify-content: center; /* Horizontally center content */
-  border-style: ridge;
-  border-width: 4px;
-  margin-bottom: 10px; /* Add space between datebox and button */
-  border-radius: 8px;
-}
-
-#datebox h3 {
-  margin: 0; /* Remove default margin */
-}
-
-/* Star rating styles */
-.rating {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  direction: rtl; 
-}
-/* Style for each star */
-.star {
-  font-size: 2em;
-  color: gray;
-  cursor: pointer;
-  direction: ltr; 
-}
-/* Change star color to gold on hover and for preceding siblings */
-.star:hover,
-.star:hover ~ .star {
-  color: gold;
-}
-/* Change star color to gold when selected and for preceding siblings */
-.star.selected,
-.star.selected ~ .star {
-  color: gold;
-}
-
 .sticky .dropdown-content{
   position: fixed;
 }
 
-.button {
-  padding: 10px 20px; /* Add padding to the button */
-  font-size: 16px; /* Increase font size */
-  background-color: #333; /* Button background color */
-  color: white; /* Button text color */
-  border: none; /* Remove default border */
-  cursor: pointer; /* Change cursor on hover */
-  border-radius: 8px;
+/* Styles for form elements */
+form {border: 3px solid #f1f1f1;}
+
+/* Styles for text and password input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
-.button:hover {
-  background-color: red; /* Change background color on hover */
+/* Styles for button elements */
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
 }
 
-
-.button.red {
-  background-color: #ff5050;
+/* Styles for button elements on hover */
+button:hover {
+  opacity: 0.8;
 }
 
-.button.red:hover {
-  background-color: red; /* Change background color on hover */
+/* Styles for cancel button */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Styles for image container */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+/* Styles for avatar images */
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+/* Styles for container class */
+.container {
+  padding: 16px;
+}
+
+/* Styles for password hint */
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  /* Styles for password hint on small screens */
+  span.psw {
+     display: block;
+     float: none;
+  }
+  /* Styles for cancel button on small screens */
+  .cancelbtn {
+     width: 100%;
+  }
 }
 
 /* Calendar popup styles */

@@ -2,14 +2,14 @@ body {
     font-family: Arial, Helvetica, sans-serif;
   }
   
-  /* This changes the style of the navbar*/
+  /* This changes the style of the navigation bar*/
   .navbar {
     overflow: hidden;
     background-color: #333;
     border-radius: 8px;
   }
   
-  /* This changes the style of the normal buttons of the navbar */
+  /* This changes the style of the normal buttons of the navigation bar */
   .navbar a {
     float: left;
     font-size: 16px;
@@ -19,13 +19,13 @@ body {
     text-decoration: none;
   }
   
-  /* This changes the style of the dropdown menus in the navbar*/
+  /* This changes the style of the dropdown menus in the navigation bar*/
   .dropdown {
     float: left;
     overflow: hidden;
   } 
   
-  /* This changes the style of the dropdown menus in the navbar*/
+  /* This changes the style of the dropdown menus in the navigation bar*/
   .dropdown .dropbtn {
     font-size: 16px;  
     border: none;
@@ -69,7 +69,7 @@ body {
     background-color: #bebebe;
   }
 
-  /* i have no idea what this does D: but is needed to make the dropdown menu appear */
+  /* This makes dropdown menu content visible when hovered over */
   .dropdown:hover .dropdown-content {
     display: block;
   } 
@@ -87,19 +87,19 @@ body {
     border-radius: 5px;
   }
 
-  /* This makes the account button be at the right side of the navbar*/
+  /* This makes the account button be at the right side of the navbar */
   #accountButton {
     float: right;
   }
 
-  /* This makes the favorites button be at the right side of the navbar*/
+  /* This makes the favorites button be at the right side of the navbar */
   #favorites {
     float: right;
-
   }
 
+  /* This styles the Calendar button */
   .floatingButtonCalendar {
-    position: fixed;
+    position: fixed; /* The element is positioned relative to the browser window and will not move even if the page is scrolled. */
     bottom: 20px;
     right: 0;
     padding: 0;
@@ -107,23 +107,25 @@ body {
     margin-bottom: 40px;
     color: white;
     border: none;
-    cursor: pointer;
+    cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
     width: 70px;
     height: 70px;
-    border-radius: 50%;    
+    border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
     background-image: url(../images/calendar-icon.png);
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; /* The background image will not repeat. */
     background-position: center;
     background-size: 60%;
 }
 
+/* This applies a shadow effect to the calendar button when hovered over */
 .floatingButtonCalendar:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+/* This styles the Add button */
 .floatingButtonAdd {
-    position: fixed;
+    position: fixed; /* The element is positioned relative to the browser window and will not move even if the page is scrolled. */
     bottom: 40px;
     right: 0;
     padding: 0;
@@ -131,10 +133,10 @@ body {
     margin-bottom: 100px;
     color: white;
     border: none;
-    cursor: pointer;
+    cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
     width: 70px;
     height: 70px;
-    border-radius: 50%;
+    border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
     background-image: url(../images/plus-icon.png);
     background-repeat: no-repeat;
@@ -142,6 +144,7 @@ body {
     background-size: 60%;
 }
 
+/* This applies a shadow effect to the Add button when hovered over */
 .floatingButtonAdd:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
@@ -164,7 +167,7 @@ body {
   width: 100%;
 }
 
-/* This makes the text and navbar not overlap (i think)*/
+/* This makes the text and navbar not overlap */
 .sticky + .content {
   padding-top: 60px;
 } 
@@ -173,12 +176,13 @@ body {
   position: fixed;
 }
 
+/* 
+This positions the profile dropdown button based on the user's scroll position, making it stick to the top of the viewport while the rest of the content scrolls past it.
+It also places the element as far to the right of its containing element as possible.
+*/
 #profile {
-  margin-left: 50px;
-}
-
-#account_info {
-  margin-left: 50px;
+  position: sticky;
+  float: right;
 }
 
 /* Calendar popup styles */
@@ -216,17 +220,17 @@ body {
 
 /* Reduce the padding around the day numbers */
 .fc-daygrid-day {
-  padding: 1px; /* Adjust as needed */
+  padding: 1px; 
 }
 
 /* Reduce the font size of the day numbers */
 .fc-daygrid-day-number {
-  font-size: 0.8em; /* Adjust as needed */
+  font-size: 0.8em; 
 }
 
 /* Reduce the padding around the day numbers */
 .fc-daygrid-day-frame {
-  padding: 2.5px; /* Adjust as needed */
+  padding: 2.5px; 
 }
 
 /* Close Button */
@@ -237,9 +241,88 @@ body {
   font-weight: bold;
 }
 
+
 .close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Styles for horizontal rule elements */
+hr {
+  float:left;
+  margin-right: 60%;
+}
+
+/* Styles for form container */
+.form-container {
+  margin: 0 20px;
+}
+
+/* Styles for form elements */
+form {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20px;
+  display: flex;
+}
+
+/* Styles for left column in form */
+.column-left {
+  flex: 1;
+  padding-right: 20px;
+}
+
+/* Styles for right column in form */
+.column-right {
+  flex: 1;
+  padding-left: 20px;
+}
+
+/* Styles for label elements in form */
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Styles for input elements in form */
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Styles for submit button in form */
+button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Styles for submit button in form when hovered over */
+button:hover {
+  background-color: #45a049;
+}
+
+/* Styles for image elements in form */
+img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+  border-radius: 4px;
 }

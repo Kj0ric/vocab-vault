@@ -1,78 +1,78 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-}
+  }
   
-/* This changes the style of the navbar*/
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-  border-radius: 8px;
-}
+  /* This changes the style of the navigation bar*/
+  .navbar {
+    overflow: hidden;
+    background-color: #333;
+    border-radius: 8px;
+  }
   
-/* This changes the style of the normal buttons of the navbar */
-.navbar a {
-  float: left;
-  font-size: 16px;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+  /* This changes the style of the normal buttons of the navigation bar */
+  .navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
   
-/* This changes the style of the dropdown menus in the navbar*/
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
+  /* This changes the style of the dropdown menus in the navigation bar*/
+  .dropdown {
+    float: left;
+    overflow: hidden;
+  } 
   
-/* This changes the style of the dropdown menus in the navbar*/
-.dropdown .dropbtn {
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-  padding-left: 30px;
-  padding-right: 30px;
-}
+  /* This changes the style of the dropdown menus in the navigation bar*/
+  .dropdown .dropbtn {
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
   
-/* This makes the buttons turn red when they are being hovered over */
-.navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
-}
+  /* This makes the buttons turn red when they are being hovered over */
+  .navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+  }
+  
+  /* This changes the style of the buttons in the dropdown menus*/
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* This changes the style of the text in the buttons of the dropdown menus*/
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  /* This turns the buttons in the dropdown menus grey when hovered over */
+  .dropdown-content a:hover {
+    background-color: #bebebe;
+  }
 
-/* This changes the style of the buttons in the dropdown menus*/
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-  
-/* This changes the style of the text in the buttons of the dropdown menus*/
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-/* This turns the buttons in the dropdown menus grey when hovered over */
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-/* i have no idea what this does D: but is needed to make the dropdown menu appear */
-.dropdown:hover .dropdown-content {
-  display: block;
-} 
+  /* This makes dropdown menu content visible when hovered over */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
   
 input[type="text"] {
   display: block;
@@ -118,45 +118,45 @@ input[type="text"].Correct {
     border-radius: 5px;
   }
 
-/* This makes the account button be at the right side of the navbar*/
-#accountButton {
-  float: right;
+  /* This makes the account button be at the right side of the navbar */
+  #accountButton {
+    float: right;
+  }
+
+  /* This makes the favorites button be at the right side of the navbar */
+  #favorites {
+    float: right;
+  }
+
+  /* This styles the Calendar button */
+  .floatingButtonCalendar {
+    position: fixed; /* The element is positioned relative to the browser window and will not move even if the page is scrolled. */
+    bottom: 20px;
+    right: 0;
+    padding: 0;
+    margin: 10px;
+    margin-bottom: 40px;
+    color: white;
+    border: none;
+    cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
+    width: 70px;
+    height: 70px;
+    border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
+    background-color: #aaaaaa;
+    background-image: url(../images/calendar-icon.png);
+    background-repeat: no-repeat; /* The background image will not repeat. */
+    background-position: center;
+    background-size: 60%;
 }
 
-/* This makes the favorites button be at the right side of the navbar*/
-#favorites {
-  float: right;
-}
-
-/* Button for Calendar popup */
-.floatingButtonCalendar {
-  position: fixed;
-  bottom: 20px;
-  right: 0;
-  padding: 0;
-  margin: 10px;
-  margin-bottom: 40px;
-  color: white;
-  border: none;
-  cursor: pointer;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;    
-  background-color: #aaaaaa;
-  background-image: url(../images/calendar-icon.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 60%;
-}
-
-/* Shadow on hover for Calendar popup */
+/* This applies a shadow effect to the calendar button when hovered over */
 .floatingButtonCalendar:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-/* Button for adding words */
+/* This styles the Add button */
 .floatingButtonAdd {
-    position: fixed;
+    position: fixed; /* The element is positioned relative to the browser window and will not move even if the page is scrolled. */
     bottom: 40px;
     right: 0;
     padding: 0;
@@ -164,10 +164,10 @@ input[type="text"].Correct {
     margin-bottom: 100px;
     color: white;
     border: none;
-    cursor: pointer;
+    cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
     width: 70px;
     height: 70px;
-    border-radius: 50%;
+    border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
     background-image: url(../images/plus-icon.png);
     background-repeat: no-repeat;
@@ -175,7 +175,7 @@ input[type="text"].Correct {
     background-size: 60%;
 }
 
-/* Shadow on hover for adding words */
+/* This applies a shadow effect to the Add button when hovered over */
 .floatingButtonAdd:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
@@ -198,14 +198,14 @@ input[type="text"].Correct {
   width: 100%;
 }
 
-/* This makes the text and navbar not overlap (i think)*/
+/* This makes the text and navbar not overlap */
 .sticky + .content {
   padding-top: 60px;
 } 
 
 /* webpage part*/
 
-
+/* This changes the style of the word of the day box */
 #wordoftheday {
   margin-left: 2%;
   margin-top: 5%;
@@ -219,6 +219,7 @@ input[type="text"].Correct {
   border-radius: 8px;
 }
 
+/* This changes the style of the word of the day contents */
 .content {
   display: flex;
   align-items: flex-start; /* Align children to the start of the container */
@@ -226,6 +227,7 @@ input[type="text"].Correct {
   margin-top: 0%;
 }
 
+/* This changes the style of the word of the day definition */
 #explainbox {
   border-style: ridge;
   border-width: 4px;
@@ -236,6 +238,7 @@ input[type="text"].Correct {
   border-radius: 8px;
 }
 
+/* This changes the style of the word of the day usage */
 .description {
   margin-bottom: 20px; /* Add margin to the bottom */
 }
@@ -246,12 +249,14 @@ input[type="text"].Correct {
   border: 1px solid #ccc; /* Optional: add border for visual separation */
 }
 
+/* This changes the style of the right container (date, add-to-favourites button, and rating) */
 .right-container {
   display: flex;
   flex-direction: column;
 
 }
 
+/* This changes the style of the date box */
 #datebox {
   box-sizing: border-box;
   width: 250px;
@@ -319,16 +324,20 @@ input[type="text"].Correct {
   background-color: red; /* Change background color on hover */
 }
 
-
+/* Styles for table elements */
 table {
   width: auto;
   max-width: 100%;
   margin: auto;
 }
+
+/* Styles for table data cells */
 td {
   padding: 0;
   margin: 0;
 }
+
+/* Styles for label elements */
 label {
   position: absolute;
   width: 1px;
@@ -337,10 +346,10 @@ label {
   overflow: hidden;
 }
 
-/* disallow next row until row is populated */
+/* stops users from accessing rows that come later than the current row */
 tr:has(input:placeholder-shown) ~ tr input,
-/* disallow revisiting populated row */
 
+/* stops users from accessing rows that already contain an answer */
 tr:not(:has(input:placeholder-shown, input:focus)) input {
   pointer-events: none;
 }

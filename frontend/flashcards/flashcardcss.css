@@ -2,14 +2,14 @@ body {
     font-family: Arial, Helvetica, sans-serif;
   }
   
-  /* This changes the style of the navbar*/
+  /* This changes the style of the navigation bar*/
   .navbar {
     overflow: hidden;
     background-color: #333;
     border-radius: 8px;
   }
   
-  /* This changes the style of the normal buttons of the navbar */
+  /* This changes the style of the normal buttons of the navigation bar */
   .navbar a {
     float: left;
     font-size: 16px;
@@ -19,13 +19,13 @@ body {
     text-decoration: none;
   }
   
-  /* This changes the style of the dropdown menus in the navbar*/
+  /* This changes the style of the dropdown menus in the navigation bar*/
   .dropdown {
     float: left;
     overflow: hidden;
   } 
   
-  /* This changes the style of the dropdown menus in the navbar*/
+  /* This changes the style of the dropdown menus in the navigation bar*/
   .dropdown .dropbtn {
     font-size: 16px;  
     border: none;
@@ -69,10 +69,10 @@ body {
     background-color: #bebebe;
   }
 
-  /* i have no idea what this does D: but is needed to make the dropdown menu appear */
+  /* This makes dropdown menu content visible when hovered over */
   .dropdown:hover .dropdown-content {
     display: block;
-  } 
+  }
   
   /* This changes the style of the search bar*/
   .navbar input[type= text] {
@@ -87,31 +87,19 @@ body {
     border-radius: 5px;
   }
 
-  /* This makes the account button be at the right side of the navbar*/
+  /* This makes the account button be at the right side of the navbar */
   #accountButton {
     float: right;
   }
 
-  /* This makes the favorites button be at the right side of the navbar*/
+  /* This makes the favorites button be at the right side of the navbar */
   #favorites {
     float: right;
-
   }
 
-  /*Calendar and Add buttons*/
-  .floatingButtonContainer {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-start;
-    align-items: center;
-    position: fixed;
-    right: 50px;
-    bottom: 120px;
-
-  }
-
+  /* This styles the Calendar button */
   .floatingButtonCalendar {
-    position: fixed;
+    position: fixed; /* The element is positioned relative to the browser window and will not move even if the page is scrolled. */
     bottom: 20px;
     right: 0;
     padding: 0;
@@ -119,23 +107,25 @@ body {
     margin-bottom: 40px;
     color: white;
     border: none;
-    cursor: pointer;
+    cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
     width: 70px;
     height: 70px;
-    border-radius: 50%;    
+    border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
     background-image: url(../images/calendar-icon.png);
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; /* The background image will not repeat. */
     background-position: center;
     background-size: 60%;
 }
 
+/* This applies a shadow effect to the calendar button when hovered over */
 .floatingButtonCalendar:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+/* This styles the Add button */
 .floatingButtonAdd {
-    position: fixed;
+    position: fixed; /* The element is positioned relative to the browser window and will not move even if the page is scrolled. */
     bottom: 40px;
     right: 0;
     padding: 0;
@@ -143,10 +133,10 @@ body {
     margin-bottom: 100px;
     color: white;
     border: none;
-    cursor: pointer;
+    cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
     width: 70px;
     height: 70px;
-    border-radius: 50%;
+    border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
     background-image: url(../images/plus-icon.png);
     background-repeat: no-repeat;
@@ -154,10 +144,12 @@ body {
     background-size: 60%;
 }
 
+/* This applies a shadow effect to the Add button when hovered over */
 .floatingButtonAdd:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+/* This changes the style of the variables displaying text in the down right corner*/
 .window-size {
     position: fixed;
     bottom: 0;
@@ -175,7 +167,7 @@ body {
   width: 100%;
 }
 
-/* This makes the text and navbar not overlap (i think)*/
+/* This makes the text and navbar not overlap */
 .sticky + .content {
   padding-top: 60px;
 } 
@@ -184,8 +176,7 @@ body {
   position: fixed;
 }
 
-
-
+/* Styles for label elements */
 label {
 	display: block;
 	position: absolute;
@@ -199,6 +190,7 @@ label {
 	cursor: pointer;
 }
 
+/* Styles for flip card elements */
 .flip-card {
 	position: relative;
 	width: 100%;
@@ -208,6 +200,7 @@ label {
 	z-index: 1;
 }
 
+/* Styles for front and back elements */
 .flip-card .front,
 .flip-card .back {
 	position: absolute;
@@ -219,29 +212,36 @@ label {
 	border-radius: 0 20px 0 20px;
 }
 
+/* Styles for back class within flip-card */
 .flip-card .back {
 	transform: rotateX(180deg);
 	color: #000;
 	background: #d4d4d4;
 }
 
+/* Styles for flip-card class when its parent label is hovered */
 label:hover .flip-card {
 	transform: rotateX(2deg);
 	box-shadow: 0 20px 20px rgba(50, 60, 60, 0.2);
 }
 
+/* Styles for input elements */
 input {
 	display: none;
 }
 
+/* Styles for flip-card class when its preceding sibling input is checked */
 :checked + .flip-card {
 	transform: rotateX(180deg);
 }
+
+/* Styles for flip-card class when its preceding sibling input is checked and its parent label is hovered */
 label:hover :checked + .flip-card {
 	transform: rotateX(175deg);
 	box-shadow: 0 20px 20px rgba(255, 255, 255, 0.2);
 }
 
+/* Styles for img elements within front class */
 .front img {
 	width: 110px;
 	height: 110px;
@@ -249,12 +249,14 @@ label:hover :checked + .flip-card {
 	border-radius: 50%;
 }
 
+/* Styles for h1 elements within front class */
 .front h1 {
 	font-size: 30px;
 	color: #499bef;
 	margin: 0;
 }
 
+/* Styles for b elements within front class */
 .front b {
 	font-size: 14px;
 	color: #424752;
@@ -262,22 +264,26 @@ label:hover :checked + .flip-card {
 	display: block;
 }
 
+/* Styles for p elements within front and back classes, and click class within back class */
 .front p,
 .back .click {
 	font-size: 18px;
 	font-weight: 600;
 }
 
+/* Styles for h1 elements within back class */
 .back h1 {
 	color: #424752;
 	margin: 30px 0 0 0;
 }
 
+/* Styles for hr elements */
 hr {
 	width: 180px;
 	margin: 15px auto 10px auto;
 }
 
+/* Styles for p elements within back class */
 .back p {
 	font-size: 16px;
 	color: #000;
@@ -287,6 +293,7 @@ hr {
 	margin: 0 auto;
 }
 
+/* Styles for button elements */
 button {
   padding: 10px 20px; /* Add padding to the button */
   font-size: 16px; /* Increase font size */
@@ -297,6 +304,7 @@ button {
   border-radius: 8px;
 }
 
+/* Styles for element with id nextbtn */
 #nextbtn {
   margin-top: 40%;
   margin-left: 45%;
@@ -304,12 +312,13 @@ button {
   background-color: #f9f9f9;
 }
 
+/* Styles for element with id previousbtn */
 #previousbtn {
   border-radius: 8px;
   background-color: #4CAF50;
 }
 
-
+/* Styles for button elements on hover */
 button:hover {
   background-color: #ddd;
   color: rgb(98, 97, 97);
@@ -350,17 +359,17 @@ button:hover {
 
 /* Reduce the padding around the day numbers */
 .fc-daygrid-day {
-  padding: 1px; /* Adjust as needed */
+  padding: 1px; 
 }
 
 /* Reduce the font size of the day numbers */
 .fc-daygrid-day-number {
-  font-size: 0.8em; /* Adjust as needed */
+  font-size: 0.8em; 
 }
 
 /* Reduce the padding around the day numbers */
 .fc-daygrid-day-frame {
-  padding: 2.5px; /* Adjust as needed */
+  padding: 2.5px; 
 }
 
 /* Close Button */
