@@ -240,20 +240,23 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  direction: rtl; 
 }
-
+/* Style for each star */
 .star {
   font-size: 2em;
   color: gray;
   cursor: pointer;
+  direction: ltr; 
 }
-.star:hover ~ .star,
-.star:hover{
+/* Change star color to gold on hover and for preceding siblings */
+.star:hover,
+.star:hover ~ .star {
   color: gold;
 }
-
-.star ~ .star.selected,
-.star.selected {
+/* Change star color to gold when selected and for preceding siblings */
+.star.selected,
+.star.selected ~ .star {
   color: gold;
 }
 
