@@ -156,5 +156,5 @@ function calendarFunction() {
     }
 }
 window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
-window.onload = combinedScrollFunctions; //activates the adjustButtonMargins function when the browser loads
+window.onload = combinedScrollFunctions; //activates the combinedScrollFunctions function when the browser loads
 window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
