@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="loginpagecss.css">
-<script type="text/javascript" src="loginpagejs.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Include styles-->
+    <link rel="stylesheet" href="loginpagecss.css">
+    <!--Include scripts-->
+    <script type="text/javascript" src="loginpagejs.js"></script>
+    <!--Include FullCalendar JS library-->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
+</head>
 <body>
 
 <!---this shows some variables that are useful for to design the website-->
 <div class="window-size" id="windowSize"></div>
-
-<!---These two are the two buttons in the down right corner-->
-<div class="floatingButtonContainer">
-    <div class="buttonDescription">Calendar</div>
-    <button id="calendarButton" class="floatingButtonCalendar"></button>
-</div>
-
-<div class="floatingButtonContainer">
-    <div class="buttonDescription">Add words</div>
-    <button id="addButton" class="floatingButtonAdd"></button>
-</div>
 
 <!---This object is the navigation bar in the top of the website-->
 <div class="navbar" id="navbar">
@@ -84,7 +79,17 @@
     <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button>
 </div>
 
-<!---Some useless text to enable scrolling-->
+<!--Calendar and Add button elements-->
+<a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
+<a class="floatingButtonCalendar"></a>
 
+<div id="calendarModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span> <!--Clickable 'X' element-->
+        <div id="calendar"></div> <!--Calendar element-->
+    </div>
+</div>
+
+<!---Some useless text to enable scrolling-->
 </body>
 </html>
