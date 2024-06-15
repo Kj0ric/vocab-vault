@@ -8,7 +8,7 @@ username: test
 password: 1234
 ## Team members
 Michael Manso mma766
-Indigo cheuk-a-lam student_id
+Indigo cheuk-a-lam ich104
 Harun Yılmaz student_id
 ## Installation details
 This project can be runned locally by cloning this repository
@@ -43,3 +43,7 @@ git clone https://github.com/VU-Applied-Programming-for-AI-2024/Group-39.git
 This repository is also available to clone through github desktop
 
 ## Architecture
+
+## How to open the webpage
+
+To open the webpage, use the 'Open webpage' shortcut.
