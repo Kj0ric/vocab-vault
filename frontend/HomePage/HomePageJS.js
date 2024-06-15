@@ -93,10 +93,6 @@ function combinedScrollFunctions() {
     calendarFunction();
 }
 
-window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
-window.onload = combinedScrollFunctions; //activates the adjustButtonMargins function when the browser loads
-window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
-
 function calendarFunction() {
     // Get the modal
     var modal = document.getElementById("calendarModal");
@@ -159,3 +155,6 @@ function calendarFunction() {
         }
     }
 }
+window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
+window.onload = combinedScrollFunctions; //activates the adjustButtonMargins function when the browser loads
+window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
