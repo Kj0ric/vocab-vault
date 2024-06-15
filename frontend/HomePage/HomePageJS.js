@@ -1,4 +1,4 @@
-window.onload = function() {
+
     function adjustButtonMargins() {
         const buttons = document.querySelectorAll('.dropdown .dropbtn'); //selects all dropdown buttons
         const dropdown = document.querySelectorAll('.dropdown-content a:hover');
@@ -72,6 +72,7 @@ window.onload = function() {
     function combinedScrollFunctions() {
         makeNavBarSticky();
         adjustButtonMargins();
+        calendarFunction();
     }
 
     function changeFavoritesButtonText(button) {
@@ -86,47 +87,53 @@ window.onload = function() {
     
     }
 
-    window.onresize = adjustButtonMargins;
-    window.onscroll = combinedScrollFunctions;
 
-    // Get the modal
-    var modal = document.getElementById("calendarModal");
-
-    // Get the button that opens the modal
-    var btn = document.querySelector(".floatingButtonCalendar");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-        modal.style.display = "block";
-        //Initialize the calendar
-        var calendarEl = document.getElementById('calendar');
-  
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          headerToolbar: {
-            left: 'prev,next',
-            center: 'title',
-            right: 'today'
-          },
-          handleWindowResize: true,
-          contentHeight: 400,
-
-        });
+    function calendarFunction() {
+        // Get the modal
+        var modal = document.getElementById("calendarModal");
+    
+        // Get the button that opens the modal
+        var btn = document.querySelector(".floatingButtonCalendar");
+    
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+    
+        
+    
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+            //Initialize the calendar
+            var calendarEl = document.getElementById('calendar');
       
-        calendar.render();
-    }
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+              initialView: 'dayGridMonth',
+              headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'today'
+              },
+              handleWindowResize: true,
+              contentHeight: 400,
+    
+            });
+          
+            calendar.render();
+        }
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
             modal.style.display = "none";
         }
-    }
-}
+    
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        }
+
+    window.onresize = adjustButtonMargins;
+    window.onscroll = combinedScrollFunctions;
+    window.onload = combinedScrollFunctions;
+    

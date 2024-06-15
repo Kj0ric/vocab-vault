@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="SearchResultsPageCss.css">
+<script type="text/javascript" src="SearchResultsPageJS.js"></script>
+<body>
+
+<!---this shows some variables that are useful for to design the website-->
+<div class="window-size" id="windowSize"></div>
+
+<!---These two are the two buttons in the down right corner-->
+<a href="#CalendarLink" class="floatingButtonCalendar"></a>
+<a href="../AddNewWordPage/AddNewWord.html" id="plusButton" class="floatingButtonAdd"></a>
+<a href="#CalendarLink" class="floatingButtonCalendar"></a>
+<a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
+
+<!---This object is the navigation bar in the top of the website-->
+<div class="navbar" id="navbar">
+    <!---This is the home button-->
+    <a href="../HomePage/HomePage.html">Home</a>
+    
+    <!---This is the Languages dropdown menu-->
+    <div class="dropdown">
+        <button class="dropbtn" href="frontend\Test document.html">Languages 
+        <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+        <a href="#link1">English</a>
+        <a href="#link2">French</a>
+        <a href="#link3">German</a>
+        </div>
+    </div> 
+    
+    <!---This is the search bar-->
+    <div type = "search" id="search">
+        <input type="text" placeholder="Search..">
+    </div> 
+    
+    <!---This is the Favorites button-->
+    <a href="../FavoritesPage/FavoritesPage.html" id="favorites">Favorites</a>
+    
+    <!---This is the Account dropdown menu-->
+    <div id="accountButton" class="dropdown">
+        <button  class="dropbtn" href="#account">Account 
+        <i  class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+        <a href="../accountpage/accountpage.html">Account</a>
+        <a href="../QuizzesPage/QuizzesPage.html">Quizzes</a>
+        <a href="FavoritesPage.html">Favorites</a>
+        </div>
+    </div> 
+</div>
+
+<h1 id="NewWordTitle">Search Results</h1>
+
+<p>This is a placeholder search results page</p>
+
+
+<div class="FavoritesContainer">
+    <br>
+    <a class="SearchResultTitle" href="../Favorite1Page/Favorite1Page.html">lodestone</a>
+    <br>
+    <br>
+    <div class="TextContainer"> 
+        When used literally, lodestone refers to the mineral magnetite, a magnetic iron ore. Lodestone is also used figuratively to refer to something that, like a magnet, strongly attracts things.
+    </div>
+</div>
+
+<div class="FavoritesContainer">
+    <br>
+    <a class="SearchResultTitle" href="../Favorite2Page/Favorite2Page.html">efficacious</a>
+    <br>
+    <br>
+    <div class="TextContainer"> 
+        efficacious is a formal word used to describe something—often a treatment, medicine, or remedy—that has the power to produce a desired result or effect. 
+    </div>
+</div>
+
+<div class="FavoritesContainer">
+    <br>
+    <a class="SearchResultTitle" href="../Favorite3Page/Favorite3Page.html">foment</a>
+    <br>
+    <br>
+    <div class="TextContainer"> 
+        To foment something, such as hostility or opposition, is to cause it, or try to cause it, to grow or develop. Foment is used synonymously with incite. 
+    </div>
+</div>
+
+
+</body>
+</html>
