@@ -1,4 +1,4 @@
-window.onload = function() {
+
     function adjustButtonMargins() {
         /*
         This function changes the size of the dropdown buttons and the search bar.
@@ -89,69 +89,67 @@ window.onload = function() {
         */
         makeNavBarSticky();
         adjustButtonMargins();
+        calendarFunction();
     }
+
+
+    function changeFavoritesButtonText(button) {
+    
+        if (button.textContent == 'Add to Favorites') {
+            button.textContent = 'Added to Favorites'
+            button.classList.add('red')
+        } else {
+            button.textContent = 'Add to Favorites'
+            button.classList.remove('red') 
+        }
+    
+    }
+
+
+    function calendarFunction() {
+        // Get the modal
+        var modal = document.getElementById("calendarModal");
+    
+        // Get the button that opens the modal
+        var btn = document.querySelector(".floatingButtonCalendar");
+    
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+            //Initialize the calendar
+            var calendarEl = document.getElementById('calendar');
+  
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+              initialView: 'dayGridMonth',
+              headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'today'
+              },
+              handleWindowResize: true,
+              contentHeight: 400,
+    
+            });
+          
+            calendar.render();
+        }
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        }
 
     window.onresize = adjustButtonMargins;
     window.onscroll = combinedScrollFunctions;
-
-    // Get the modal
-    var modal = document.getElementById("calendarModal");
-
-    // Get the button that opens the modal
-    var btn = document.querySelector(".floatingButtonCalendar");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-        modal.style.display = "block";
-        //Initialize the calendar
-        var calendarEl = document.getElementById('calendar');
-  
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          headerToolbar: {
-            left: 'prev,next',
-            center: 'title',
-            right: 'today'
-          },
-          handleWindowResize: true,
-          contentHeight: 400,
-          events: [
-            {
-                title: 'Word of the day',
-                start: '2024-06-13', 
-                url: '../Favorite1Page/Favorite1Page.html'
-            },
-            {
-                title: 'Word of the day',
-                start: '2024-06-14', 
-                url: '../Favorite2Page/Favorite2Page.html'
-            },
-            {
-                title: 'Word of the day',
-                start: '2024-06-15', 
-                url: '../Favorite3Page/Favorite3Page.html'
-            }
-        ],
-        eventClick: function(info) {
-            window.open(info.event.url);
-            info.jsEvent.preventDefault();
-        }
-        });
-      
-        calendar.render();
-    }
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-}
+    window.onload = combinedScrollFunctions;
+    

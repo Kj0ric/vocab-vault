@@ -128,16 +128,16 @@ body {
 
   .floatingButtonCalendar {
     position: fixed;
-    bottom: 0;
+    bottom: 20px;
     right: 0;
-    padding: 10px 20px;
+    padding: 0;
     margin: 10px;
     margin-bottom: 40px;
     color: white;
     border: none;
     cursor: pointer;
-    width: 55px;
-    height: 55px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;    
     background-color: #aaaaaa;
     background-image: url(../images/calendar-icon.png);
@@ -151,23 +151,23 @@ body {
 }
 
 .floatingButtonAdd {
-    position: fixed;
-    bottom: 40px;
-    right: 0;
-    padding: 10px 20px;
-    margin: 10px;
-    margin-bottom: 100px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    background-color: #aaaaaa;
-    background-image: url(../images/plus-icon.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 60%;
+  position: fixed;
+  bottom: 40px;
+  right: 0;
+  padding: 0;
+  margin: 10px;
+  margin-bottom: 100px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #aaaaaa;
+  background-image: url(../images/plus-icon.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
 }
 
 .floatingButtonAdd:hover {
