@@ -2,12 +2,14 @@ body {
     font-family: Arial, Helvetica, sans-serif;
   }
   
+  /* This changes the style of the navbar*/
   .navbar {
     overflow: hidden;
     background-color: #333;
     border-radius: 8px;
   }
   
+  /* This changes the style of the normal buttons of the navbar */
   .navbar a {
     float: left;
     font-size: 16px;
@@ -17,11 +19,13 @@ body {
     text-decoration: none;
   }
   
+  /* This changes the style of the dropdown menus in the navbar*/
   .dropdown {
     float: left;
     overflow: hidden;
   }
   
+  /* This changes the style of the dropdown menus in the navbar*/
   .dropdown .dropbtn {
     font-size: 16px;  
     border: none;
@@ -35,10 +39,12 @@ body {
     padding-right: 30px;
   }
   
+  /* This makes the buttons turn red when they are being hovered over */
   .navbar a:hover, .dropdown:hover .dropbtn {
     background-color: red;
   }
   
+  /* This changes the style of the buttons in the dropdown menus*/
   .dropdown-content {
     display: none;
     position: absolute;
@@ -48,6 +54,7 @@ body {
     z-index: 1;
   }
   
+  /* This changes the style of the text in the buttons of the dropdown menus*/
   .dropdown-content a {
     float: none;
     color: black;
@@ -57,14 +64,17 @@ body {
     text-align: left;
   }
   
+  /* This turns the buttons in the dropdown menus grey when hovered over */
   .dropdown-content a:hover {
     background-color: #ddd;
   }
-  
+
+  /* i have no idea what this does D: but is needed to make the dropdown menu appear */
   .dropdown:hover .dropdown-content {
     display: block;
-  }
+  } 
   
+  /* This changes the style of the search bar*/
   .navbar input[type= text] {
     float: left;
     padding: 6px;
@@ -77,10 +87,12 @@ body {
     border-radius: 5px;
   }
 
+  /* This makes the account button be at the right side of the navbar*/
   #accountButton {
     float: right;
   }
 
+  /* This makes the favorites button be at the right side of the navbar*/
   #favorites {
     float: right;
 
@@ -156,12 +168,14 @@ body {
     border-radius: 5px;
 }
 
+/* This changes the style of the navbar when the user scrolls down (makes the navbar stay in the top of the screen rather than vanishing)*/
 .sticky {
   position: fixed;
   top: 0;
   width: 100%;
 }
 
+/* This makes the text and navbar not overlap (i think)*/
 .sticky + .content {
   padding-top: 60px;
 } 
