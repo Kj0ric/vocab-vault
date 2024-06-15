@@ -3,6 +3,9 @@ VocabVault
 // IMAGE OF THE REAL FRONTEND
 ## Brief description of the project
 VocabVault focusses on broadening the users vocabulary through fun and educational features. The web application has a home page containing the word of the day with the meaning, function and phonetics of the specific word. This word can be ranked and added to favorites which stores the users favorite word. The favorite words can be trained through the quizzes page with wordle and flashcards available. Words that have passed can be searched through date and your own favorite words can be added through the adds new word page.
+
+username: test
+password: 1234
 ## Team members
 Michael Manso mma766
 Indigo cheuk-a-lam student_id
