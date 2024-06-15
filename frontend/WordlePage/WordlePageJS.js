@@ -94,9 +94,7 @@ function combinedScrollFunctions() {
     calendarFunction();
 }
 
-window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
-window.onload = combinedOnloadFunctions; //activates the adjustButtonMargins function when the browser loads
-window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
+
 
 function calendarFunction() {
   // Get the modal
@@ -161,46 +159,38 @@ function calendarFunction() {
   }
 }
 
+
 function combinedOnloadFunctions() {
+    /*
+    This function combines the drawTable, adjustButtonMArgins, and calendarFunction functions so they can both be called when the page loads
+    
+
+    This function has no parameters and returns nothing
+    */
   drawTable();
   adjustButtonMargins();
   calendarFunction();
 }
 
-function changeFavoritesButtonText(button) {
-    
-    if (button.textContent == 'Add to Favorites') {
-        button.textContent = 'Added to Favorites'
-        button.classList.add('red')
-    } else {
-        button.textContent = 'Add to Favorites'
-        button.classList.remove('red') 
-    }
 
-}
 
-let a = 'lodestone'   //9
-let b = 'foment'      //6
-let c = 'efficacious' //11
-let d = 'consternation'   //13
 
 function refresh() {
-  window.open("WordlePage.html", "_self")
+  /* 
+    This function refreshes the page to reset the wordle puzzle
+
+    This function jas no parameters and returns nothing
+  */
+    window.open("WordlePage.html", "_self")
 
 }
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+function getRandomAnswer() {
+    let min = Math.ceil(1);
+    let max = Math.floor(4);
+    let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
-function drawTable() {
-    
-  let answer = 'fish'
-
-  let randomNumber = getRandomInt(1,4);
-  if (randomNumber == 1) {
+    if (randomNumber == 1) {
     answer = a
   } else if (randomNumber == 2) {
     answer = b
@@ -209,6 +199,15 @@ function drawTable() {
   } else {
     answer = d
   }
+    
+
+    return answer
+}
+
+function drawTable() {
+    
+  let answer = currentAnswer
+
   
   let html = '<table>';
     let rows = 6
@@ -225,7 +224,9 @@ function drawTable() {
             counter += 1
             letterCounter += 1
             let correctLetter = answer.charAt(letterCounter)
-            html += '<td><label for="input' + counter + '">Word ' + (wordCounter+1) + ' Letter ' + (letterCounter+1) + ':</label><input type="text" id="input' + counter + '" name="input' + counter + '" maxlength="1" pattern="[' + answer + ']" data-correct-pattern="[' + correctLetter + ']" placeholder=" "></td>';
+            
+            html += '<td><label for="input' + counter + '">Word ' + (wordCounter+1) + ' Letter ' + (letterCounter+1) + ':</label><input oninput="CheckInput()" class="Incorrect" type="text" id="input' + counter + '" name="input' + counter + '" maxlength="1" pattern="' + answer + '" data-correct-pattern="' + correctLetter + '" placeholder=" "></td>';
+
         }
         html += '</tr>';
         wordCounter +=1
@@ -236,13 +237,91 @@ function drawTable() {
     document.body.innerHTML += html;
 }
 
-document.querySelectorAll("input").forEach((inpt) => {
-        inpt.addEventListener("input", function (e) {
-          const correct = this.value.match(new RegExp(this.getAttribute("data-correct-pattern")));
-            if (correct) {
-              this.removeAttribute("data-incorrect");
-            } else {
-              this.setAttribute("data-incorrect", true);
+function CheckInput(event) {
+    if (!usagesLeft == 0) {
+    let inputs = document.querySelectorAll('input');
+  
+    let rows = document.querySelectorAll('table tr');
+  
+    inputs.forEach(function(input) {
+      const userAnswer = input.value;
+      const correctWord = input.getAttribute("pattern");
+      const correctLetter = input.getAttribute("data-correct-pattern");
+  
+      let style = window.getComputedStyle(input);
+      let pointerEvents = style.getPropertyValue('pointer-events');
+  
+      if (pointerEvents == 'none'){
+  
+        if (userAnswer == correctLetter) {
+          input.classList.remove("Incorrect")
+          input.classList.remove("WrongPlace")
+          input.classList.add("Correct")
+        } else if ((correctWord.includes(userAnswer)) && !(userAnswer == correctLetter) && !(userAnswer == '')) {
+          input.classList.remove("Incorrect")
+          input.classList.remove("Correct")
+          input.classList.add("WrongPlace")
+        } else {
+          input.classList.remove("WrongPlace")
+          input.classList.remove("Correct")
+          input.classList.add('Incorrect')
+        }
+        
+      }});
+      
+      rows.forEach(function(row) {
+        if (!isWinner == true) {
+          // Get all the input elements in this row
+          let inputs = row.querySelectorAll('input');
+  
+          let correctInputs = 0
+  
+          inputs.forEach(function(input) {
+            // If this input does not have the 'Correct' class, set allCorrect to false
+            if (input.classList.contains('Correct')) {
+              correctInputs += 1
             }
-        });
+          });
+  
+          if (correctInputs == currentAnswer.length) {
+            isWinner = true
+            // Create a new element, set its text to 'You win', and insert it before the first row
+            
+            if (usagesLeft > 1) {
+  
+            let winMessage = document.createElement('div');
+            winMessage.textContent = 'You win';
+            winMessage.style.fontSize = '2em'; // Set the font size or any other styles as needed
+            let table = document.querySelector('table'); // Replace with your actual table selector
+            table.insertBefore(winMessage, table.firstChild);
+            usagesLeft = 1
+            } 
+            
+          } 
+        } else {
+          row.style.display = 'none';
+          
+        }
+        if (usagesLeft == 1) {usagesLeft = 0}
       });
+    
+  }}
+
+
+let a = 'lodestone'   //9
+let b = 'foment'      //6
+let c = 'efficacious' //11
+let d = 'consternation'   //13
+
+let isWinner = false
+let usagesLeft = 2
+
+let currentAnswer = getRandomAnswer();
+
+window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
+window.onload = combinedOnloadFunctions; //activates the adjustButtonMargins function when the browser loads
+window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
+
+document.addEventListener('click', CheckInput);
+document.addEventListener('keydown', CheckInput);
+

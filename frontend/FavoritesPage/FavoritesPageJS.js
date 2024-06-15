@@ -156,7 +156,7 @@ window.onload = function() {
     }
 }
 
-let wordName = '';
+    let wordName = '';
     let wordDescription = '';
 
     function changeColor(button) {
