@@ -1,4 +1,4 @@
-window.onload = function() {
+
     function adjustButtonMargins() {
         /*
         This function changes the size of the dropdown buttons and the search bar.
@@ -89,11 +89,14 @@ window.onload = function() {
         */
         makeNavBarSticky();
         adjustButtonMargins();
+        calendarFunction();
     }
 
     window.onresize = adjustButtonMargins;
     window.onscroll = combinedScrollFunctions;
-
+    window.onload = combinedScrollFunctions;
+    
+    function calendarFunction() {
     // Get the modal
     var modal = document.getElementById("calendarModal");
 
