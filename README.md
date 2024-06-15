@@ -10,8 +10,11 @@ username: test
 password: 1234
 ## Team members
 Michael Manso mma766
+
 Indigo cheuk-a-lam ich104
+
 Harun Yılmaz cnf877
+
 ## Installation details
 This project can be runned locally by cloning this repository
 
