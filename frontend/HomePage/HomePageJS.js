@@ -1,5 +1,11 @@
 
     function adjustButtonMargins() {
+        /*
+        This function changes the size of the dropdown buttons and the search bar.
+        It also govens the text dispaying variables in the down right corner.
+    
+        This function has no parameters and returns nothing
+        */
         const buttons = document.querySelectorAll('.dropdown .dropbtn'); //selects all dropdown buttons
         const dropdown = document.querySelectorAll('.dropdown-content a:hover');
         const width = window.innerWidth; //grabs the width of the browser window
@@ -54,6 +60,11 @@
     }
 
     function makeNavBarSticky() {
+        /*
+        This function makes the navbar sticky when the user scrolls down, it also makes it not sticky anymore when the user scrolls back up
+        
+        This function has no parameters and returns nothing
+        */
         var navbar = document.getElementById("navbar");
 
         var sticky = navbar.offsetTop;
@@ -70,10 +81,17 @@
     }
 
     function combinedScrollFunctions() {
+        /*
+        This function combines the makeNavBarSticky and adjustButtonMArgins functions so they can both be activated when scrolling
+        (the adjustButtonMargins fuction needs to be activated to adjust show the current distance scrolled by the user)
+    
+        This function has no parameters and returns nothing
+        */
         makeNavBarSticky();
         adjustButtonMargins();
         calendarFunction();
     }
+
 
     function changeFavoritesButtonText(button) {
     
@@ -97,15 +115,13 @@
     
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
-    
-        
-    
+
         // When the user clicks the button, open the modal 
         btn.onclick = function() {
             modal.style.display = "block";
             //Initialize the calendar
             var calendarEl = document.getElementById('calendar');
-      
+  
             var calendar = new FullCalendar.Calendar(calendarEl, {
               initialView: 'dayGridMonth',
               headerToolbar: {
