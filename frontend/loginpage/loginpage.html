@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="accountpagecss.css">
-    <script type="text/javascript" src="accountpagejs.js"></script>
-    <!--Include FullCalendar JS library-->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="loginpagecss.css">
+<script type="text/javascript" src="loginpagejs.js"></script>
 <body>
 
 <!---this shows some variables that are useful for to design the website-->
 <div class="window-size" id="windowSize"></div>
+
+<!---These two are the two buttons in the down right corner-->
+<div class="floatingButtonContainer">
+    <div class="buttonDescription">Calendar</div>
+    <button id="calendarButton" class="floatingButtonCalendar"></button>
+</div>
+
+<div class="floatingButtonContainer">
+    <div class="buttonDescription">Add words</div>
+    <button id="addButton" class="floatingButtonAdd"></button>
+</div>
 
 <!---This object is the navigation bar in the top of the website-->
 <div class="navbar" id="navbar">
@@ -45,7 +52,7 @@
         <i  class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-        <a href="accountpage.html">Account</a>
+        <a href="../accountpage/accountpage.html">Account</a>
         <a href="../QuizzesPage/QuizzesPage.html">Quizzes</a>
         <a href="../FavoritesPage/FavoritesPage.html">Favorites</a>
         </div>
@@ -54,32 +61,30 @@
     
 </div>
 
+<h2>Login Form</h2>
+
+<div class="imgcontainer">
+    <img src="profile.png" alt="Avatar" class="avatar">
+</div>
+
+<div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" id="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" id="psw" required>
+        
+    <button type="submit" onclick="checkLogin()">Login</button>
+    <label>
+    <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+</div>
+
+<div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button>
+</div>
+
 <!---Some useless text to enable scrolling-->
-<div id="profile">
-    <h1>Profile picture</h1>
-    <img src="profile.png" alt="profile" />
-</div>
-<div id="account_info">
-    <b><div>Change account info</div></b>
-    <form action="/action_page.php">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" placeholder="John Doe"><br>
-        <label for="pwd">Password:</label><br>
-        <input type="password" id="pwd" name="pwd" placeholder="password"><br><br>
-        <input type="submit" value="Submit">
-    </form>
-</div>
-
-<a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
-<a class="floatingButtonCalendar"></a>
-
-<div id="calendarModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span> <!--Clickable 'X' element-->
-        <div id="calendar"></div> <!--Calendar element-->
-    </div>
-</div>
-
 
 </body>
 </html>

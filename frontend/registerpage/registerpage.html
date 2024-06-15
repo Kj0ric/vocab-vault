@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="registerpagecss.css">
+<script type="text/javascript" src="registerpagejs.js"></script>
+<body>
+
+<!---this shows some variables that are useful for to design the website-->
+<div class="window-size" id="windowSize"></div>
+
+<!---These two are the two buttons in the down right corner-->
+<div class="floatingButtonContainer">
+    <div class="buttonDescription">Calendar</div>
+    <button id="calendarButton" class="floatingButtonCalendar"></button>
+</div>
+
+<div class="floatingButtonContainer">
+    <div class="buttonDescription">Add words</div>
+    <button id="addButton" class="floatingButtonAdd"></button>
+</div>
+
+<!---This object is the navigation bar in the top of the website-->
+<div class="navbar" id="navbar">
+    <!---This is the home button-->
+    <a href="../HomePage/HomePage.html">Home</a>
+    
+    <!---This is the Languages dropdown menu-->
+    <div class="dropdown">
+        <button class="dropbtn" href="frontend\Test document.html">Languages 
+        <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+        <a href="#link1">English</a>
+        <a href="#link2">French</a>
+        <a href="#link3">German</a>
+        </div>
+        
+    </div> 
+    
+    <!---This is the search bar-->
+    <div type = "search" id="search">
+        <input type="text" placeholder="Search..">
+    </div> 
+    
+    <!---This is the Favorites button-->
+    <a href="FavoritesPage/FavoritesPage.html" id="favorites">Favorites</a>
+    
+    <!---This is the Account dropdown menu-->
+    <div id="accountButton" class="dropdown">
+        <button  class="dropbtn" href="#account">Account 
+        <i  class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+        <a href="#link1">Account</a>
+        <a href="QuizzesPage/QuizzesPage.html">Profile</a>
+        <a href="FavoritesPage/FavoritesPage.html">Favorites</a>
+        </div>
+        
+    </div> 
+    
+</div>
+
+<h2>Register Form</h2>
+
+<div class="imgcontainer">
+    <img src="profile.png" alt="Avatar" class="avatar">
+</div>
+
+<div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" id="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <div>&nbsp;</div>
+    <div>Password should contain at least 12 characters.</div>
+    <div> Use a combo of uppercase letters, lowercase letters, numbers, and even some special characters (!, @, $, %, ^, &, *, +, #)</div>
+    <input type="password" placeholder="Enter Password" id="psw" required>
+        
+    <button type="submit" onclick= register()>Register</button>
+</div>
+
+<div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button>
+</div>
+
+<!---Some useless text to enable scrolling-->
+
+</body>
+</html>
