@@ -238,16 +238,12 @@ body {
   font-weight: bold;
 }
 
+
 .close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
-}
-
-hr {
-  float:left;
-  margin-right: 60%;
 }
 
 .form-container {

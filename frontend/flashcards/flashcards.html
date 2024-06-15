@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="flashcardcss.css">
     <!--Include FullCalendar JS library-->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
+    <script type="text/javascript" src="flashcardjs.js"></script>
 </head>
 <body>
 
@@ -54,18 +55,18 @@
     </div> 
     
 </div>
-
+<!--container with the flashcard information-->
 <div class="flashcards">
-    <div class="flashcard" id="flashcard1">
+    <div class="flashcard" id="flashcard1"> <!--important for the scroll function-->
         <label>
             <input type="checkbox" />
             <div class="flip-card">
-                <div class="front">
+                <div class="front"> <!--front of the card needed to flip it-->
                     <h1>Onomatopoeia</h1>
                     <p>Click for answer</p>
                 </div>
                 <div class="back">
-                    <h1>Answer</h1>
+                    <h1>Answer</h1> <!--back of the card neede to flip it-->
                     <hr />
                     <p>The formation of a word from a sound associated with what is named (e.g. cuckoo, sizzle). "A relatively large number of bird names arise by onomatopoeia."</p>
                     <hr />
@@ -75,7 +76,7 @@
         </label>
     </div>
 
-    <!-- Add more flashcards here -->
+    <!-- Multiple options of flashcards added here with the same structurr -->
     <div class="flashcard" id="flashcard2" style="display: none;">
         <label>
             <input type="checkbox" />
@@ -131,7 +132,7 @@
         </label>
     </div>
 </div>
-
+<!--scroll elements-->
 <button onclick="nextFlashcard()" id="nextbtn">&#8249;</button>
 <button onclick="previousFlashcard()" id="previousbtn">&#8250;</button>
 
@@ -145,7 +146,6 @@
         <div id="calendar"></div> <!--Calendar element-->
     </div>
 </div>
-<!--Include Flashcard scripts-->
-<script type="text/javascript" src="flashcardjs.js"></script>
+
 </body>
 </html>
