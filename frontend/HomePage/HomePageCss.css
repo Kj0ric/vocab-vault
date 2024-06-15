@@ -1,127 +1,129 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-  }
+}
   
-  .navbar {
-    overflow: hidden;
-    background-color: #333;
-    border-radius: 8px;
-  }
+/* This changes the style of the navbar*/
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  border-radius: 8px;
+}
   
-  .navbar a {
-    float: left;
-    font-size: 16px;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
+/* This changes the style of the normal buttons of the navbar */
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
   
-  .dropdown {
-    float: left;
-    overflow: hidden;
-  }
+/* This changes the style of the dropdown menus in the navbar*/
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
   
-  .dropdown .dropbtn {
-    font-size: 16px;  
-    border: none;
-    outline: none;
-    color: white;
-    padding: 14px 16px;
-    background-color: inherit;
-    font-family: inherit;
-    margin: 0;
-    padding-left: 30px;
-    padding-right: 30px;
-  }
+/* This changes the style of the dropdown menus in the navbar*/
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  padding-left: 30px;
+  padding-right: 30px;
+}
   
-  .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    float: none;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #ddd;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  
-  .navbar input[type= text] {
-    float: left;
-    padding: 6px;
-    border: none;
-    margin-top: 8px;
-    margin-right: 8px;
-    margin-left: 8px;
-    font-size: 17px;
-    width: 80px;
-    border-radius: 5px;
-  }
-
-  #accountButton {
-    float: right;
-  }
-
-  #favorites {
-    float: right;
-
-  }
-
-  /*Calendar and Add buttons*/
-  .floatingButtonContainer {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-start;
-    align-items: center;
-    position: fixed;
-    right: 50px;
-    bottom: 120px;
-
-  }
-
-  .floatingButtonCalendar {
-    position: fixed;
-    bottom: 20px;
-    right: 0;
-    padding: 0;
-    margin: 10px;
-    margin-bottom: 40px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;    
-    background-color: #aaaaaa;
-    background-image: url(../images/calendar-icon.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 60%;
+/* This makes the buttons turn red when they are being hovered over */
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
 }
 
+/* This changes the style of the buttons in the dropdown menus*/
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+  
+/* This changes the style of the text in the buttons of the dropdown menus*/
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* This turns the buttons in the dropdown menus grey when hovered over */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* i have no idea what this does D: but is needed to make the dropdown menu appear */
+.dropdown:hover .dropdown-content {
+  display: block;
+} 
+  
+/* This changes the style of the search bar*/
+.navbar input[type= text] {
+  float: left;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 8px;
+  margin-left: 8px;
+  font-size: 17px;
+  width: 80px;
+  border-radius: 5px;
+}
+
+/* This makes the account button be at the right side of the navbar*/
+#accountButton {
+  float: right;
+}
+
+/* This makes the favorites button be at the right side of the navbar*/
+#favorites {
+  float: right;
+}
+
+/* Button for Calendar popup */
+.floatingButtonCalendar {
+  position: fixed;
+  bottom: 20px;
+  right: 0;
+  padding: 0;
+  margin: 10px;
+  margin-bottom: 40px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;    
+  background-color: #aaaaaa;
+  background-image: url(../images/calendar-icon.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+}
+
+/* Shadow on hover for Calendar popup */
 .floatingButtonCalendar:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+/* Button for adding words */
 .floatingButtonAdd {
     position: fixed;
     bottom: 40px;
@@ -142,10 +144,12 @@ body {
     background-size: 60%;
 }
 
+/* Shadow on hover for adding words */
 .floatingButtonAdd:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+/* This changes the style of the variables displaying text in the down right corner*/
 .window-size {
     position: fixed;
     bottom: 0;
@@ -156,12 +160,14 @@ body {
     border-radius: 5px;
 }
 
+/* This changes the style of the navbar when the user scrolls down (makes the navbar stay in the top of the screen rather than vanishing)*/
 .sticky {
   position: fixed;
   top: 0;
   width: 100%;
 }
 
+/* This makes the text and navbar not overlap (i think)*/
 .sticky + .content {
   padding-top: 60px;
 } 
@@ -233,8 +239,6 @@ body {
   margin: 0; /* Remove default margin */
 }
 
-
-
 /* Star rating styles */
 .rating {
   display: flex;
@@ -290,14 +294,14 @@ body {
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 999; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4);
 }
 
 /* Calendar styling */
@@ -319,17 +323,17 @@ body {
 
 /* Reduce the padding around the day numbers */
 .fc-daygrid-day {
-  padding: 1px; /* Adjust as needed */
+  padding: 1px; 
 }
 
 /* Reduce the font size of the day numbers */
 .fc-daygrid-day-number {
-  font-size: 0.8em; /* Adjust as needed */
+  font-size: 0.8em; 
 }
 
 /* Reduce the padding around the day numbers */
 .fc-daygrid-day-frame {
-  padding: 2.5px; /* Adjust as needed */
+  padding: 2.5px; 
 }
 
 /* Close Button */
@@ -346,4 +350,3 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
-

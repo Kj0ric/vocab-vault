@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="WordlePageCss.css">
-<script type="text/javascript" src="WordlePageJS.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Include WordlePage styles-->
+    <link rel="stylesheet" href="WordlePageCss.css">
+    <!--Include HomePage scripts-->
+    <script type="text/javascript" src="WordlePageJS.js"></script>
+     <!--Include FullCalendar JS library-->
+     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
+    </head>
 <body>
 
+<!---this shows some variables that are useful for to design the website-->
 <div class="window-size" id="windowSize"></div>
 
-<!---Calendar and Add buttons--->
-<!--
-    <div class="floatingButtonContainer">
-        <div class="floatingButtonText"></div>
-        <button id="calendarButton" class=""floatingButtonCalendar"></button>
-    </div
--->
-<a href="#CalendarLink" class="floatingButtonCalendar"></a>
-<a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
-
+<!---This object is the navigation bar in the top of the website-->
 <div class="navbar" id="navbar">
+    <!---This is the home button-->
     <a href="../HomePage/HomePage.html">Home</a>
+    
+    <!---This is the Languages dropdown menu-->
     <div class="dropdown">
-        <button class="dropbtn" href="#account">Languages 
+        <button class="dropbtn" href="frontend\Test document.html">Languages 
         <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
@@ -32,14 +33,15 @@
         
     </div> 
     
-    
+    <!---This is the search bar-->
     <div type = "search" id="search">
         <input type="text" placeholder="Search..">
     </div> 
     
-
+    <!---This is the Favorites button-->
     <a href="../FavoritesPage/FavoritesPage.html" id="favorites">Favorites</a>
     
+    <!---This is the Account dropdown menu-->
     <div id="accountButton" class="dropdown">
         <button  class="dropbtn" href="#account">Account 
         <i  class="fa fa-caret-down"></i>
@@ -58,6 +60,16 @@
 <p>Try opening this in an incognito tab if the puzzle has the same answer every time</p>
 <p>This way of randomly selecting a word is only used for this frontend prototype and will be changed in the final version</p>
 
+<!--Calendar and Add button elements-->
+<a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
+<a class="floatingButtonCalendar"></a>
+
+<div id="calendarModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span> <!--Clickable 'X' element-->
+        <div id="calendar"></div> <!--Calendar element-->
+    </div>
+</div>
 
 
 </body>

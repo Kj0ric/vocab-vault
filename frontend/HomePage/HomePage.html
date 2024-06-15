@@ -5,19 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--Include HomePage styles-->
     <link rel="stylesheet" href="HomePageCss.css">
+    <!--Include HomePage scripts-->
+<script type="text/javascript" src="HomePageJS.js" defer></script>
 
     <!--Include FullCalendar JS library-->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
-
 </head>
 <body>
 
+<!---this shows some variables that are useful for to design the website-->
 <div class="window-size" id="windowSize"></div>
 
+<!---This object is the navigation bar in the top of the website-->
 <div class="navbar" id="navbar">
-    <a href="HomePage.html">Home</a>
+    <!---This is the home button-->
+    <a href="../HomePage/HomePage.html">Home</a>
+    
+    <!---This is the Languages dropdown menu-->
     <div class="dropdown">
-        <button class="dropbtn" href="#account">Languages 
+        <button class="dropbtn" href="frontend\Test document.html">Languages 
         <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
@@ -28,16 +34,17 @@
         
     </div> 
     
-    
+    <!---This is the search bar-->
     <div type = "search" id="search">
         <form action="../SearchResultsPage/FavoritesPage.html">
             <input type="text" placeholder="Search..">
         </form>
     </div> 
     
-
+    <!---This is the Favorites button-->
     <a href="../FavoritesPage/FavoritesPage.html" id="favorites">Favorites</a>
     
+    <!---This is the Account dropdown menu-->
     <div id="accountButton" class="dropdown">
         <button  class="dropbtn" href="#account">Account 
         <i  class="fa fa-caret-down"></i>
@@ -99,8 +106,6 @@
     </div>
 </div>
 
-<!--Include HomePage scripts-->
-<script type="text/javascript" src="HomePageJS.js" defer></script>
 
 </body>
 </html>
