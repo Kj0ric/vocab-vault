@@ -55,20 +55,6 @@
 </div>
 
 <!---Some useless text to enable scrolling-->
-<div id="profile">
-    <h1>Profile picture</h1>
-    <img src="profile.png" alt="profile" />
-</div>
-<div id="account_info">
-    <b><div>Change account info</div></b>
-    <form action="/action_page.php">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" placeholder="John Doe"><br>
-        <label for="pwd">Password:</label><br>
-        <input type="password" id="pwd" name="pwd" placeholder="password"><br><br>
-        <input type="submit" value="Submit">
-    </form>
-</div>
 
 <a href="../AddNewWordPage/AddNewWord.html"class="floatingButtonAdd"></a>
 <a class="floatingButtonCalendar"></a>
@@ -79,6 +65,34 @@
         <div id="calendar"></div> <!--Calendar element-->
     </div>
 </div>
+<div class="form-container">
+    <h1>Account</h1>
+    <form action="" id="profileForm">
+        <div class="column-left" id="editableInfo">
+            <label for="name">Name:</label>
+            <p id="nameDisplay">John Doe</p>
+        
+            <label for="email">Email:</label>
+            <p id="emailDisplay">example@example.com</p>
+        
+            <label for="gender">Gender:</label>
+            <p id="genderDisplay">male</p>
+        
+            <label for="age">Age:</label>
+            <p id="ageDisplay">30</p>
+        
+            <button type="button" onclick="toggleEdit()">Change</button>
+            <button type="button" onclick="saveChanges()">save</button>
+        </div>
+
+      <div class="column-right">
+        <label for="photo">Change Profile Picture:</label>
+        <input type="file" name="photo" id="photo" onchange="displayProfilePic()">
+        <img src="#" alt="Profile Picture" style="display: none;" id="profilePic">
+      </div>
+    </form>
+  </div>
+
 
 
 </body>

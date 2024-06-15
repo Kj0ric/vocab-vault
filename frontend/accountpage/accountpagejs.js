@@ -157,3 +157,81 @@ function calendarFunction() {
         }
     }
 }
+
+function displayProfilePic() {
+    const input = document.getElementById('photo');
+    const img = document.getElementById('profilePic');
+    
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        img.src = e.target.result;
+        img.style.display = 'block';
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function submitForm() {
+    const formData = new FormData(document.getElementById('profileForm'));
+
+    for (const pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+    }
+  }
+/* here the acount change function start */
+  let editMode = false; // Initial state: Display mode
+
+  let savedValues = {
+      name: 'John Doe',
+      email: 'example@example.com',
+      gender: 'male',
+      age: '30'
+  };
+  
+  function toggleEdit() {
+      editMode = !editMode; // Toggle edit mode
+  
+      const nameDisplay = document.getElementById('nameDisplay');  
+      const emailDisplay = document.getElementById('emailDisplay');
+      const genderDisplay = document.getElementById('genderDisplay');
+      const ageDisplay = document.getElementById('ageDisplay');
+  
+      if (editMode) {
+          nameDisplay.innerHTML = '<input type="text" id="nameInput" value="' + savedValues.name + '">';
+          emailDisplay.innerHTML = '<input type="email" id="emailInput" value="' + savedValues.email + '">';
+          genderDisplay.innerHTML = '<select id="genderSelect"><option value="male">male</option><option value="female">female</option><option value="other">other</option></select>'; 
+          ageDisplay.innerHTML = '<input type="text" id="ageInput" value="' + savedValues.age + '">';
+          
+          document.querySelector('button').innerHTML = 'Submit';
+      } else {
+          if (confirm('Are you sure you want to discard changes?')) {
+              nameDisplay.innerHTML = savedValues.name;
+              emailDisplay.innerHTML = savedValues.email;
+              genderDisplay.innerHTML = savedValues.gender;
+              ageDisplay.innerHTML = savedValues.age;
+  
+              document.querySelector('button').innerHTML = 'Change';}
+   
+            else {
+                        editMode = true; // Stay in edit mode if the user cancels going back to view mode
+                    }
+                }
+  }
+  
+  function saveChanges() {
+      savedValues.name = document.getElementById('nameInput').value;
+      savedValues.email = document.getElementById('emailInput').value;
+      savedValues.gender = document.getElementById('genderSelect').value;
+      savedValues.age = document.getElementById('ageInput').value;
+  
+      // Update display with the new values - This section can be customized based on how you want to handle the changes visually
+      document.getElementById('nameDisplay').innerHTML = savedValues.name;
+      document.getElementById('emailDisplay').innerHTML = savedValues.email;
+      document.getElementById('genderDisplay').innerHTML = savedValues.gender;
+      document.getElementById('ageDisplay').innerHTML = savedValues.age;
+  
+      toggleEdit(); // Switch back to view mode after saving changes
+  }
