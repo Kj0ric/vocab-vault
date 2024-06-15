@@ -350,3 +350,9 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
+
+#websiteName {
+  text-align: center;
+  font-size: 2em;
+  color: #333;
+}
