@@ -4,10 +4,13 @@ VocabVault
 ![Quizzes page](/frontend/images/Screenshot%202024-06-15%20at%2023.47.35.png)
 ![Favorites page](/frontend/images/Screenshot%202024-06-15%20at%2023.48.05.png)
 ## Brief description of the project
-VocabVault focuses on broadening the users vocabulary through fun and educational features. The web application has a home page containing the word of the day with the meaning, function and phonetics of the specific word. This word can be ranked and added to favorites which stores the users favorite word. The favorite words can be trained through the quizzes page with wordle and flashcards available. Words that have passed can be searched through date and your own favorite words can be added through the adds new word page.
+VocabVault focusses on broadening the users vocabulary through fun and educational features. The web application has a home page containing the word of the day with the meaning, function and phonetics of the specific word. This word can be ranked and added to favorites which stores the users favorite word. The favorite words can be trained through the quizzes page with wordle and flashcards available. Words that have passed can be searched through date and your own favorite words can be added through the adds new word page.
+
+username: test
+password: 1234
 ## Team members
 Michael Manso mma766
-Indigo cheuk-a-lam student_id
+Indigo cheuk-a-lam ich104
 Harun Yılmaz cnf877
 ## Installation details
 This project can be runned locally by cloning this repository
@@ -43,3 +46,6 @@ This repository is also available to clone through github desktop
 
 ## Architecture
 ![Architecture diagram](/Screenshot%202024-06-15%20at%2023.18.12.png)
+
+## How to open the webpage
+To open the webpage, use the 'Open webpage' shortcut.
