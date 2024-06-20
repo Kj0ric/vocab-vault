@@ -1,0 +1,5 @@
+# created by virtualenv automatically
+# Git will not track any changes in the myenv directory
+/myenv
+# Git will not track any changes in any .DS_Store file
+**/.DS_Store
