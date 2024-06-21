@@ -1,12 +1,21 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+from .models import Words
+from datetime import date
 
 def homepage(request):
+    today = date.today()
+    today_formatted = today.strftime('%d/%m/%Y')  # Format today's date as dd/mm/yyyy
 
-  template = loader.get_template('HomePage.html')
+    try:
+        word_of_the_day = Words.objects.get(date=today_formatted)
+    except Words.DoesNotExist:
+        word_of_the_day = None  # Handle case where no word matches today
 
-  return HttpResponse(template.render())
+    context = {'word_of_the_day': word_of_the_day, 'today_formatted': today_formatted}
+    return render(request, 'HomePage.html', context)
+
 
 def searchresults(request):
    
