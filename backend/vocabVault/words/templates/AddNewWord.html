@@ -1,0 +1,57 @@
+{% extends "MasterTemplate.html" %}
+{% load static %}
+
+{% block cssfile %}
+<link rel="stylesheet" href="{% static 'AddNewWordCss.css' %}"> 
+{% endblock %}
+
+
+{% block jsfile %}
+<script type="text/javascript" src="{% static 'AddNewWordJS.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+
+<!---Some useless text to enable scrolling-->
+<h1 id="NewWordTitle">Add new word</h1>
+
+<!--place to insert new word-->
+<p>New word</p>
+<div type = "input" id="WordNameInput">
+    <input type="text" placeholder="Name of the new word">
+</div>
+
+<!--function of the word selector-->
+<p>Part of speech</p>
+<div id="Choose" type="Choose">
+    <form>
+        <input type="radio" name="partOfSpeech">
+        <label>Verb</label><br>
+        <input type="radio" name="partOfSpeech">
+        <label for="css">noun</label><br>
+        <input type="radio" name="partOfSpeech">
+        <label>adjective</label><br>
+        <input type="radio" name="partOfSpeech">
+        <label>adverb</label><br>
+        <input type="radio" name="partOfSpeech">
+        <label>reposition</label><br>
+        <input type="radio" name="partOfSpeech">
+        <label >conjunction</label><br>
+        <input type="radio" name="partOfSpeech">
+        <label >interjection</label><br>
+    </form>
+</div>
+<!--pronounciation inserter-->
+<p>Pronounciation</p>
+<div type = "input" id="PronunciationInput">
+    <input type="text" placeholder="Pronunciation of the new word">
+</div>
+<!--text bubble for meaning-->
+<p>Meaning</p>
+<div type = "input" >
+    <textarea id="MeaningInput" type="text" placeholder="Meaning of the new word"></textarea>
+</div>
+
+<button id="AddButton">Add New Word</button>
+{% endblock %}

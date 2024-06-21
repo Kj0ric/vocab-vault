@@ -1,16 +1,17 @@
-{% extends "../MasterTemplate.html" %}
-
+{% extends "MasterTemplate.html" %}
+{% load static %}
 
 {% block cssfile %}
-<link rel="stylesheet" href="HomePageCss.css">
+<link rel="stylesheet" href="{% static 'HomePageCss.css' %}"> 
 {% endblock %}
+
 
 {% block jsfile %}
-<script type="text/javascript" src="HomePageJS.js" defer></script>
+<script type="text/javascript" src="{% static 'HomePageJS.js' %}" defer></script>
 {% endblock %}
 
-{% block content %}
 
+{% block content %}
 <!---Heading for the homepage-->
 <h1 style="text-align: center; font-size: 3.5em;">Vocab Vault</h1>
 

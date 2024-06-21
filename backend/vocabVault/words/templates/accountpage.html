@@ -1,0 +1,45 @@
+{% extends "MasterTemplate.html" %}
+{% load static %}
+
+{% block cssfile %}
+<link rel="stylesheet" href="{% static 'accountpagecss.css' %}"> 
+{% endblock %}
+
+
+{% block jsfile %}
+<script type="text/javascript" src="{% static 'accountpagejs.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+
+<!--form container keeps everything structured and together-->
+<div class="form-container">
+    <h1>Account</h1>
+    <form action="" id="profileForm"> <!--makes a form which will be needed for the backend-->
+        <div class="column-left" id="editableInfo"> <!--left column with all the account elements-->
+            <label for="name">Name:</label>
+            <p id="nameDisplay">John Doe</p>
+        
+            <label for="email">Email:</label>
+            <p id="emailDisplay">example@example.com</p>
+        
+            <label for="gender">Gender:</label>
+            <p id="genderDisplay">male</p>
+        
+            <label for="age">Age:</label>
+            <p id="ageDisplay">30</p>
+        
+            <button type="button" onclick="toggleEdit()">Change</button> <!--uses the change function to go from uneditable to editable-->
+            <button type="button" onclick="saveChanges()">save</button> <!--uses the Savechanges function to go from editable to uneditable and save it-->
+        </div>
+
+      <div class="column-right"> <!--right column with the ability to choose a picture with the displayprofilepic-->
+        <label for="photo">Change Profile Picture:</label>
+        <input type="file" name="photo" id="photo" onchange="displayProfilePic()">
+        <img src="#" alt="Profile Picture" style="display: none;" id="profilePic">
+      </div>
+    </form>
+  </div>
+
+{% endblock %}
