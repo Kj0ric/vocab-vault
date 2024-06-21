@@ -1,0 +1,20 @@
+{% extends "MasterTemplate.html" %}
+{% load static %}
+
+{% block cssfile %}
+<link rel="stylesheet" href="{% static 'WordlePageCss.css' %}"> 
+{% endblock %}
+
+
+{% block jsfile %}
+<script type="text/javascript" src="{% static 'WordlePageJS.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+
+<button onclick="refresh()">New puzzle</button>
+<p>Try opening this in an incognito tab if the puzzle has the same answer every time</p>
+<p>This way of randomly selecting a word is only used for this frontend prototype and will be changed in the final version</p>
+
+{% endblock %}
