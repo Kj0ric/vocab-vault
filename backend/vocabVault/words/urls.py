@@ -20,17 +20,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('homepage/', views.homepage, name='home'),
+    path('', views.homepage, name='home'),
+    # path('homepage/', views.homepage, name='home'),
     path('members/', views.members, name='members'),
     path('searchresults/', views.searchresults, name='searchresults'),
     path('account/', views.account, name='account'),
     path('addnewword/', views.addword, name='addword'),
     path('favorites/', views.favorites, name='favorites'),
     path('flashcards/', views.flashcards, name='flashcards'),
-    path('login/', views.login, name='login'),
     path('quizzes/', views.quizzes, name='quizzes'),
-    path('register/', views.register, name='register'),
     path('wordle/', views.wordle, name='wordle'),
+    
 
 
 

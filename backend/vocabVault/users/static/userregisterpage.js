@@ -164,6 +164,61 @@ function goToHomePage() {
     window.location.href = "../HomePage/HomePage.html";  // Redirect to HomePage.html
   }
 
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        register();
+    });
+});
+
 function register() {
-    window.location.href = "../accountpage/accountpage.html";
+    const form = document.querySelector('form');
+    const formData = new FormData(form); // Create a FormData object from the form
+    const csrftoken = getCookie('csrftoken'); // Get the CSRF token from the cookies
+
+    // Send a fetch request containing username and password
+    fetch(form.action, {
+        method: 'POST',
+        body: formData, // Send form data to backend
+        headers: {
+            'X-CSRFToken': csrftoken
+        }
+    })
+    .then(response => {
+        // Check if the response status is 201 (Created)
+        if (response.status === 201) {
+            // If server returns a success status (201 Created), redirect to the login page
+            window.location.href = "userloginpage.html";
+        } else if (response.status === 400) {
+            // Handle 400 Bad Request response
+            return response.json().then(data => {
+                console.error('Registration Error:', data.errors || data.error);
+                // Optionally, update the UI to display the error messages
+            });
+        } else {
+            // Handle other unexpected response statuses
+            console.error('Unexpected response status:', response.status);
+        }
+    })
+    .catch(error => {
+        // Handle any errors from fetch or data processing
+        console.error('Error:', error);
+    });
 }

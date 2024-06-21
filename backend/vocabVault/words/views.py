@@ -3,10 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 def homepage(request):
-
-  template = loader.get_template('HomePage.html')
-
-  return HttpResponse(template.render())
+  return render(request, 'HomePage.html')
 
 def searchresults(request):
    
@@ -38,21 +35,9 @@ def flashcards(request):
 
   return HttpResponse(template.render())
 
-def login(request):
-
-  template = loader.get_template('loginpage.html')
-
-  return HttpResponse(template.render())
-
 def quizzes(request):
 
   template = loader.get_template('QuizzesPage.html')
-
-  return HttpResponse(template.render())
-
-def register(request):
-
-  template = loader.get_template('registerpage.html')
 
   return HttpResponse(template.render())
 

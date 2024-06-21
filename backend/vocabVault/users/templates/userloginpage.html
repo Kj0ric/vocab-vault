@@ -1,0 +1,39 @@
+{% extends "MasterTemplate.html" %}
+{% load static %}
+
+{% block cssfile %}
+<link rel="stylesheet" href="{% static 'userloginpage.css' %}"> 
+{% endblock %}
+
+
+{% block jsfile %}
+<script type="text/javascript" src="{% static 'userloginpage.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+
+
+<h2>Login Form</h2>
+<!--container to position image-->
+<div class="imgcontainer">
+    <img src="profile.png" alt="Avatar" class="avatar">
+</div>
+
+<div class="container"> <!--container for the passwords positioning-->
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" id="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" id="psw" required>
+        
+    <button type="submit" onclick="checkLogin()">Login</button> <!--uses check login function to verify password and username-->
+    <label>
+    <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+</div>
+<!--seperate container for the cancel button-->
+<div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button> <!--using gotohompage function to go to homepage-->
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "MasterTemplate.html" %}
+{% load static %}
+
+{% block cssfile %}
+<link rel="stylesheet" href="{% static 'userregisterpage.css' %}"> 
+{% endblock %}
+
+
+{% block jsfile %}
+<script type="text/javascript" src="{% static 'userregisterpage.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+
+<h2>Register Form</h2> <!--Uses the same structure as the log in page-->
+
+<!--image container for positioning of the image-->
+<div class="imgcontainer">
+    <img src="{% static 'profile.png' %}" alt="Avatar" class="avatar">
+</div>
+
+<!--container with the elements to sign up-->
+<form method="post" action="{% url 'users:register' %}" id="registerForm">
+    {% csrf_token %}
+    <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" id="uname" name="username" required>
+
+        <label for="psw"><b>Password</b></label>
+        <div>&nbsp;</div>
+        <div>Password should contain at least 12 characters.</div>
+        <div> Use a combo of uppercase letters, lowercase letters, numbers, and even some special characters (!, @, $, %, ^, &, *, +, #)</div>
+        <input type="password" placeholder="Enter Password" id="psw" name="password1" required>
+
+        <label for="psw-repeat"><b>Repeat Password</b></label>
+        <input type="password" placeholder="Repeat Password" id="psw-repeat" name="password2" required>
+        {{ form.password2.errors }}
+            
+        <button type="submit" id="registerButton">Register</button> <!--function redirecting you to the accountpage-->
+    </div>
+
+<div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button> <!--cancel button sending you back to the homepage-->
+</div>
+{% endblock %}
