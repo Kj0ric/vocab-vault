@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+  
+/* This changes the style of the navigation bar*/
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  border-radius: 8px;
+}
+  
+/* This changes the style of the normal buttons of the navigation bar */
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* This makes the buttons turn red when they are being hovered over */
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+/* This changes the style of the search bar*/
+.navbar input[type= text] {
+  float: left;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 8px;
+  margin-left: 8px;
+  font-size: 17px;
+  width: 80px;
+  border-radius: 5px;
+}
+
+/* This changes the style of the navbar when the user scrolls down (makes the navbar stay in the top of the screen rather than vanishing)*/
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* This makes the text and navbar not overlap */
+.sticky + .content {
+  padding-top: 60px;
+} 
+
+.sticky .dropdown-content{
+  position: fixed;
+}
+
+/* This changes the style of the dropdown menus in the navigation bar*/
+.dropdown {
+  float: left;
+  overflow: hidden;
+} 
+  
+/* This changes the style of the dropdown menus in the navigation bar*/
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+  
+/* This changes the style of the buttons in the dropdown menus*/
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+  
+/* This changes the style of the text in the buttons of the dropdown menus*/
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* This turns the buttons in the dropdown menus grey when hovered over */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* This makes dropdown menu content visible when hovered over */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+  
+/* This makes the account button be at the right side of the navbar */
+#accountButton {
+  float: right;
+}
+
+/* This makes the log_in button be at the right side of the navbar*/
+#log_in {
+  float: right;
+}
+
+/* This changes the style of the variables displaying text in the down right corner*/
+.window-size {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+
