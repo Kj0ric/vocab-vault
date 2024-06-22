@@ -22,6 +22,7 @@ from django.shortcuts import redirect
 from users import views as users_views 
 
 
+appname = 'words'
 urlpatterns = [
     path('homepage/', views.homepage, name='home'),
     path('select_language/<str:language>/', views.select_language, name='select_language'),
@@ -34,9 +35,9 @@ urlpatterns = [
     path('flashcards/', views.flashcards, name='flashcards'),
     path('quizzes/', views.quizzes, name='quizzes'),
     path('wordle/', views.wordle, name='wordle'),
-    
-
-    
+    path('', views.index, name='index'),
+    path('word/<int:word_id>/', views.wordDetail, name='wordDetail'),
+    path('get_words/', views.get_words, name='getWords'),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

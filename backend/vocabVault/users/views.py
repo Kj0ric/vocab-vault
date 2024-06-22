@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-import logging
 from django.utils import timezone
+from .models import FavoriteWord
 
 # Create your views here.
 def user_register(request):
@@ -21,11 +21,6 @@ def user_register(request):
                 # Create a new user instance and save it to the database
                 new_user = User.objects.create_user(username=username, password=password)
                 new_user.save() # Save it to the database
-                
-                # Create a UserProfile instance for the new user
-                # new_profile = UserProfile(user=new_user)
-                # new_profile.save()
-                
                 # Return a 201 Created status code and a JSON object representing the user
                 return JsonResponse({'username': new_user.username, 'id': new_user.id},  status=201)
             
@@ -34,7 +29,7 @@ def user_register(request):
                 return JsonResponse({'error': e.messages[0]}, status=400)
         else:
             # Instead of rendering the form with errors, send back the errors as JSON
-            errors = form.errors.as_json()
+            errors = {field: error.get_json_data() for field, error in form.errors.items()}
             return JsonResponse({'errors': errors}, status=400)
     else: # If the request.method == 'GET', render the page with empty form
         form = UserCreationForm() 
@@ -42,49 +37,38 @@ def user_register(request):
         
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST.get('uname')
-        password = request.POST.get('psw')
-        
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         
         if user is not None:
             login(request, user)
-            messages.success(request, 'You have successfully logged in.')
-            return redirect('favorites')  # Replace 'favorites' with the name of your favorites page URL
-
+            return JsonResponse({'message': 'You have successfully logged in.', 'username': username}, status=200) 
         else:
-            messages.error(request, 'Invalid username or password.')
+            # Return an 'invalid login' error message.
+            return JsonResponse({'error': 'Invalid username or password.'}, status=400)
+        
+    elif request.method == 'GET':
+        # Display the login page when the request is a GET request
+        return render(request, 'userloginpage.html')
 
-    return render(request, 'userloginpage.html')
-    
-# def user_logout(request):
-from django.contrib.auth.decorators import login_required
-from .models import FavoriteWord
+def user_logout(request):
+    logout(request)
+    return redirect('/homepage')
 
-@login_required
-def favorite_words(request):
-    favorites = FavoriteWord.objects.filter(user=request.user)
-    return render(request, 'FavoritesPage.html', {'favorites': favorites})
+def delete_favorite(request, favorite_id):
+    if request.method == 'POST':
+        try:
+            favorite = FavoriteWord.objects.get(id=favorite_id)
+            favorite.delete()  # Delete the favorite word
+        except FavoriteWord.DoesNotExist:
+            # Handle case where the favorite word does not exist
+            pass
+    return redirect('favorites_page')  #
 
-@login_required
-def add_favorite(request, word):
-    FavoriteWord.objects.create(user=request.user, word=word)
-    return redirect('favorite_words')
-
-@login_required
-def remove_favorite(request, pk):
-    FavoriteWord.objects.filter(pk=pk, user=request.user).delete()
-    return redirect('favorite_words')
-
-logger = logging.getLogger(__name__)
-
-@login_required
 def show_favorite_words(request):
-    # Retrieve the authenticated user
-    user = request.user
-
-    # Query the favorite words specific to the user
-    favorite_words = FavoriteWord.objects.filter(user=user)
+    # Placeholder logic for retrieving all favorite words (replace with actual query logic)
+    favorite_words = FavoriteWord.objects.all()
 
     # Pass the favorite words to the template for rendering
     return render(request, 'FavoritesPage.html', {'favorite_words': favorite_words})

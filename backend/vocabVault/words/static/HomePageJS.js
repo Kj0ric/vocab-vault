@@ -56,7 +56,7 @@ function adjustButtonMargins() {
 
 
     // displays the width, height and margin values
-    document.getElementById('windowSize').innerText = `Width: ${width}px, Height: ${height}px, MarginValue: ${marginValue}, SearcBarWidth: ${searchBarWidthNumber}, scrollY: ${window.scrollY}`;
+    // document.getElementById('windowSize').innerText = `Width: ${width}px, Height: ${height}px, MarginValue: ${marginValue}, SearcBarWidth: ${searchBarWidthNumber}, scrollY: ${window.scrollY}`;
 }
 
 function makeNavBarSticky() {
@@ -93,6 +93,23 @@ function combinedScrollFunctions() {
     calendarFunction();
 }
 
+var calendarEl = document.getElementById('calendar');
+var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'today'
+    },
+    handleWindowResize: true,
+    contentHeight: 400,
+    events: [],
+    eventClick: function(info) {
+        window.open(info.event.url);
+        info.jsEvent.preventDefault();
+    }
+});
+
 function calendarFunction() {
     // Get the modal
     var modal = document.getElementById("calendarModal");
@@ -106,43 +123,24 @@ function calendarFunction() {
     // When the user clicks the button, open the modal 
     btn.onclick = function() {
         modal.style.display = "block";
-        //Initialize the calendar
-        var calendarEl = document.getElementById('calendar');
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        headerToolbar: {
-            left: 'prev,next',
-            center: 'title',
-            right: 'today'
-        },
-        handleWindowResize: true,
-        contentHeight: 400,
-        events: [
-            {
-                title: 'Word of the day',
-                start: '2024-06-13', 
-                url: '../Favorite1Page/Favorite1Page.html'
-            },
-            {
-                title: 'Word of the day',
-                start: '2024-06-14', 
-                url: '../Favorite2Page/Favorite2Page.html'
-            },
-            {
-                title: 'Word of the day',
-                start: '2024-06-15', 
-                url: '../Favorite3Page/Favorite3Page.html'
-            }
-        ],
-        eventClick: function(info) {
-            window.open(info.event.url);
-            info.jsEvent.preventDefault();
-        }
-        });
-    
+        
+        // Render the calendar
         calendar.render();
+
+        $.ajax({
+            url: '/get_words/',
+            type: 'GET',
+            success: function(response) {
+                console.log('Response:', response);
+                //var words = JSON.parse(response);
+                // Update the events of the calendar
+                calendar.removeAllEvents(); // Remove old events
+                calendar.addEventSource(response); // Add new events
+            }
+        });
     }
+
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
@@ -155,6 +153,7 @@ function calendarFunction() {
         }
     }
 }
+
 window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
 window.onload = combinedScrollFunctions; //activates the combinedScrollFunctions function when the browser loads
 window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling

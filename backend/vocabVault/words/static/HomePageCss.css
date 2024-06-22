@@ -92,10 +92,15 @@ body {
     float: right;
   }
 
-/* This makes the log_in button be at the right side of the navbar*/
-#log_in {
-  float: right;
-}
+  /* This makes the favorites button be at the right side of the navbar */
+  #favorites {
+    float: right;
+  }
+  
+  /* This makes the log_in button be at the right side of the navbar*/
+  #log_in {
+    float: right;
+  }
 
   /* This styles the Calendar button */
   .floatingButtonCalendar {
@@ -112,7 +117,7 @@ body {
     height: 70px;
     border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
-    background-image: url(../images/calendar-icon.png);
+    background-image: url('/static/images/calendar-icon.png');
     background-repeat: no-repeat; /* The background image will not repeat. */
     background-position: center;
     background-size: 60%;
@@ -134,11 +139,11 @@ body {
     color: white;
     border: none;
     cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
-    background-image: url(../images/plus-icon.png);
+    background-image: url(/static/images/plus-icon.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 60%;

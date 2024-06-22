@@ -5,6 +5,11 @@ from .models import Words, FrenchWord, GermanWord
 from users.models import FavoriteWord
 from datetime import date
 from django.contrib.sessions.models import Session
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from django.core import serializers
+import datetime
 from django.contrib.auth.models import User
 from django.utils import timezone
 
@@ -52,9 +57,9 @@ def searchresults(request):
 
 def account(request):
    
-  template = loader.get_template('accountpage.html')
+  #template = loader.get_template('accountpage.html')
 
-  return HttpResponse(template.render())
+  return render(request, 'accountpage.html')
 
 def addword(request):
     if request.method == 'POST':
@@ -106,11 +111,13 @@ def flashcards(request):
 
   return HttpResponse(template.render())
 
+
 def quizzes(request):
 
   template = loader.get_template('QuizzesPage.html')
 
   return HttpResponse(template.render())
+
 
 def wordle(request):
 
@@ -130,3 +137,50 @@ def delete_favorite(request, favorite_id):
             # Handle case where the favorite word does not exist
             pass
     return redirect('/favorites')  
+
+
+def index(request):
+    print('ah yes something')
+    queryset = Words.objects.all()
+    query = request.GET.get('search')
+    print(f"Seach query: {query}")
+    if query:
+        queryset = queryset.filter(
+            Q(phonetic__icontains=query) |
+            Q(meaning__icontains=query) |
+            Q(function__icontains=query) |
+            Q(word__icontains=query) |
+            Q(date__icontains=query)
+            
+        )
+    print(f"Queryset: {queryset}")
+    context = {
+        "object_list": queryset,
+    }
+    return render(request, "newSearchResults.html", context)
+
+
+def wordDetail(request, word_id):
+
+  word = get_object_or_404(Words, pk=word_id)
+
+  today_formatted = word.date
+
+  return render(request, 'HomePage.html', {'word_of_the_day': word, 'today_formatted': today_formatted,})
+
+
+
+
+def get_words(request):
+    words = Words.objects.all()
+    words_list = []
+    for word in words:
+      
+       date = datetime.datetime.strptime(word.date, '%d/%m/%Y').strftime('%Y-%m-%d')
+       words_list.append({
+          'title': word.word,
+          'start': date,
+          'url': f'/word/{word.id}/'
+       })
+    
+    return JsonResponse(words_list, safe=False)

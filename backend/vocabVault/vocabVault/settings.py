@@ -73,7 +73,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "vocabVault.wsgi.application"
 
 
-# Database
+# Database Accra.17@
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
@@ -86,7 +86,6 @@ DATABASES = {
         'PORT': '5432'
     }
 }
-
 
 
 # Password validation

@@ -22,9 +22,6 @@
 
 <!---This object is the navigation bar in the top of the website-->
 <div class="navbar" id="navbar">
-    <!---This is the home button-->
-    <a href="{% url 'home' %}">Home</a>
-    
     <!---This is the Languages dropdown menu-->
     <div class="dropdown">
         <button class="dropbtn" href="frontend\Test document.html">Languages 
@@ -35,7 +32,6 @@
         <a href="#link2">French</a>
         <a href="#link3">German</a>
         </div>
-        
     </div> 
     
     <!---This is the search bar-->
@@ -45,32 +41,38 @@
         </form>
     </div> 
     
-    <!---This is the Login button-->
-    <a href="{% url 'users:login' %}" id="log_in">Log in</a>
+    <!--Home button-->
+    <a href="{% url 'home' %}" id="home">Home</a>
     
-    <!---This is the Account dropdown menu-->
-    <div id="accountButton" class="dropdown">
-        <button  class="dropbtn" href="#account">Account 
-        <i  class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-        <a href="{% url 'account' %}">Account</a>
-        <a href="{% url 'quizzes' %}">Quizzes</a>
-        <a href="{% url 'favorites' %}">Favorites</a>
-        <a href="{% url 'users:login' %}">login</a>
-        <a href="{% url 'register' %}">register</a>
-        </div>
-        
-    </div> 
-    
+    {% if not user.is_authenticated %}
+    <!-- Links to show when the user is not logged in -->
+        <a href="{% url 'users:login' %}" id="log_in">Log in</a>
+        <a href="{% url 'users:register' %}">Register</a>
+    {% else %}
+        <!-- Links to show when the user is logged in -->
+        <!--Add button-->
+        <a href="{% url 'addword' %}"class="floatingButtonAdd"></a>
+
+        <!---This is the Account dropdown menu-->
+        <div id="accountButton" class="dropdown">
+            <button  class="dropbtn" href="#account">Account 
+            <i  class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+            <a href="{% url 'account' %}">Account</a>
+            <a href="{% url 'quizzes' %}">Quizzes</a>
+            <a href="{% url 'favorites' %}">Favorites</a>
+            <!-- Logout Button -->
+            <a href={% url "users:logout" %} class="logoutButton">Logout</a>
+            </div>
+        </div> 
+    {% endif %}
 </div>
 
-{% block content %}{% endblock %}
-
-<!--Calendar and Add button elements-->
-<a href="{% url 'addword' %}"class="floatingButtonAdd"></a>
+<!--Calendar button-->
 <a class="floatingButtonCalendar"></a>
 
+<!--Calendar modal-->
 <div id="calendarModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span> <!--Clickable 'X' element-->
@@ -78,7 +80,7 @@
     </div>
 </div>
 
-
+{% block content %}{% endblock %}
 
 </body>
 </html>

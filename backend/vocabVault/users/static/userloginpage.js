@@ -162,9 +162,18 @@ window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctio
 
 
 function goToHomePage() {
-    window.location.href = "../HomePage/HomePage.html";  // Redirect to HomePage.html
-  }
+    // check for a cookie named 'isLoggedIn'
+    const isLoggedIn = document.cookie.split(';').some((item) => item.trim().startsWith('isLoggedIn='));
 
+    if (isLoggedIn) {
+        // User is logged in, redirect to the homepage or modify it as needed
+        window.location.href = "../HomePage/HomePage.html";  // Redirect to HomePage.html
+    } else {
+        // User is not logged in, redirect to the homepage or modify it as needed
+        window.location.href = "../HomePage/HomePage.html";  // Redirect to HomePage.html
+        // You might want to modify the homepage differently for not logged in users
+    }
+  }
 
 function getCookie(name) {
     let cookieValue = null;
@@ -187,30 +196,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function login() {
     const loginForm = document.getElementById('loginForm');
+    const errorMessageDisplay = document.getElementById('errorMessage'); 
+
     loginForm.addEventListener('submit', function(e) {
         e.preventDefault()
         
         const formData = new FormData(loginForm);
-
+        
+        // Clear previous messages
+        document.getElementById('errorMessage').textContent = '';
+        document.getElementById('successMessage').textContent = '';
+        
         fetch(loginForm.action, {
             method: 'POST', 
             body: formData,
             headers: {
                 'X-CSRFToken': getCookie('csrftoken')
             },
+            credentials: 'include',
         })
-        .then(response => {
-            if (response.ok) {
-                // If the response status code is 200-299, it means login was successful
-                window.location.href =  "/homepage"; 
-            } else {
-                // Handle unsuccessful login attempt
-                return response.json(); // Assuming the server sends back a JSON with an error message
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                const successMessageElement = document.getElementById('successMessage');
+                successMessageElement.innerHTML = 'Successfully logged in. Go to homepage.';
+                successMessageElement.style.display = 'block';
+
+                // Wait for 2 seconds before redirecting
+                setTimeout(() => {
+                    window.location.href = "/homepage";
+                }, 2000); 
+
+            } else if (data.error) {
+                // If there is an error message, display it
+                errorMessageDisplay.textContent = data.error; // Update the text content of the error message display
+                errorMessageDisplay.style.display = 'block'; // Make sure the error message is visible
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred. Please try again.');
+            errorMessageDisplay.textContent = error; 
+            errorMessageDisplay.style.display = 'block'; // Make sure the error message is visible
         });
     });
 };
