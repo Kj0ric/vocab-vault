@@ -47,14 +47,12 @@ def user_login(request):
         
         if user is not None:
             login(request, user)
-            messages.success(request, 'You have successfully logged in.')  # Add success message
-            return redirect('Homepage.html')  
-
+            return JsonResponse({'message': 'You have successfully logged in.', 'username': username}, status=200) 
         else:
             # Return an 'invalid login' error message.
             messages.error(request, 'Invalid username or password.')
 
-    # If request is not POST, or the login was not successful, render the login page again
-    return render(request, 'userloginpage.html')
-    
+    # If the request is not POST, inform the client that the method is not allowed
+    return JsonResponse({'error': 'Method not allowed. Please use POST.'}, status=405)    
+
 # def user_logout(request):
