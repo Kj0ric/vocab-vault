@@ -48,7 +48,8 @@
     <!-- Links to show when the user is not logged in -->
         <a href="{% url 'users:login' %}" id="log_in">Log in</a>
         <a href="{% url 'users:register' %}">Register</a>
-    {% else %}
+    
+        {% else %}
     <!-- Links to show when the user is logged in -->
     <!--Add button-->
     <a href="{% url 'addword' %}"class="floatingButtonAdd"></a>
