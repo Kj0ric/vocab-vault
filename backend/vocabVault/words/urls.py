@@ -19,6 +19,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+appname = 'words'
 urlpatterns = [
     path('homepage/', views.homepage, name='home'),
     path('select_language/<str:language>/', views.select_language, name='select_language'),
@@ -30,14 +31,6 @@ urlpatterns = [
     path('flashcards/', views.flashcards, name='flashcards'),
     path('quizzes/', views.quizzes, name='quizzes'),
     path('wordle/', views.wordle, name='wordle'),
-    
-
-
-
-    
-
-
-    
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

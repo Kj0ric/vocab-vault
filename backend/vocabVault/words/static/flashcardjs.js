@@ -56,7 +56,7 @@ function adjustButtonMargins() {
 
 
     // displays the width, height and margin values
-    document.getElementById('windowSize').innerText = `Width: ${width}px, Height: ${height}px, MarginValue: ${marginValue}, SearcBarWidth: ${searchBarWidthNumber}, scrollY: ${window.scrollY}`;
+    // document.getElementById('windowSize').innerText = `Width: ${width}px, Height: ${height}px, MarginValue: ${marginValue}, SearcBarWidth: ${searchBarWidthNumber}, scrollY: ${window.scrollY}`;
 }
 
 function makeNavBarSticky() {
@@ -91,30 +91,6 @@ function combinedScrollFunctions() {
     makeNavBarSticky();
     adjustButtonMargins();
     calendarFunction();
-}
-
-window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
-window.onload = combinedScrollFunctions; //activates the adjustButtonMargins function when the browser loads
-window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
-
-let currentFlashcard = 1;
-const totalFlashcards = 4; // Update this if you add more flashcards
-
-function nextFlashcard() {
-    document.getElementById('flashcard' + currentFlashcard).style.display = 'none';
-    currentFlashcard = (currentFlashcard % totalFlashcards) + 1;
-    document.getElementById('flashcard' + currentFlashcard).style.display = 'block';
-}
-
-function previousFlashcard() {
-    document.getElementById('flashcard' + currentFlashcard).style.display = 'none';
-    if (currentFlashcard === 1){
-        currentFlashcard = totalFlashcards
-    }
-    else{
-        currentFlashcard -= 1;
-    }
-    document.getElementById('flashcard' + currentFlashcard).style.display = 'block';
 }
 
 function calendarFunction() {
@@ -178,4 +154,26 @@ function calendarFunction() {
             modal.style.display = "none";
         }
     }
+}
+window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
+window.onload = combinedScrollFunctions; //activates the combinedScrollFunctions function when the browser loads
+window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
+let currentFlashcard = 1;
+const totalFlashcards = 4; // Update this if you add more flashcards
+
+function nextFlashcard() {
+    document.getElementById('flashcard' + currentFlashcard).style.display = 'none';
+    currentFlashcard = (currentFlashcard % totalFlashcards) + 1;
+    document.getElementById('flashcard' + currentFlashcard).style.display = 'block';
+}
+
+function previousFlashcard() {
+    document.getElementById('flashcard' + currentFlashcard).style.display = 'none';
+    if (currentFlashcard === 1){
+        currentFlashcard = totalFlashcards
+    }
+    else{
+        currentFlashcard -= 1;
+    }
+    document.getElementById('flashcard' + currentFlashcard).style.display = 'block';
 }
