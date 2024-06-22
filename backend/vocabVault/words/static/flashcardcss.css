@@ -75,7 +75,7 @@ body {
   }
   
   /* This changes the style of the search bar*/
-  .navbar input[type= text] {
+  #searchbar {
     float: left;
     padding: 6px;
     border: none;
@@ -85,6 +85,7 @@ body {
     font-size: 17px;
     width: 80px;
     border-radius: 5px;
+    display: unset;
   }
 
   /* This makes the account button be at the right side of the navbar */
