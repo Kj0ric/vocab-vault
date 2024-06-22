@@ -112,7 +112,7 @@ body {
     height: 70px;
     border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
-    background-image: url(../images/calendar-icon.png);
+    background-image: url('/static/images/calendar-icon.png');
     background-repeat: no-repeat; /* The background image will not repeat. */
     background-position: center;
     background-size: 60%;
@@ -138,7 +138,7 @@ body {
     height: 70px;
     border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
-    background-image: url(../images/plus-icon.png);
+    background-image: url('/static/images/plus-icon.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 60%;
@@ -195,7 +195,7 @@ body {
   cursor: pointer;
   width: 100px;
   border-radius: 16px;  
-  background-image: url(../images/Flashcards.png);
+  background-image: url('/static/images/Flashcards.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 400px 400px;
@@ -229,7 +229,7 @@ body {
   cursor: pointer;
   width: 100px;
   border-radius: 16px;  
-  background-image: url(../images/wordle.png);
+  background-image: url('/static/images/wordle.png');
   background-repeat: no-repeat;
   background-position: center;
   background-position-y: 70px;

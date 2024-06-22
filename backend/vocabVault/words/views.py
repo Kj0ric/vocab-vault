@@ -71,11 +71,13 @@ def flashcards(request):
 
   return HttpResponse(template.render())
 
+
 def quizzes(request):
 
   template = loader.get_template('QuizzesPage.html')
 
   return HttpResponse(template.render())
+
 
 def wordle(request):
 
