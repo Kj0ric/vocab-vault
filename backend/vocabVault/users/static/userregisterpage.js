@@ -161,19 +161,8 @@ window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctio
 
 
 function goToHomePage() {
-    window.location.href = "../HomePage/HomePage.html";  // Redirect to HomePage.html
+    window.location.href = "/homepage";  // Redirect to HomePage.html
   }
-
-/* 
-var form;
-document.addEventListener('DOMContentLoaded', function() {
-    form = document.querySelector('form');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
-        register();
-    });
-});
- */
 
 function getCookie(name) {
     let cookieValue = null;
@@ -203,6 +192,10 @@ function register() {
         const formData = new FormData(form);
         const url = form.action;
 
+        // Clear previous messages
+        document.getElementById('errorMessage').textContent = '';
+        document.getElementById('successMessage').textContent = '';
+
         fetch(url, {
             method: 'POST',
             body: formData,
@@ -210,22 +203,51 @@ function register() {
                 'X-CSRFToken': getCookie('csrftoken')
             },
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
-            // Hide the registration form
-            document.getElementById('registerForm').style.display = 'none';
-            // Display the success message
-            document.getElementById('successMessage').style.display = 'block';
+
+            if(data.errors) {
+                let allErrorMessages = '';
+                for (const field in data.errors) {
+                    const errorMessages = data.errors[field];
+                    // Check if errorMessages is an array
+                    if (Array.isArray(errorMessages)) {
+                        // If it is an array, iterate over it
+                        errorMessages.forEach(error => {
+                            allErrorMessages += error.message + '\n';
+                        });
+                    } else if (typeof errorMessages === 'string') {
+                        // If it's a string, try to parse it as JSON
+                        try {
+                            const parsedErrorMessages = JSON.parse(errorMessages.replace(/ /g, ''));
+                            if (Array.isArray(parsedErrorMessages)) {
+                                parsedErrorMessages.forEach(error => {
+                                    allErrorMessages += error.message + '\n';
+                                });
+                            }
+                        } catch (e) {
+                            // If parsing fails, use the string directly
+                            allErrorMessages += errorMessages + '\n';
+                        }
+                    } else {
+                        // If it's not an array or string, directly append it
+                        allErrorMessages += errorMessages + '\n';
+                    }
+                }
+                const errorMessageElement = document.getElementById('errorMessage');
+
+                errorMessageElement.textContent = allErrorMessages; // Display the backend error message
+                errorMessageElement.style.display = 'block'; // Ensure it's visible
+            } else {
+                console.log('Success:', data);
+                const successMessageElement = document.getElementById('successMessage');
+                successMessageElement.innerHTML = 'Successfully logged in. Go to Login page.';
+                successMessageElement.style.display = 'block';
+            }
         })
-        .catch((error) => {
+        .catch(error => {
+            // Handle network errors
             console.error('Error:', error);
-            console.log(error)
         });
     });
 }

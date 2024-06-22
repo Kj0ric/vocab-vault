@@ -33,7 +33,7 @@ def user_register(request):
                 return JsonResponse({'error': e.messages[0]}, status=400)
         else:
             # Instead of rendering the form with errors, send back the errors as JSON
-            errors = form.errors.as_json()
+            errors = {field: error.get_json_data() for field, error in form.errors.items()}
             return JsonResponse({'errors': errors}, status=400)
     else: # If the request.method == 'GET', render the page with empty form
         form = UserCreationForm() 
@@ -53,6 +53,8 @@ def user_login(request):
             messages.error(request, 'Invalid username or password.')
             
     # If the request is not POST, inform the client that the method is not allowed
-    return render(request, 'login.html')  
+    return render(request, 'userloginpage.html')  
 
-# def user_logout(request):
+def user_logout(request):
+    logout(request)
+    return redirect('homepage.html')
