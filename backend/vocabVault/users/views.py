@@ -89,14 +89,16 @@ def restore_favorite(request, favorite_id):
         favorite.save()
     return redirect('favorites_page')
 
-def show_favorite_words(request):
-    # Placeholder logic for retrieving all favorite words (replace with actual query logic)
-    favorite_words = FavoriteWord.objects.all()
+def show_favorites(request):
+    if request.user.is_authenticated:
+        # Filter favorites for the currently logged-in user
+        user_favorites = FavoriteWord.objects.filter(user=request.user)
 
-    # Debugging print statement to log number of favorite words
-    print(f"Number of favorite words: {len(favorite_words)}")
-
-    context = {
-        'favorite_words': favorite_words,
-    }
-    return render(request, 'FavoritesPage.html', context)
+        # Pass the user-specific favorites to the template for display
+        context = {
+            'user_favorites': user_favorites
+        }
+        return render(request, 'favorites_template.html', context)
+    else:
+        # Handle the case when the user is not authenticated (e.g., redirect to login)
+        return render(request, 'login.html')
