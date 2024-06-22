@@ -1,0 +1,29 @@
+{% extends "MasterTemplate.html" %}
+{% load static %}
+
+{% block cssfile %}
+<link rel="stylesheet" href="{% static 'FavoritesPageCss.css' %}"> 
+{% endblock %}
+
+
+{% block jsfile %}
+<script type="text/javascript" src="{% static 'FavoritesPageJS.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+<h1 id="NewWordTitle">Favorites</h1>
+
+{% for favorite in favorite_words %}
+    <div class="FavoriteEntry" class="TextContainer">
+        <p>{{ favorite.word }}</p>
+        <p>{{ favorite.meaning }}</p>
+        <!-- Add a form for delete action -->
+        <form action="{% url 'delete_favorite' favorite.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+{% endfor %}
+
+{% endblock %}

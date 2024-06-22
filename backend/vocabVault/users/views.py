@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
+from django.utils import timezone
+from .models import FavoriteWord
 
 # Create your views here.
 def user_register(request):
@@ -20,7 +21,6 @@ def user_register(request):
                 # Create a new user instance and save it to the database
                 new_user = User.objects.create_user(username=username, password=password)
                 new_user.save() # Save it to the database
-                
                 # Return a 201 Created status code and a JSON object representing the user
                 return JsonResponse({'username': new_user.username, 'id': new_user.id},  status=201)
             
@@ -54,4 +54,14 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('homepage.html')
+    return redirect('/homepage')
+
+def delete_favorite(request, favorite_id):
+    if request.method == 'POST':
+        try:
+            favorite = FavoriteWord.objects.get(id=favorite_id)
+            favorite.delete()  # Delete the favorite word
+        except FavoriteWord.DoesNotExist:
+            # Handle case where the favorite word does not exist
+            pass
+    return redirect('favorites_page')  #
