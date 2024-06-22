@@ -65,3 +65,40 @@ def delete_favorite(request, favorite_id):
             # Handle case where the favorite word does not exist
             pass
     return redirect('favorites_page')  #
+
+def show_favorite_words(request):
+    # Placeholder logic for retrieving all favorite words (replace with actual query logic)
+    favorite_words = FavoriteWord.objects.all()
+
+    # Pass the favorite words to the template for rendering
+    return render(request, 'FavoritesPage.html', {'favorite_words': favorite_words})
+
+
+def soft_delete_favorite(request, favorite_id):
+    favorite = FavoriteWord.objects.get(id=favorite_id)
+    favorite.is_deleted = True
+    favorite.deleted_at = timezone.now()
+    favorite.save()
+    return redirect('favorites_page')
+
+def restore_favorite(request, favorite_id):
+    favorite = FavoriteWord.objects.get(id=favorite_id)
+    if favorite.is_deleted and (timezone.now() - favorite.deleted_at).days <= 1:
+        favorite.is_deleted = False
+        favorite.deleted_at = None
+        favorite.save()
+    return redirect('favorites_page')
+
+def show_favorites(request):
+    if request.user.is_authenticated:
+        # Filter favorites for the currently logged-in user
+        user_favorites = FavoriteWord.objects.filter(user=request.user)
+
+        # Pass the user-specific favorites to the template for display
+        context = {
+            'user_favorites': user_favorites
+        }
+        return render(request, 'favorites_template.html', context)
+    else:
+        # Handle the case when the user is not authenticated (e.g., redirect to login)
+        return render(request, 'login.html')
