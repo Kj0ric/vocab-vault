@@ -65,3 +65,15 @@ def delete_favorite(request, favorite_id):
             # Handle case where the favorite word does not exist
             pass
     return redirect('favorites_page')  #
+
+def show_favorite_words(request):
+    # Placeholder logic for retrieving all favorite words (replace with actual query logic)
+    favorite_words = FavoriteWord.objects.all()
+
+    # Debugging print statement to log number of favorite words
+    print(f"Number of favorite words: {len(favorite_words)}")
+
+    context = {
+        'favorite_words': favorite_words,
+    }
+    return render(request, 'FavoritesPage.html', context)
