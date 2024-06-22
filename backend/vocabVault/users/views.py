@@ -21,10 +21,6 @@ def user_register(request):
                 new_user = User.objects.create_user(username=username, password=password)
                 new_user.save() # Save it to the database
                 
-                # Create a UserProfile instance for the new user
-                # new_profile = UserProfile(user=new_user)
-                # new_profile.save()
-                
                 # Return a 201 Created status code and a JSON object representing the user
                 return JsonResponse({'username': new_user.username, 'id': new_user.id},  status=201)
             
@@ -41,8 +37,8 @@ def user_register(request):
         
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST.get('uname')
-        password = request.POST.get('psw')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         
         if user is not None:
@@ -50,10 +46,11 @@ def user_login(request):
             return JsonResponse({'message': 'You have successfully logged in.', 'username': username}, status=200) 
         else:
             # Return an 'invalid login' error message.
-            messages.error(request, 'Invalid username or password.')
-            
-    # If the request is not POST, inform the client that the method is not allowed
-    return render(request, 'userloginpage.html')  
+            return JsonResponse({'error': 'Invalid username or password.'}, status=400)
+        
+    elif request.method == 'GET':
+        # Display the login page when the request is a GET request
+        return render(request, 'userloginpage.html')
 
 def user_logout(request):
     logout(request)

@@ -205,7 +205,6 @@ function register() {
         })
         .then(response => response.json())
         .then(data => {
-
             if(data.errors) {
                 let allErrorMessages = '';
                 for (const field in data.errors) {
@@ -241,7 +240,7 @@ function register() {
             } else {
                 console.log('Success:', data);
                 const successMessageElement = document.getElementById('successMessage');
-                successMessageElement.innerHTML = 'Successfully logged in. Go to Login page.';
+                successMessageElement.innerHTML = 'Successfully registered. Go to Login page.';
                 successMessageElement.style.display = 'block';
             }
         })

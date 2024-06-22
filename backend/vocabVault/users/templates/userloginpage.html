@@ -17,25 +17,29 @@
 <h2>Login Form</h2>
 
 <!--container to position image-->
-<div class="imgcontainer">
+{% comment %} <div class="imgcontainer">
     <img src="{% static 'profile.png' %}" alt="Avatar" class="avatar">
-</div>
+</div> {% endcomment %}
 
 <form action="{% url 'users:login' %}" method="post" id="loginForm">
     {% csrf_token %}
     <div class="container"> <!--container for the passwords positioning-->
         <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" id="uname" required>
+        <input type="text" placeholder="Enter Username" id="uname" name="username" required>
 
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" id="psw" required>
+        <input type="password" placeholder="Enter Password" id="psw" name="password" required>
             
+        <div id="errorMessage" style="display:none; color: red;"></div>
+        <div id="successMessage" style="display:none; color: green;"></div>
         <button type="submit">Login</button>
         
         <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
         </label>
+
     </div>
+
 
     <!--seperate container for the cancel button-->
     <div class="container" style="background-color:#f1f1f1">
