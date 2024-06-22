@@ -52,6 +52,8 @@ This repository is also available to clone through github desktop
 ![Architecture diagram](/Screenshot%202024-06-15%20at%2023.18.12.png)
 
 ## How to open the webpage
-To open the webpage, use the 'Open webpage' shortcut.
+To open the webpage, use the 'Open webpage' shortcut. In case it doesn't work,
 
-or active an environment with the requirment.txt files and use the python manage.py runserver command in the vocabVault map
+1. Install the required software in the requirment.txt file
+2. Go into the "vocabVault" directory
+3. Run the "python manage.py runserver" command
