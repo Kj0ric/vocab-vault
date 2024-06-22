@@ -182,6 +182,10 @@ p {
 
 }
 
+#FavoriteEntry {
+  border-radius: 3px;
+}
+
 /* This changes the style of Favorites title */
 #NewWordTitle {
   margin-top: 60px;

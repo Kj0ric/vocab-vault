@@ -5,50 +5,37 @@
 <link rel="stylesheet" href="{% static 'userloginpage.css' %}"> 
 {% endblock %}
 
-
 {% block jsfile %}
 <script type="text/javascript" src="{% static 'userloginpage.js' %}" defer></script>
 {% endblock %}
 
-
 {% block content %}
-
-
 <h2>Login Form</h2>
-
 <!--container to position image-->
 <div class="imgcontainer">
-    <img src="{% static 'profile.png' %}" alt="Avatar" class="avatar">
+    <img src="profile.png" alt="Avatar" class="avatar">
 </div>
 
-<form action="{% url 'users:login' %}" method="post" id="loginForm">
+{% with login_url="/login/" %}
+<form method="post" action="{{ login_url }}">
     {% csrf_token %}
-    <div class="container"> <!--container for the passwords positioning-->
+    <div class="container">
         <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" id="uname" required>
+        <input type="text" placeholder="Enter Username" id="uname" name="uname" required>
 
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" id="psw" required>
+        <input type="password" placeholder="Enter Password" id="psw" name="psw" required>
             
         <button type="submit">Login</button>
-        
         <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
+            <input type="checkbox" checked="checked" name="remember"> Remember me
         </label>
     </div>
-
-    <!--seperate container for the cancel button-->
-    <div class="container" style="background-color:#f1f1f1">
-        <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button> <!--using gotohompage function to go to homepage-->
-    </div>
 </form>
+{% endwith %}
 
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-
-{% endif %}
+<!-- separate container for the cancel button -->
+<div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button> <!-- using goToHomePage function to go to homepage -->
+</div>
 {% endblock %}

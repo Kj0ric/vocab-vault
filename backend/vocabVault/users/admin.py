@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import words
-from .models import *
+from .models import FavoriteWord
 
-admin.site.register(words)
+admin.site.register(FavoriteWord)

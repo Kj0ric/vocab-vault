@@ -18,6 +18,9 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import redirect
+from users import views as users_views 
+
 
 urlpatterns = [
     path('homepage/', views.homepage, name='home'),
@@ -26,16 +29,12 @@ urlpatterns = [
     path('searchresults/', views.searchresults, name='searchresults'),
     path('account/', views.account, name='account'),
     path('addnewword/', views.addword, name='addword'),
-    path('favorites/', views.favorites, name='favorites'),
+    path('favorites/', users_views.show_favorite_words, name='favorites'),
+    path('delete_favorite/<int:favorite_id>/', views.delete_favorite, name='delete_favorite'),
     path('flashcards/', views.flashcards, name='flashcards'),
     path('quizzes/', views.quizzes, name='quizzes'),
     path('wordle/', views.wordle, name='wordle'),
     
-
-
-
-    
-
 
     
     

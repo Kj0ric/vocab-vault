@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from .models import Words, FrenchWord, GermanWord
+from users.models import FavoriteWord
 from datetime import date
 from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
+from django.utils import timezone
 
 def homepage(request):
     # Retrieve the selected language from the session (default to English if not set)
@@ -54,16 +57,48 @@ def account(request):
   return HttpResponse(template.render())
 
 def addword(request):
-   
-  template = loader.get_template('AddNewWord.html')
+    if request.method == 'POST':
+      # Retrieve the form data from the POST request
+      word_name = request.POST.get('word_name')  # Assuming 'word_name' is the name attribute of the word input field
+      # Get other form data like part of speech, pronunciation, meaning here
+      print(1)
+      # Assuming the request.user is the current logged-in user
+      # You might need to check if the user is authenticated before proceeding to save the word
+      if request.user.is_authenticated:
+          print(2)
+          user = request.user
+          # Create a new instance of the FavoriteWord model
+          word_name = request.POST.get('word_name', '')
+          phonetic = request.POST.get('phonetic', '')
+          meaning = request.POST.get('meaning', '')
+          date = request.POST.get('date', '')
+          function = request.POST.get('function', '')
+          # Set other attributes of the new_word instance
+          # For example:
+          # new_word.part_of_speech = request.POST.get('part_of_speech')
+          # new_word.pronunciation = request.POST.get('pronunciation')
+          # new_word.meaning = request.POST.get('meaning')
+          new_word = FavoriteWord(user=user, word=word_name, phonetic=phonetic, meaning=meaning, date=date, function=function)
 
-  return HttpResponse(template.render())
+          # Save the new word to the database
+          new_word.save()
+          print(f"New word submitted: {word_name}")
+
+          # Redirect to a success page or the same page after adding the word
+          return redirect('/favorites')  # Change 'success_page' to the URL name of your success page
+
+      # Return the same template for GET requests or when form submission fails
+    return render(request, 'AddNewWord.html')
 
 def favorites(request):
 
-  template = loader.get_template('FavoritesPage.html')
+  if request.user.is_authenticated:
+    favorites = FavoriteWord.objects.filter(user=request.user)
+    return render(request, 'FavoritesPage.html', {'favorites': favorites})
+  else:
+    return render(request, 'FavoritesPage.html', {'favorites': None})
 
-  return HttpResponse(template.render())
+
 
 def flashcards(request):
 
@@ -85,3 +120,13 @@ def wordle(request):
 
 def members(request):
     return HttpResponse("Hello world!")
+
+def delete_favorite(request, favorite_id):
+    if request.method == 'POST':
+        try:
+            favorite = FavoriteWord.objects.get(id=favorite_id)
+            favorite.delete()  # Delete the favorite word
+        except FavoriteWord.DoesNotExist:
+            # Handle case where the favorite word does not exist
+            pass
+    return redirect('/favorites')  
