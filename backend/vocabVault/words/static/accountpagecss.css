@@ -261,7 +261,7 @@ hr {
 }
 
 /* Styles for form elements */
-form {
+#profileForm {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -293,7 +293,7 @@ label {
 }
 
 /* Styles for input elements in form */
-input, select {
+.photoinput {
   width: 100%;
   padding: 10px;
   margin-bottom: 16px;

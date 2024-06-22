@@ -43,7 +43,7 @@
     <!---This is the search bar-->
     <div type = "search" id="search">
         <form action="{% url 'index' %}" method="get">
-            <input type="text" name="search" placeholder="Search.." value="{{request.GET.title}}">
+            <input clss="searchbar" type="text" name="search" placeholder="Search.." value="{{request.GET.title}}">
         </form>
     </div> 
     
