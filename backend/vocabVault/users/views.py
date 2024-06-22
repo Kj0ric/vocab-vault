@@ -51,8 +51,8 @@ def user_login(request):
         else:
             # Return an 'invalid login' error message.
             messages.error(request, 'Invalid username or password.')
-
+            
     # If the request is not POST, inform the client that the method is not allowed
-    return JsonResponse({'error': 'Method not allowed. Please use POST.'}, status=405)    
+    return render(request, 'login.html')  
 
 # def user_logout(request):

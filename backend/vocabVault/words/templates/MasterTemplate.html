@@ -55,8 +55,8 @@
     
     {% if not is_logged_in %}
     <!-- Links to show when the user is not logged in -->
-        <a href="{% url 'users:login' %}" id="log_in">Log in</a>
-        <a href="{% url 'users:register' %}">Register</a>
+        <a href="{% url 'login' %}" id="log_in">Log in</a>
+        <a href="{% url 'register' %}">Register</a>
     {% else %}
     <!-- Links to show when the user is logged in -->
     <!--Add button-->
