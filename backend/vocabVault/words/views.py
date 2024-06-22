@@ -51,9 +51,9 @@ def searchresults(request):
 
 def account(request):
    
-  template = loader.get_template('accountpage.html')
+  #template = loader.get_template('accountpage.html')
 
-  return HttpResponse(template.render())
+  return render(request, 'accountpage.html')
 
 def addword(request):
    
