@@ -54,4 +54,4 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('homepage.html')
+    return redirect('/homepage')
