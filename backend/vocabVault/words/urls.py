@@ -33,6 +33,7 @@ urlpatterns = [
     path('wordle/', views.wordle, name='wordle'),
     path('', views.index, name='index'),
     path('word/<int:word_id>/', views.wordDetail, name='wordDetail'),
+    path('get_words/', views.get_words, name='getWords'),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
