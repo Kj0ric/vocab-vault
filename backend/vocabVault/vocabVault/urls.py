@@ -21,6 +21,6 @@ from words import views
 
 urlpatterns = [
     path('', include('words.urls')),
-    path('users/', include('users.urls', namespace='users')),
+    path('', include('users.urls', namespace='users')),
     path("admin/", admin.site.urls),
 ]

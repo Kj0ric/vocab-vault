@@ -1,14 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserProfile
 
 
 # Create your views here.
-
 def user_register(request):
     # 'request' contains username and password data
     if request.method == 'POST': 
@@ -23,14 +22,13 @@ def user_register(request):
                 new_user.save() # Save it to the database
                 
                 # Create a UserProfile instance for the new user
-                new_profile = UserProfile(user=new_user)
-                new_profile.save()
+                # new_profile = UserProfile(user=new_user)
+                # new_profile.save()
                 
                 # Return a 201 Created status code and a JSON object representing the user
                 return JsonResponse({'username': new_user.username, 'id': new_user.id},  status=201)
             
             except ValidationError as e:
-                # create_user performs validation (taken usernamce etc.)
                 # Return a 400 Bad Request status code and a message explaining the error
                 return JsonResponse({'error': e.messages[0]}, status=400)
         else:
@@ -42,7 +40,21 @@ def user_register(request):
         return render(request, 'userregisterpage.html', {'form': form})
         
 def user_login(request):
-    form = UserCreationForm()
-    return render(request, 'userloginpage.html', {'form': form})
+    if request.method == 'POST':
+        username = request.POST.get('uname')
+        password = request.POST.get('psw')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'You have successfully logged in.')  # Add success message
+            return redirect('Homepage.html')  
+
+        else:
+            # Return an 'invalid login' error message.
+            messages.error(request, 'Invalid username or password.')
+
+    # If request is not POST, or the login was not successful, render the login page again
+    return render(request, 'userloginpage.html')
     
 # def user_logout(request):

@@ -15,25 +15,40 @@
 
 
 <h2>Login Form</h2>
+
 <!--container to position image-->
 <div class="imgcontainer">
-    <img src="profile.png" alt="Avatar" class="avatar">
+    <img src="{% static 'profile.png' %}" alt="Avatar" class="avatar">
 </div>
 
-<div class="container"> <!--container for the passwords positioning-->
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" id="uname" required>
+<form action="{% url 'users:login' %}" method="post" id="loginForm">
+    {% csrf_token %}
+    <div class="container"> <!--container for the passwords positioning-->
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" id="uname" required>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" id="psw" required>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" id="psw" required>
+            
+        <button type="submit">Login</button>
         
-    <button type="submit" onclick="checkLogin()">Login</button> <!--uses check login function to verify password and username-->
-    <label>
-    <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-</div>
-<!--seperate container for the cancel button-->
-<div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button> <!--using gotohompage function to go to homepage-->
-</div>
+        <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+    </div>
+
+    <!--seperate container for the cancel button-->
+    <div class="container" style="background-color:#f1f1f1">
+        <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button> <!--using gotohompage function to go to homepage-->
+    </div>
+</form>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+
+{% endif %}
 {% endblock %}
