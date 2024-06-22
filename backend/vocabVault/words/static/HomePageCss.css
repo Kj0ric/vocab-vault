@@ -92,10 +92,15 @@ body {
     float: right;
   }
 
-/* This makes the log_in button be at the right side of the navbar*/
-#log_in {
-  float: right;
-}
+  /* This makes the favorites button be at the right side of the navbar */
+  #favorites {
+    float: right;
+  }
+  
+  /* This makes the log_in button be at the right side of the navbar*/
+  #log_in {
+    float: right;
+  }
 
   /* This styles the Calendar button */
   .floatingButtonCalendar {

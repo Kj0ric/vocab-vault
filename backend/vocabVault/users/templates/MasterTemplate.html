@@ -44,29 +44,28 @@
     <!--Home button-->
     <a href="{% url 'home' %}" id="home">Home</a>
     
-    {% if not is_logged_in %}
+    {% if not user.is_authenticated %}
     <!-- Links to show when the user is not logged in -->
         <a href="{% url 'users:login' %}" id="log_in">Log in</a>
         <a href="{% url 'users:register' %}">Register</a>
-    
-        {% else %}
-    <!-- Links to show when the user is logged in -->
-    <!--Add button-->
-    <a href="{% url 'addword' %}"class="floatingButtonAdd"></a>
+    {% else %}
+        <!-- Links to show when the user is logged in -->
+        <!--Add button-->
+        <a href="{% url 'addword' %}"class="floatingButtonAdd"></a>
 
-    <!---This is the Account dropdown menu-->
-    <div id="accountButton" class="dropdown">
-        <button  class="dropbtn" href="#account">Account 
-        <i  class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-        <a href="{% url 'account' %}">Account</a>
-        <a href="{% url 'quizzes' %}">Quizzes</a>
-        <a href="{% url 'favorites' %}">Favorites</a>
-        <!-- Logout Button -->
-        <a href={% url "users:logout" %} class="logoutButton">Logout</a>
-        </div>
-    </div> 
+        <!---This is the Account dropdown menu-->
+        <div id="accountButton" class="dropdown">
+            <button  class="dropbtn" href="#account">Account 
+            <i  class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+            <a href="{% url 'account' %}">Account</a>
+            <a href="{% url 'quizzes' %}">Quizzes</a>
+            <a href="{% url 'favorites' %}">Favorites</a>
+            <!-- Logout Button -->
+            <a href={% url "users:logout" %} class="logoutButton">Logout</a>
+            </div>
+        </div> 
     {% endif %}
 </div>
 

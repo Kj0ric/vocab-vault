@@ -35,16 +35,12 @@ def homepage(request):
         word_of_the_day = WordModel.objects.get(date=today_formatted)
     except WordModel.DoesNotExist:
         word_of_the_day = None  # Handle case where no word matches today
-        
-    # Check if the user is logged in
-    is_logged_in = request.user.is_authenticated
 
     # Prepare context to pass to the template
     context = {
         'word_of_the_day': word_of_the_day,
         'today_formatted': today_formatted,
         'selected_language': selected_language,
-        'is_logged_in': is_logged_in,
     }
 
     return render(request, 'HomePage.html', context)
@@ -61,9 +57,9 @@ def searchresults(request):
 
 def account(request):
    
-  template = loader.get_template('accountpage.html')
+  #template = loader.get_template('accountpage.html')
 
-  return HttpResponse(template.render())
+  return render(request, 'accountpage.html')
 
 def addword(request):
     if request.method == 'POST':
