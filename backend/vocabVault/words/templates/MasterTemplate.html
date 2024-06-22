@@ -36,8 +36,8 @@
     
     <!---This is the search bar-->
     <div type = "search" id="search">
-        <form action="{% url 'searchresults' %}">
-            <input type="text" placeholder="Search..">
+        <form action="{% url 'index' %}" method="get">
+            <input type="text" name="search" placeholder="Search.." value="{{request.GET.title}}">
         </form>
     </div> 
     

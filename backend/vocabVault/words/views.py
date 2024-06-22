@@ -4,6 +4,8 @@ from django.template import loader
 from .models import Words, FrenchWord, GermanWord
 from datetime import date
 from django.contrib.sessions.models import Session
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 def homepage(request):
     # Retrieve the selected language from the session (default to English if not set)
@@ -87,3 +89,31 @@ def wordle(request):
 
 def members(request):
     return HttpResponse("Hello world!")
+
+
+def index(request):
+    print('ah yes something')
+    queryset = Words.objects.all()
+    query = request.GET.get('search')
+    print(f"Seach query: {query}")
+    if query:
+        queryset = queryset.filter(
+            Q(phonetic__icontains=query) |
+            Q(meaning__icontains=query) |
+            Q(function__icontains=query) |
+            Q(word__icontains=query) |
+            Q(date__icontains=query)
+            
+        )
+    print(f"Queryset: {queryset}")
+    context = {
+        "object_list": queryset,
+    }
+    return render(request, "newSearchResults.html", context)
+
+
+def wordDetail(request, word_id):
+
+  word = get_object_or_404(Words, pk=word_id)
+
+  return render(request, 'HomePage.html', {'word_of_the_day': word})
