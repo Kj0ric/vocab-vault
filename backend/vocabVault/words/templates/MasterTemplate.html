@@ -44,7 +44,7 @@
         </form>
     </div> 
     
-    {% if not is_logged_in %}
+    {% if not user.is_authenticated %}
         <!-- Links to show when the user is not logged in -->
         <a href="{% url 'users:login' %}" id="log_in">Login</a>
         <a href="{% url 'users:register' %}">Register</a>
