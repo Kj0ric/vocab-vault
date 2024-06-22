@@ -56,7 +56,7 @@ function adjustButtonMargins() {
 
 
     // displays the width, height and margin values
-    document.getElementById('windowSize').innerText = `Width: ${width}px, Height: ${height}px, MarginValue: ${marginValue}, SearcBarWidth: ${searchBarWidthNumber}, scrollY: ${window.scrollY}`;
+    // document.getElementById('windowSize').innerText = `Width: ${width}px, Height: ${height}px, MarginValue: ${marginValue}, SearcBarWidth: ${searchBarWidthNumber}, scrollY: ${window.scrollY}`;
 }
 
 function makeNavBarSticky() {
@@ -164,6 +164,68 @@ function goToHomePage() {
     window.location.href = "../HomePage/HomePage.html";  // Redirect to HomePage.html
   }
 
+/* 
+var form;
+document.addEventListener('DOMContentLoaded', function() {
+    form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        register();
+    });
+});
+ */
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    register();
+});
+
 function register() {
-    window.location.href = "../accountpage/accountpage.html";
+    const form = document.getElementById('registerForm');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const url = form.action;
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            // Hide the registration form
+            document.getElementById('registerForm').style.display = 'none';
+            // Display the success message
+            document.getElementById('successMessage').style.display = 'block';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            console.log(error)
+        });
+    });
 }

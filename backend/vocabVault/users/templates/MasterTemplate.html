@@ -1,19 +1,16 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--Include HomePage styles-->
 
+    <!--Include HomePage styles-->
     {% block cssfile %}{% endblock %}
     
-    
     <!--Include HomePage scripts-->
-
     {% block jsfile %}{% endblock %}
-    
 
     <!--Include FullCalendar JS library-->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
@@ -34,9 +31,9 @@
         <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-        <a href="{% url 'select_language' 'English' %}">English</a>
-        <a href="{% url 'select_language' 'French' %}">French</a>
-        <a href="{% url 'select_language' 'German' %}">German</a>
+        <a href="#link1">English</a>
+        <a href="#link2">French</a>
+        <a href="#link3">German</a>
         </div>
         
     </div> 
@@ -61,7 +58,7 @@
         <a href="{% url 'quizzes' %}">Quizzes</a>
         <a href="{% url 'favorites' %}">Favorites</a>
         <a href="{% url 'users:login' %}">login</a>
-        <a href="{% url 'users:register' %}">register</a>
+        <a href="{% url 'register' %}">register</a>
         </div>
         
     </div> 
@@ -80,6 +77,7 @@
         <div id="calendar"></div> <!--Calendar element-->
     </div>
 </div>
+
 
 
 </body>

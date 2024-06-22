@@ -71,21 +71,9 @@ def flashcards(request):
 
   return HttpResponse(template.render())
 
-def login(request):
-
-  template = loader.get_template('loginpage.html')
-
-  return HttpResponse(template.render())
-
 def quizzes(request):
 
   template = loader.get_template('QuizzesPage.html')
-
-  return HttpResponse(template.render())
-
-def register(request):
-
-  template = loader.get_template('registerpage.html')
 
   return HttpResponse(template.render())
 

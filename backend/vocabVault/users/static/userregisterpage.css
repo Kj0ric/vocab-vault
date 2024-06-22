@@ -112,7 +112,7 @@ body {
     height: 70px;
     border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
-    background-image: url(../images/calendar-icon.png);
+    background-image: url('/static/images/calendar-icon.png');
     background-repeat: no-repeat; /* The background image will not repeat. */
     background-position: center;
     background-size: 60%;
@@ -138,7 +138,7 @@ body {
     height: 70px;
     border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
-    background-image: url(../images/plus-icon.png);
+    background-image: url('/static/images/plus-icon.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 60%;
@@ -220,7 +220,7 @@ button:hover {
 
 /* Styles for avatar images */
 img.avatar {
-  width: 40%;
+  width: 20%;
   border-radius: 50%;
 }
 
@@ -309,4 +309,15 @@ span.psw {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+#successMessage {
+  display: none; /* Initially hidden */
+  color: green; /* Text color */
+  background-color: #f0f0f0; 
+  padding: 10px; /* Padding around the text */
+  margin-top: 20px; /* Margin at the top */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid green; 
+  text-align: center; 
 }

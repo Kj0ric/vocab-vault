@@ -56,7 +56,7 @@ function adjustButtonMargins() {
 
 
     // displays the width, height and margin values
-    document.getElementById('windowSize').innerText = `Width: ${width}px, Height: ${height}px, MarginValue: ${marginValue}, SearcBarWidth: ${searchBarWidthNumber}, scrollY: ${window.scrollY}`;
+    // document.getElementById('windowSize').innerText = `Width: ${width}px, Height: ${height}px, MarginValue: ${marginValue}, SearcBarWidth: ${searchBarWidthNumber}, scrollY: ${window.scrollY}`;
 }
 
 function makeNavBarSticky() {
@@ -79,18 +79,6 @@ function makeNavBarSticky() {
     if (window.scrollY < 8) {
         navbar.classList.remove("sticky");
     }
-}
-
-function combinedScrollFunctions() {
-    /*
-    This function combines the makeNavBarSticky, adjustButtonMArgins, and calendarFunction functions so they can both be activated when scrolling
-    (the adjustButtonMargins fuction needs to be activated to adjust show the current distance scrolled by the user)
-
-    This function has no parameters and returns nothing
-    */
-    makeNavBarSticky();
-    adjustButtonMargins();
-    calendarFunction();
 }
 
 function calendarFunction() {
@@ -155,6 +143,31 @@ function calendarFunction() {
         }
     }
 }
-window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
-window.onload = combinedScrollFunctions; //activates the combinedScrollFunctions function when the browser loads
-window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
+
+function onLoad() {
+
+    adjustButtonMargins();
+    makeNavBarSticky();
+    calendarFunction();
+
+}
+
+function onScroll() {
+    /*
+    This function combines the makeNavBarSticky, adjustButtonMArgins, and calendarFunction functions so they can both be activated when scrolling
+    (the adjustButtonMargins fuction needs to be activated to adjust show the current distance scrolled by the user)
+
+    This function has no parameters and returns nothing
+    */
+    makeNavBarSticky();
+    adjustButtonMargins();
+    calendarFunction();
+}
+
+function onResize() {
+    adjustButtonMargins();
+}
+
+window.onload = onLoad; //activates the combinedScrollFunctions function when the browser loads
+window.onscroll = onScroll; //activates the combinedScrollFunctions function when scrolling
+window.onresize = onResize; //activates the adjustButtonMargins function when resizing the browser windowf

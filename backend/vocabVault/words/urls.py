@@ -28,10 +28,9 @@ urlpatterns = [
     path('addnewword/', views.addword, name='addword'),
     path('favorites/', views.favorites, name='favorites'),
     path('flashcards/', views.flashcards, name='flashcards'),
-    path('login/', views.login, name='login'),
     path('quizzes/', views.quizzes, name='quizzes'),
-    path('register/', views.register, name='register'),
     path('wordle/', views.wordle, name='wordle'),
+    
 
 
 
