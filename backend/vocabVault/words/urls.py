@@ -31,6 +31,8 @@ urlpatterns = [
     path('flashcards/', views.flashcards, name='flashcards'),
     path('quizzes/', views.quizzes, name='quizzes'),
     path('wordle/', views.wordle, name='wordle'),
+    path('', views.index, name='index'),
+    path('word/<int:word_id>/', views.wordDetail, name='wordDetail'),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
