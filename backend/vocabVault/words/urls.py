@@ -20,8 +20,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.homepage, name='home'),
-    # path('homepage/', views.homepage, name='home'),
+    path('homepage/', views.homepage, name='home'),
+    path('select_language/<str:language>/', views.select_language, name='select_language'),
     path('members/', views.members, name='members'),
     path('searchresults/', views.searchresults, name='searchresults'),
     path('account/', views.account, name='account'),

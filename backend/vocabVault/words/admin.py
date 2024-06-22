@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Words, FrenchWord, GermanWord
+
+admin.site.register(Words)
+admin.site.register(FrenchWord)
+admin.site.register(GermanWord)
