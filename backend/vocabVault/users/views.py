@@ -70,6 +70,29 @@ def show_favorite_words(request):
     # Placeholder logic for retrieving all favorite words (replace with actual query logic)
     favorite_words = FavoriteWord.objects.all()
 
+    # Pass the favorite words to the template for rendering
+    return render(request, 'FavoritesPage.html', {'favorite_words': favorite_words})
+
+
+def soft_delete_favorite(request, favorite_id):
+    favorite = FavoriteWord.objects.get(id=favorite_id)
+    favorite.is_deleted = True
+    favorite.deleted_at = timezone.now()
+    favorite.save()
+    return redirect('favorites_page')
+
+def restore_favorite(request, favorite_id):
+    favorite = FavoriteWord.objects.get(id=favorite_id)
+    if favorite.is_deleted and (timezone.now() - favorite.deleted_at).days <= 1:
+        favorite.is_deleted = False
+        favorite.deleted_at = None
+        favorite.save()
+    return redirect('favorites_page')
+
+def show_favorite_words(request):
+    # Placeholder logic for retrieving all favorite words (replace with actual query logic)
+    favorite_words = FavoriteWord.objects.all()
+
     # Debugging print statement to log number of favorite words
     print(f"Number of favorite words: {len(favorite_words)}")
 
