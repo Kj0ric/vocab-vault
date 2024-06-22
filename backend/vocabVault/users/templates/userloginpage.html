@@ -5,25 +5,21 @@
 <link rel="stylesheet" href="{% static 'userloginpage.css' %}"> 
 {% endblock %}
 
-
 {% block jsfile %}
 <script type="text/javascript" src="{% static 'userloginpage.js' %}" defer></script>
 {% endblock %}
 
-
 {% block content %}
-
-
 <h2>Login Form</h2>
-
 <!--container to position image-->
 {% comment %} <div class="imgcontainer">
     <img src="{% static 'profile.png' %}" alt="Avatar" class="avatar">
 </div> {% endcomment %}
 
-<form action="{% url 'users:login' %}" method="post" id="loginForm">
+{% with login_url="/login/" %}
+<form method="post" action="{{ login_url }}">
     {% csrf_token %}
-    <div class="container"> <!--container for the passwords positioning-->
+    <div class="container">
         <label for="uname"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" id="uname" name="username" required>
 
@@ -33,9 +29,8 @@
         <div id="errorMessage" style="display:none; color: red;"></div>
         <div id="successMessage" style="display:none; color: green;"></div>
         <button type="submit">Login</button>
-        
         <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
+            <input type="checkbox" checked="checked" name="remember"> Remember me
         </label>
 
     </div>
