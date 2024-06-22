@@ -53,3 +53,5 @@ This repository is also available to clone through github desktop
 
 ## How to open the webpage
 To open the webpage, use the 'Open webpage' shortcut.
+
+or active an environment with the requirment.txt files and use the python manage.py runserver command in the vocabVault map
