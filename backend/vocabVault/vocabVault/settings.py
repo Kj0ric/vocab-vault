@@ -80,13 +80,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'Accra.17@',
-        'HOST': 'localhost',
+        'USER': 'postgresadmin',
+        'PASSWORD': 'daccyw-tomjag-jywrY0',
+        'HOST': 'postgres.cd8uaeqc0lgd.eu-north-1.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
-
 
 
 # Password validation
