@@ -1,4 +1,3 @@
-
 function adjustButtonMargins() {
     /*
     This function changes the size of the dropdown buttons and the search bar.
@@ -157,76 +156,5 @@ function calendarFunction() {
     }
 }
 window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
-window.onload = combinedScrollFunctions; //activates the adjustButtonMargins function when the browser loads
+window.onload = combinedScrollFunctions; //activates the combinedScrollFunctions function when the browser loads
 window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
-
-
-function goToHomePage() {
-    // check for a cookie named 'isLoggedIn'
-    const isLoggedIn = document.cookie.split(';').some((item) => item.trim().startsWith('isLoggedIn='));
-
-    if (isLoggedIn) {
-        // User is logged in, redirect to the homepage or modify it as needed
-        window.location.href = "../HomePage/HomePage.html";  // Redirect to HomePage.html
-    } else {
-        // User is not logged in, redirect to the homepage or modify it as needed
-        window.location.href = "../HomePage/HomePage.html";  // Redirect to HomePage.html
-        // You might want to modify the homepage differently for not logged in users
-    }
-  }
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    login();
-});
-
-function login() {
-    const loginForm = document.getElementById('loginForm');
-    loginForm.addEventListener('submit', function(e) {
-        e.preventDefault()
-        
-        const formData = new FormData(loginForm);
-
-        fetch(loginForm.action, {
-            method: 'POST', 
-            body: formData,
-            headers: {
-                'X-CSRFToken': getCookie('csrftoken')
-            },
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.message) {
-                // If there is a success message, it means login was successful
-                alert(data.message); // Optionally alert the success message
-                window.location.href = "/homepage"; // Redirect to the homepage
-            } else if (data.error) {
-                // If there is an error message, display it
-                alert(data.error); // Alert the error message
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-        });
-    });
-};
