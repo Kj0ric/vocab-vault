@@ -3,3 +3,4 @@
 /myenv
 # Git will not track any changes in any .DS_Store file
 **/.DS_Store
+**/*.pyc
