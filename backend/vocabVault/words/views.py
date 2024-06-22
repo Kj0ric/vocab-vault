@@ -6,6 +6,9 @@ from datetime import date
 from django.contrib.sessions.models import Session
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from django.core import serializers
+import datetime
 
 def homepage(request):
     # Retrieve the selected language from the session (default to English if not set)
@@ -120,4 +123,23 @@ def wordDetail(request, word_id):
 
   word = get_object_or_404(Words, pk=word_id)
 
-  return render(request, 'HomePage.html', {'word_of_the_day': word})
+  today_formatted = word.date
+
+  return render(request, 'HomePage.html', {'word_of_the_day': word, 'today_formatted': today_formatted,})
+
+
+
+
+def get_words(request):
+    words = Words.objects.all()
+    words_list = []
+    for word in words:
+      
+       date = datetime.datetime.strptime(word.date, '%d/%m/%Y').strftime('%Y-%m-%d')
+       words_list.append({
+          'title': word.word,
+          'start': date,
+          'url': f'/word/{word.id}/'
+       })
+    
+    return JsonResponse(words_list, safe=False)
