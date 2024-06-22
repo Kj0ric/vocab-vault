@@ -196,37 +196,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function login() {
     const loginForm = document.getElementById('loginForm');
+    const errorMessageDisplay = document.getElementById('errorMessage'); 
+
     loginForm.addEventListener('submit', function(e) {
         e.preventDefault()
         
         const formData = new FormData(loginForm);
-
+        
+        // Clear previous messages
+        document.getElementById('errorMessage').textContent = '';
+        document.getElementById('successMessage').textContent = '';
+        
         fetch(loginForm.action, {
             method: 'POST', 
             body: formData,
             headers: {
                 'X-CSRFToken': getCookie('csrftoken')
             },
+            credentials: 'include',
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             if (data.message) {
-                // If there is a success message, it means login was successful
-                alert(data.message); // Optionally alert the success message
-                window.location.href = "/homepage"; // Redirect to the homepage
+                const successMessageElement = document.getElementById('successMessage');
+                successMessageElement.innerHTML = 'Successfully logged in. Go to homepage.';
+                successMessageElement.style.display = 'block';
+
+                // Wait for 2 seconds before redirecting
+                setTimeout(() => {
+                    window.location.href = "/homepage";
+                }, 2000); 
+
             } else if (data.error) {
                 // If there is an error message, display it
-                alert(data.error); // Alert the error message
+                errorMessageDisplay.textContent = data.error; // Update the text content of the error message display
+                errorMessageDisplay.style.display = 'block'; // Make sure the error message is visible
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred. Please try again.');
+            errorMessageDisplay.textContent = error; 
+            errorMessageDisplay.style.display = 'block'; // Make sure the error message is visible
         });
     });
 };

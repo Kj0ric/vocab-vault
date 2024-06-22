@@ -48,7 +48,8 @@
     <!-- Links to show when the user is not logged in -->
         <a href="{% url 'users:login' %}" id="log_in">Log in</a>
         <a href="{% url 'users:register' %}">Register</a>
-    {% else %}
+    
+        {% else %}
     <!-- Links to show when the user is logged in -->
     <!--Add button-->
     <a href="{% url 'addword' %}"class="floatingButtonAdd"></a>
@@ -62,6 +63,8 @@
         <a href="{% url 'account' %}">Account</a>
         <a href="{% url 'quizzes' %}">Quizzes</a>
         <a href="{% url 'favorites' %}">Favorites</a>
+        <!-- Logout Button -->
+        <a href={% url "users:logout" %} class="logoutButton">Logout</a>
         </div>
     </div> 
     {% endif %}

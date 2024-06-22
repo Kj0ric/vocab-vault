@@ -108,8 +108,8 @@ body {
     color: white;
     border: none;
     cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
     background-image: url(/static/images/calendar-icon.png);

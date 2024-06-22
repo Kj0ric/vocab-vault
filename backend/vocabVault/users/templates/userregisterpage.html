@@ -16,9 +16,9 @@
 <h2>Register Form</h2> <!--Uses the same structure as the log in page-->
 
 <!--image container for positioning of the image-->
-<div class="imgcontainer">
+{% comment %} <div class="imgcontainer">
     <img src="{% static 'profile.png' %}" alt="Avatar" class="avatar">
-</div>
+</div> {% endcomment %}
 
 <!--container with the elements to sign up-->
 <form method="post" action="{% url 'users:register' %}" id="registerForm">
@@ -36,13 +36,12 @@
         <label for="psw-repeat"><b>Repeat Password</b></label>
         <input type="password" placeholder="Repeat Password" id="psw-repeat" name="password2" required>
         {{ form.password2.errors }}
-            
+        
+        <div id="successMessage" style="display:none; color: green;"></div>
+        <div id="errorMessage" style="display:none; color: red;"></div>
         <button type="submit" id="registerButton">Register</button> <!--function redirecting you to the accountpage-->
     </div>
 
-<div id="successMessage" style="display:none; color: green;">
-    Registration successful! You can now <a href="userloginpage.html">log in</a>
-</div>
 
 <div class="container" style="background-color:#f1f1f1">
     <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button> <!--cancel button sending you back to the homepage-->
