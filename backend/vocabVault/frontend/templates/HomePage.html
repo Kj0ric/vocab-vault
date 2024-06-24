@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block cssfile %}
-<link rel="stylesheet" href="{% static 'HomePageCss.css' %}"> 
+<link rel="stylesheet" href="{% static 'css/HomePageCss.css' %}"> 
 {% endblock %}
 
 
 {% block jsfile %}
-<script type="text/javascript" src="{% static 'HomePageJS.js' %}" defer></script>
+<script type="text/javascript" src="{% static 'js/HomePageJS.js' %}" defer></script>
 {% endblock %}
 
 
@@ -19,6 +19,7 @@
         {% endfor %}
     </ul>
 {% endif %}
+
 <!-- Heading for the homepage -->
 <h1 style="text-align: center; font-size: 3.5em;">Vocab Vault</h1>
 

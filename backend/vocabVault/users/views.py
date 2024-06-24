@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, QueryDict
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.utils import timezone
 from .models import FavoriteWord
+
 
 # Create your views here.
 def user_register(request):
@@ -56,6 +59,38 @@ def user_logout(request):
     logout(request)
     return redirect('/homepage')
 
+@login_required
+def update_user_info(request):
+    if request.method == 'PUT':
+        # Django does not parse PUT request data into request.POST, so we do it manually
+        data = QueryDict(request.body)
+        
+        user = request.user
+        new_username = data.get('username')
+        new_email = data.get('email')
+        
+        # Check if the new username is already taken
+        if User.objects.exclude(pk=user.pk).filter(username=new_username).exists():
+            return JsonResponse({'success': False, 'error': 'Username already taken.'}, status=400)
+        
+        # Proceed with updating the user's username and email
+        user.username = new_username
+        user.email = new_email
+        user.save()
+        
+        return JsonResponse({'success': True}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid HTTP method. This endpoint requires a PUT request.'}, status=405)
+
+        
+
+    
+    
+
+
+    
+    
+
 def delete_favorite(request, favorite_id):
     if request.method == 'POST':
         try:
@@ -72,7 +107,6 @@ def show_favorite_words(request):
 
     # Pass the favorite words to the template for rendering
     return render(request, 'FavoritesPage.html', {'favorite_words': favorite_words})
-
 
 def soft_delete_favorite(request, favorite_id):
     favorite = FavoriteWord.objects.get(id=favorite_id)

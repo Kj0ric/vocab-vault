@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block cssfile %}
-<link rel="stylesheet" href="{% static 'accountpagecss.css' %}"> 
+<link rel="stylesheet" href="{% static 'css/accountpage.css' %}"> 
 {% endblock %}
 
 
 {% block jsfile %}
-<script type="text/javascript" src="{% static 'accountpagejs.js' %}" defer></script>
+<script type="text/javascript" src="{% static 'js/accountpageJS.js' %}" defer></script>
 {% endblock %}
 
 
@@ -24,14 +24,7 @@
             <label for="email">Email:</label>
             <p id="emailDisplay">{{ user.email }}</p>
             
-            {% comment %}
-            <label for="gender">Gender:</label>
-            <p id="genderDisplay">male</p>
-        
-            <label for="age">Age:</label>
-            <p id="ageDisplay">30</p>
-            {% endcomment %} 
-        
+            <div id="errorMessage" style="display:none; color: red;"></div>
             <button type="button" onclick="toggleEdit()">Change</button> <!--uses the change function to go from uneditable to editable-->
             <button type="button" onclick="saveChanges()">save</button> <!--uses the Savechanges function to go from editable to uneditable and save it-->
         </div>
