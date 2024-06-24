@@ -217,9 +217,9 @@ function login() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.message) {
+            if (data.success) {
                 const successMessageElement = document.getElementById('successMessage');
-                successMessageElement.innerHTML = 'Successfully logged in. Go to homepage.';
+                successMessageElement.innerHTML = data.message + '. Redirecting to homepage.';
                 successMessageElement.style.display = 'block';
 
                 // Wait for 2 seconds before redirecting
@@ -227,8 +227,9 @@ function login() {
                     window.location.href = "/homepage";
                 }, 2000); 
 
-            } else if (data.error) {
+            } else if (!data.success) {
                 // If there is an error message, display it
+                const errorMessageDisplay = document.getElementById('error-message');
                 errorMessageDisplay.textContent = data.error; // Update the text content of the error message display
                 errorMessageDisplay.style.display = 'block'; // Make sure the error message is visible
             }

@@ -43,10 +43,10 @@ def user_login(request):
         
         if user is not None:
             login(request, user)
-            return JsonResponse({'message': 'You have successfully logged in.', 'username': username}, status=200) 
+            return JsonResponse({'success': True, 'message': 'You have successfully logged in.', 'username': username}, status=200) 
         else:
             # Return an 'invalid login' error message.
-            return JsonResponse({'error': 'Invalid username or password.'}, status=400)
+            return JsonResponse({'success': False, 'error': 'Invalid username or password.'}, status=400)
         
     elif request.method == 'GET':
         # Display the login page when the request is a GET request

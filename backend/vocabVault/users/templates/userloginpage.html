@@ -10,45 +10,31 @@
 {% endblock %}
 
 {% block content %}
-<h2>Login Form</h2>
-<!--container to position image-->
-{% comment %} <div class="imgcontainer">
-    <img src="{% static 'profile.png' %}" alt="Avatar" class="avatar">
-</div> {% endcomment %}
+    <h2>Login Form</h2>
+    <!--container to position image-->
+    {% comment %} <div class="imgcontainer">
+        <img src="{% static 'profile.png' %}" alt="Avatar" class="avatar">
+    </div> {% endcomment %}
 
-{% with login_url="/login/" %}
-<form method="post" action="{{ login_url }}">
-    {% csrf_token %}
-    <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" id="uname" name="username" required>
+    <form method="post" action="{% url "users:login" %}" id="loginForm">
+        {% csrf_token %}
+        <div class="container">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="uname" name="username" required>
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" id="psw" name="password" required>
+                
+            <div id="errorMessage" style="display:none; color: red;"></div>
+            <div id="successMessage" style="display:none; color: green;"></div>
+            <button type="submit">Login</button>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+        </div>
 
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" id="psw" name="password" required>
-            
-        <div id="errorMessage" style="display:none; color: red;"></div>
-        <div id="successMessage" style="display:none; color: green;"></div>
-        <button type="submit">Login</button>
-        <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
-
-    </div>
-
-
-    <!--seperate container for the cancel button-->
-    <div class="container" style="background-color:#f1f1f1">
-        <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button> <!--using gotohompage function to go to homepage-->
-    </div>
-</form>
-
-{% comment %} {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-
-{% endif %} {% endcomment %}
-
+        <!--seperate container for the cancel button-->
+        <div class="container" style="background-color:#f1f1f1">
+            <button type="button" class="cancelbtn" onclick="goToHomePage()">Cancel</button> <!--using gotohompage function to go to homepage-->
+        </div>
+    </form>
 {% endblock %}
