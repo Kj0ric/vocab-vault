@@ -9,6 +9,9 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from .models import FavoriteWord
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
 
 
 # Create your views here.
@@ -101,12 +104,20 @@ def delete_favorite(request, favorite_id):
             pass
     return redirect('favorites_page')  #
 
-def show_favorite_words(request):
-    # Placeholder logic for retrieving all favorite words (replace with actual query logic)
-    favorite_words = FavoriteWord.objects.all()
+def show_favorites(request):
+    if request.user.is_authenticated:
+        # Filter favorites for the currently logged-in user
+        user_favorites = FavoriteWord.objects.filter(user=request.user)
 
-    # Pass the favorite words to the template for rendering
-    return render(request, 'FavoritesPage.html', {'favorite_words': favorite_words})
+        # Pass the user-specific favorites to the template for display
+        context = {
+            'user_favorites': user_favorites
+        }
+        return render(request, 'FavoritesPage.html', context)
+    else:
+        # Handle the case when the user is not authenticated (e.g., redirect to login)
+        return render(request, 'userloginpage.html')
+
 
 def soft_delete_favorite(request, favorite_id):
     favorite = FavoriteWord.objects.get(id=favorite_id)
@@ -123,16 +134,22 @@ def restore_favorite(request, favorite_id):
         favorite.save()
     return redirect('favorites_page')
 
-def show_favorites(request):
+def show_favorite_words(request):
     if request.user.is_authenticated:
         # Filter favorites for the currently logged-in user
         user_favorites = FavoriteWord.objects.filter(user=request.user)
+
+        # Print a message to log the number of favorite words for the user
+        print(f"Number of favorite words for user {request.user}: {user_favorites.count()}")
 
         # Pass the user-specific favorites to the template for display
         context = {
             'user_favorites': user_favorites
         }
-        return render(request, 'favorites_template.html', context)
+        return render(request, 'FavoritesPage.html', context)
     else:
+        # Print a message to log that the user is not authenticated
+        print("User is not authenticated. Redirecting to login page.")
+
         # Handle the case when the user is not authenticated (e.g., redirect to login)
-        return render(request, 'login.html')
+        return render(request, 'userloginpage.html')
