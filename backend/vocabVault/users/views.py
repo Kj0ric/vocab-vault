@@ -11,51 +11,84 @@ from django.utils import timezone
 from .models import FavoriteWord
 
 
-# Create your views here.
 def user_register(request):
-    # 'request' contains username and password data
+    '''
+    Takes in HTTP request send by the frontend, returns appropriate HTTP response in JSON
+    '''
+    
     if request.method == 'POST': 
-        # Django's built-in UserCreationForm handles the validation of the input data.
-        form = UserCreationForm(request.POST)
+        # If POST request, process the form data to register the user
+        
+        # Django's built-in UserCreationForm to handle user registration.
+        form = UserCreationForm(request.POST) # validates input data (ensuring info meets criteria)
+        
         if form.is_valid():
+            # If the form fields meet the criteria, proceed to create a new user 
+            
+            # Extract username and password from cleaned_data dictionary attribute
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
+            
             try:
                 # Create a new user instance and save it to the database
                 new_user = User.objects.create_user(username=username, password=password)
-                new_user.save() # Save it to the database
-                # Return a 201 Created status code and a JSON object representing the user
+                new_user.save()
+                
+                # Return a HTTP response with status code 201 for "Created" 
                 return JsonResponse({'username': new_user.username, 'id': new_user.id},  status=201)
-            
             except ValidationError as e:
+                # Handle validation errors from user creation (e.g. already existing username)
                 # Return a 400 Bad Request status code and a message explaining the error
+                
                 return JsonResponse({'error': e.messages[0]}, status=400)
         else:
-            # Instead of rendering the form with errors, send back the errors as JSON
+            # If the form fields don't meet the criteria, send HTTP response with status code 401 ("Bad request")
+            # containing the errors
+        
+            # Dictionary with field-json-serializable error (key-values)
             errors = {field: error.get_json_data() for field, error in form.errors.items()}
             return JsonResponse({'errors': errors}, status=400)
-    else: # If the request.method == 'GET', render the page with empty form
+    else: 
+        # If the request.method == 'GET', render the page with empty form
+        
         form = UserCreationForm() 
+        # Indicate the template and pass the empty form as context
         return render(request, 'userregisterpage.html', {'form': form})
         
 def user_login(request):
+    """
+    Handle user login requests. Takes in HTTP request, returns appropriate HTTP response in JSON
+    """
     if request.method == 'POST':
+        # If POST request, process the form data to log in the user
+        
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        
+
+        # Verify username and password. User object is returned if credentials are valid, o/w None
+        user = authenticate(request, username=username, password=password)        
         if user is not None:
-            login(request, user)
+            login(request, user) # Creates a session handled by Django
+            
+            # Return a HTTP response indicating failure
             return JsonResponse({'success': True, 'message': 'You have successfully logged in.', 'username': username}, status=200) 
         else:
-            # Return an 'invalid login' error message.
+            # Return a HTTP response indicating failure
             return JsonResponse({'success': False, 'error': 'Invalid username or password.'}, status=400)
         
     elif request.method == 'GET':
-        # Display the login page when the request is a GET request
+        # If GET request, display the login page 
+        
+        # Indicate the template to be rendered
         return render(request, 'userloginpage.html')
 
+
 def user_logout(request):
+    '''
+    Handle user logout request. Considering its simplicity, it is preferred to be implemented in the backend
+    with traditional flow and redirection.
+    '''
+    # Invalidates the user's session. Django deletes the session data and instructs the browser to delete the session cookie
     logout(request)
     return redirect('/homepage')
 
@@ -81,15 +114,6 @@ def update_user_info(request):
         return JsonResponse({'success': True}, status=200)
     else:
         return JsonResponse({'error': 'Invalid HTTP method. This endpoint requires a PUT request.'}, status=405)
-
-        
-
-    
-    
-
-
-    
-    
 
 def delete_favorite(request, favorite_id):
     if request.method == 'POST':
