@@ -115,7 +115,7 @@ function calendarFunction() {
     var modal = document.getElementById("calendarModal");
 
     // Get the button that opens the modal
-    var btn = document.querySelector(".floatingButtonCalendar");
+    var btn = document.getElementById("calendarButton");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
@@ -124,7 +124,6 @@ function calendarFunction() {
     btn.onclick = function() {
         modal.style.display = "block";
 
-        
         // Render the calendar
         calendar.render();
 
