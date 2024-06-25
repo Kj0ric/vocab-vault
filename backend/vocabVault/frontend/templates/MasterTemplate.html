@@ -53,9 +53,6 @@
         <a href="{% url 'users:register' %}">Register</a>
     {% else %}
         <!-- Links to show when the user is logged in -->
-        <!--Add button-->
-        <a href="{% url 'addword' %}"class="floatingButtonAdd"></a>
-
         <!---This is the Account dropdown menu-->
         <div id="accountButton" class="dropdown">
             <button  class="dropbtn" href="#account">Account 
@@ -72,8 +69,13 @@
     {% endif %}
 </div>
 
+{% if user.is_authenticated %}
+<!--Add button-->
+<a href="{% url 'addword' %}"class="floatingButtonAdd"></a>
+{% endif %}
+
 <!--Calendar button-->
-<a class="floatingButtonCalendar"></a>
+<a class="floatingButtonCalendar" id= "calendarButton"></a>
 
 <!--Calendar modal-->
 <div id="calendarModal" class="modal">

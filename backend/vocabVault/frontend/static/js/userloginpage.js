@@ -175,13 +175,31 @@ function goToHomePage() {
     }
   }
 
+document.addEventListener('DOMContentLoaded', function() {
+    login();
+});
+
+/**
+ * Retrieves the value of a specified cookie by its name.
+ * 
+ * @param {string} name The name of the cookie to retrieve.
+ * @returns {string|null} The value of the cookie if found, otherwise `null`.
+ */
 function getCookie(name) {
     let cookieValue = null;
+    
+    // Check for cookies 
     if (document.cookie && document.cookie !== '') {
+        // Split into an array of individual cookie strings in the format ("name=value; name2=value2")
         const cookies = document.cookie.split(';');
+
+        // Iterate over the array to find the cookie
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+
+            // Checks if the current cookie string starts with "name"
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {                
+                // Decode the value to correctly interpret any encoded characters
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
             }
@@ -190,36 +208,48 @@ function getCookie(name) {
     return cookieValue;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    login();
-});
-
+/**
+ * Handles the login form submission.
+ *
+ * This function prevents the default form submission process to perform an asynchronous POST request using the Fetch API.
+ * It sends the form data to the server and handles the response. On a successful login, it displays a success message and
+ * redirects the user to the homepage after a short delay. If the login fails, it displays an error message. Any network
+ * errors encountered during the request are also caught and displayed as error messages.
+ */
 function login() {
+    // Select form and message elements from DOM
     const loginForm = document.getElementById('loginForm');
     const errorMessageDisplay = document.getElementById('errorMessage'); 
+    const successMessageElement = document.getElementById('successMessage');
 
+    // Listens for the submit event. When the form is submitted, the function will be executed
     loginForm.addEventListener('submit', function(e) {
+        // Prevents default submission, allows for custom processing
         e.preventDefault()
-        
-        const formData = new FormData(loginForm);
         
         // Clear previous messages
         document.getElementById('errorMessage').textContent = '';
         document.getElementById('successMessage').textContent = '';
+
+        const formData = new FormData(loginForm);
+        const url = loginForm.action;
         
-        fetch(loginForm.action, {
+        // An AJAX request with POST method, using fetch API
+        fetch(url, {
             method: 'POST', 
             body: formData,
             headers: {
-                'X-CSRFToken': getCookie('csrftoken')
+                // A security measure to prevent Cross-Site Request Forgery (CSRF) attacks.
+                'X-CSRFToken': getCookie('csrftoken') 
             },
+            // To ensure that user credentials or session information is included in the request after redirection
             credentials: 'include',
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                const successMessageElement = document.getElementById('successMessage');
-                successMessageElement.innerHTML = data.message + '. Redirecting to homepage.';
+                // If login is successful
+                successMessageElement.textContent = data.message + '. Redirecting to homepage.';
                 successMessageElement.style.display = 'block';
 
                 // Wait for 2 seconds before redirecting
@@ -229,14 +259,13 @@ function login() {
 
             } else if (!data.success) {
                 // If there is an error message, display it
-                const errorMessageDisplay = document.getElementById('error-message');
                 errorMessageDisplay.textContent = data.error; // Update the text content of the error message display
                 errorMessageDisplay.style.display = 'block'; // Make sure the error message is visible
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            errorMessageDisplay.textContent = error; 
+            errorMessageDisplay.textContent = error; // Update the text content of the error message display
             errorMessageDisplay.style.display = 'block'; // Make sure the error message is visible
         });
     });

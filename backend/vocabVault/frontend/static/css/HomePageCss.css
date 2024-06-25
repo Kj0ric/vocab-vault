@@ -66,13 +66,13 @@ body {
   
   /* This turns the buttons in the dropdown menus grey when hovered over */
   .dropdown-content a:hover {
-    background-color: #ddd;
+    background-color: #bebebe;
   }
 
   /* This makes dropdown menu content visible when hovered over */
   .dropdown:hover .dropdown-content {
     display: block;
-  }
+  } 
   
   /* This changes the style of the search bar*/
   .navbar input[type= text] {
@@ -113,11 +113,11 @@ body {
     color: white;
     border: none;
     cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
-    background-image: url(/static/images/calendar-icon.png);
+    background-image: url('/static/images/calendar-icon.png');
     background-repeat: no-repeat; /* The background image will not repeat. */
     background-position: center;
     background-size: 60%;
@@ -130,26 +130,26 @@ body {
 
 /* This styles the Add button */
 .floatingButtonAdd {
-    position: fixed; /* The element is positioned relative to the browser window and will not move even if the page is scrolled. */
-    bottom: 40px;
-    right: 0;
-    padding: 0;
-    margin: 10px;
-    margin-bottom: 100px;
-    color: white;
-    border: none;
-    cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
-    width: 50px;
-    height: 50px;
-    border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
-    background-color: #aaaaaa;
-    background-image: url(/static/images/plus-icon.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 60%;
+  position: fixed; /* The element is positioned relative to the browser window and will not move even if the page is scrolled. */
+  bottom: 40px;
+  right: 0;
+  padding: 0;
+  margin: 10px;
+  margin-bottom: 100px;
+  color: white;
+  border: none;
+  cursor: pointer; /* The cursor will change to a pointer when hovering over the element. */
+  width: 70px;
+  height: 70px;
+  border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
+  background-color: #aaaaaa;
+  background-image: url(../images/plus-icon.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
 }
 
-/* This applies a shadow effect to the Add button when hovered over */
+/* This applies a shadow effect to the calendar button when hovered over */
 .floatingButtonAdd:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
