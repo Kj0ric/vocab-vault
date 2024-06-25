@@ -164,13 +164,32 @@ function goToHomePage() {
     window.location.href = "/homepage";  // Redirect to HomePage.html
   }
 
+document.addEventListener('DOMContentLoaded', function() {
+    register();
+});
+
+
+/**
+ * Retrieves the value of a specified cookie by its name.
+ * 
+ * @param {string} name The name of the cookie to retrieve.
+ * @returns {string|null} The value of the cookie if found, otherwise `null`.
+ */
 function getCookie(name) {
     let cookieValue = null;
+    
+    // Check for cookies 
     if (document.cookie && document.cookie !== '') {
+        // Split into an array of individual cookie strings in the format ("name=value; name2=value2")
         const cookies = document.cookie.split(';');
+
+        // Iterate over the array to find the cookie
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+
+            // Checks if the current cookie string starts with "name"
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {                
+                // Decode the value to correctly interpret any encoded characters
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
             }
@@ -179,23 +198,30 @@ function getCookie(name) {
     return cookieValue;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    register();
-});
-
+/**
+ * Handles the frontend side of the registration process for a user.
+ * 
+ * This function attaches an event listener to the registration form. When the form is submitted,
+ * it prevents the default form submission process, collects the form data, and sends it to the server
+ * using a POST request. It handles the response by displaying success or error messages.
+ */
 function register() {
     const form = document.getElementById('registerForm');
 
+    // Listens for the submit event. When the form is submitted, the function will be executed
     form.addEventListener('submit', function(e) {
+        
+        // Prevents default submission, allows for custom processing
         e.preventDefault();
 
-        const formData = new FormData(form);
-        const url = form.action;
-
-        // Clear previous messages
+        // Clear previous success and error messages
         document.getElementById('errorMessage').textContent = '';
         document.getElementById('successMessage').textContent = '';
 
+        const formData = new FormData(form);
+        const url = form.action;
+        
+        // An AJAX request with POST method, using fetch API
         fetch(url, {
             method: 'POST',
             body: formData,
@@ -203,20 +229,27 @@ function register() {
                 'X-CSRFToken': getCookie('csrftoken')
             },
         })
-        .then(response => response.json())
-        .then(data => {
-            if(data.errors) {
+        // Response handling
+        .then(response => response.json()) // Parses the response into JSON format
+        .then(data => { // Data object contains the server's response 
+            if(data.errors) { // Checks if contains an "errors" field
+                // Accumulate all error messages into an empty string
                 let allErrorMessages = '';
+
+                // Iterates over each field in "errors"
                 for (const field in data.errors) {
                     const errorMessages = data.errors[field];
-                    // Check if errorMessages is an array
+                    
+                    // Handle if errorMessages is an array
                     if (Array.isArray(errorMessages)) {
                         // If it is an array, iterate over it
                         errorMessages.forEach(error => {
                             allErrorMessages += error.message + '\n';
                         });
-                    } else if (typeof errorMessages === 'string') {
-                        // If it's a string, try to parse it as JSON
+                    } 
+                    // Handle if errorMessages is a string
+                    else if (typeof errorMessages === 'string') {
+                        // Parse it as JSON
                         try {
                             const parsedErrorMessages = JSON.parse(errorMessages.replace(/ /g, ''));
                             if (Array.isArray(parsedErrorMessages)) {
@@ -228,24 +261,27 @@ function register() {
                             // If parsing fails, use the string directly
                             allErrorMessages += errorMessages + '\n';
                         }
-                    } else {
-                        // If it's not an array or string, directly append it
+                    } 
+                    // If it's not an array or string, directly append it
+                    else {            
                         allErrorMessages += errorMessages + '\n';
                     }
                 }
-                const errorMessageElement = document.getElementById('errorMessage');
-
-                errorMessageElement.textContent = allErrorMessages; // Display the backend error message
+                
+                const errorMessageElement = document.getElementById('errorMessage'); // Select the DOM element
+                errorMessageElement.textContent = allErrorMessages; // Put the message inside the element
                 errorMessageElement.style.display = 'block'; // Ensure it's visible
-            } else {
+            } 
+            // If there are no errors in registration, display success message
+            else {
                 console.log('Success:', data);
                 const successMessageElement = document.getElementById('successMessage');
-                successMessageElement.innerHTML = 'Successfully registered. Go to Login page.';
+                successMessageElement.textContent = 'Successfully registered. Go to Login page.';
                 successMessageElement.style.display = 'block';
             }
         })
         .catch(error => {
-            // Handle network errors
+            // Catch any network errors during the fetch request
             console.error('Error:', error);
         });
     });
