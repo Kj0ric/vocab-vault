@@ -21,7 +21,13 @@
 {% endif %}
 
 <!-- Heading for the homepage -->
-<h1 style="text-align: center; font-size: 3.5em;">Vocab Vault</h1>
+<h1 style="color: blue; text-align: center; font-size: 3.5em;">Vocab Vault</h1>
+
+{% if user.is_authenticated %}
+<p style="color: black; font-size: 20px; text-align: center;">Welcome to your vocabulary vault, {{ user.username }}</p>
+{% else %}
+<p style="color: black; font-size: 20px; text-align: center;">You are not logged in. Please log in to access your vault.</p>
+{% endif %}
 
 {% if word_of_the_day %}
     <h1 id="wordoftheday">{{ word_of_the_day.word }}</h1>
@@ -54,11 +60,7 @@
             </div>
         </div>
     </div>
-    {% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }}</p>
-    {% else %}
-    <p>You are not logged in</p>
-{% endif %}
+
 {% else %}
     <p>No word of the day found for today.</p>
 {% endif %}
