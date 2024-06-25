@@ -13,6 +13,7 @@ import datetime
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+
 def homepage(request):
     # Retrieve the selected language from the session (default to English if not set)
     selected_language = request.session.get('selected_language', 'English')
@@ -95,15 +96,25 @@ def addword(request):
       # Return the same template for GET requests or when form submission fails
     return render(request, 'AddNewWord.html')
 
-def favorites(request):
+def show_favorite_words(request):
+    if request.user.is_authenticated:
+        # Filter favorites for the currently logged-in user
+        user_favorites = FavoriteWord.objects.filter(user=request.user)
 
-  if request.user.is_authenticated:
-    favorites = FavoriteWord.objects.filter(user=request.user)
-    return render(request, 'FavoritesPage.html', {'favorites': favorites})
-  else:
-    return render(request, 'FavoritesPage.html', {'favorites': None})
+        # Print a message to log the number of favorite words for the user
+        print(f"Number of favorite words for user {request.user}: {user_favorites.count()}")
 
+        # Pass the user-specific favorites to the template for display
+        context = {
+            'user_favorites': user_favorites
+        }
+        return render(request, 'FavoritesPage.html', context)
+    else:
+        # Print a message to log that the user is not authenticated
+        print("User is not authenticated. Redirecting to login page.")
 
+        # Handle the case when the user is not authenticated (e.g., redirect to login)
+        return render(request, 'userloginpage.html')
 
 def flashcards(request):
 
