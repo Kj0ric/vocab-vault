@@ -320,3 +320,4 @@ window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctio
 
 document.addEventListener('click', CheckInput);
 document.addEventListener('keydown', CheckInput);
+
