@@ -146,7 +146,7 @@ def show_favorite_words(request):
         context = {
             'user_favorites': user_favorites
         }
-        return render(request, 'FavoritesPage.html', context)
+        return render(request, 'FavoritesPage.html', {'favorite_words': user_favorites})
     else:
         # Print a message to log that the user is not authenticated
         print("User is not authenticated. Redirecting to login page.")

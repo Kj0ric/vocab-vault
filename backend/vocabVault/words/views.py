@@ -106,8 +106,9 @@ def show_favorite_words(request):
 
         # Pass the user-specific favorites to the template for display
         context = {
-            'user_favorites': user_favorites
+            'favorite_words': user_favorites
         }
+        print(context)
         return render(request, 'FavoritesPage.html', context)
     else:
         # Print a message to log that the user is not authenticated
