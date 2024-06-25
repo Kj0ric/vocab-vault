@@ -13,83 +13,33 @@
 
 {% block content %}
 
+
 <!--container with the flashcard information-->
 <div class="flashcards">
-    <div class="flashcard" id="flashcard1"> <!--important for the scroll function-->
+    {% for favorite in favorite_words %}
+    <div class="flashcard" data-index="{{ forloop.counter }}" style="display: none;"> <!--important for the scroll function-->
         <label>
             <input type="checkbox" />
             <div class="flip-card">
                 <div class="front"> <!--front of the card needed to flip it-->
-                    <h1>Onomatopoeia</h1>
+                    <h1>{{ favorite.word }}</h1>
                     <p>Click for answer</p>
                 </div>
                 <div class="back">
                     <h1>Answer</h1> <!--back of the card neede to flip it-->
                     <hr />
-                    <p>The formation of a word from a sound associated with what is named (e.g. cuckoo, sizzle). "A relatively large number of bird names arise by onomatopoeia."</p>
+                    <p>{{ favorite.meaning }}</p>
                     <hr />
                     <p class="click">Click to return</p>
                 </div>
             </div>
         </label>
     </div>
-
-    <!-- Multiple options of flashcards added here with the same structurr -->
-    <div class="flashcard" id="flashcard2" style="display: none;">
-        <label>
-            <input type="checkbox" />
-            <div class="flip-card">
-                <div class="front">
-                    <h1>Palindrome</h1>
-                    <p>Click for answer</p>
-                </div>
-                <div class="back">
-                    <h1>Answer</h1>
-                    <hr />
-                    <p>A word, phrase, or sequence that reads the same backward as forward (e.g. madam, racecar).</p>
-                    <hr />
-                    <p class="click">Click to return</p>
-                </div>
-            </div>
-        </label>
-    </div>
-    <div class="flashcard" id="flashcard3" style="display: none;">
-        <label>
-            <input type="checkbox" />
-            <div class="flip-card">
-                <div class="front">
-                    <h1>Efficacious</h1>
-                    <p>Click for answer</p>
-                </div>
-                <div class="back">
-                    <h1>Answer</h1>
-                    <hr />
-                    <p> Efficacious is a formal word used to describe something—often a treatment, medicine, or remedy—that has the power to produce a desired result or effect.</p>
-                    <hr />
-                    <p class="click">Click to return</p>
-                </div>
-            </div>
-        </label>
-    </div>
-    <div class="flashcard" id="flashcard4" style="display: none;">
-        <label>
-            <input type="checkbox" />
-            <div class="flip-card">
-                <div class="front">
-                    <h1>lodestone</h1>
-                    <p>Click for answer</p>
-                </div>
-                <div class="back">
-                    <h1>Answer</h1>
-                    <hr />
-                    <p>When used literally, lodestone refers to the mineral magnetite, a magnetic iron ore. Lodestone is also used figuratively to refer to something that, like a magnet, strongly attracts things.</p>
-                    <hr />
-                    <p class="click">Click to return</p>
-                </div>
-            </div>
-        </label>
-    </div>
+    {% endfor %}
 </div>
+
+
+
 <!--scroll elements-->
 <button onclick="nextFlashcard()" id="nextbtn">&#8249;</button>
 <button onclick="previousFlashcard()" id="previousbtn">&#8250;</button>

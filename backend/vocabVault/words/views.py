@@ -118,10 +118,19 @@ def show_favorite_words(request):
         return render(request, 'userloginpage.html')
 
 def flashcards(request):
+    if request.user.is_authenticated:
+        user_favorites = FavoriteWord.objects.filter(user=request.user)
+        context = {
+            'favorite_words': user_favorites
+        }
+        print(context)
+        return render(request, 'flashcards.html', context)
+    else:
+        # Print a message to log that the user is not authenticated
+        print("User is not authenticated. Redirecting to login page.")
 
-  template = loader.get_template('flashcards.html')
-
-  return HttpResponse(template.render())
+        # Handle the case when the user is not authenticated (e.g., redirect to login)
+        return render(request, 'userloginpage.html')
 
 
 def quizzes(request):

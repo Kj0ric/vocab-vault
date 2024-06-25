@@ -157,22 +157,30 @@ function calendarFunction() {
 window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
 window.onload = combinedScrollFunctions; //activates the combinedScrollFunctions function when the browser loads
 window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
+// Initialize the current flashcard index and total number of flashcards
 let currentFlashcard = 1;
-const totalFlashcards = 4; // Update this if you add more flashcards
+const totalFlashcards = document.querySelectorAll('.flashcard').length;
+const flashcards = document.querySelectorAll('.flashcard');
+
+// Show the first flashcard on page load
+document.addEventListener("DOMContentLoaded", function() {
+    if (flashcards.length > 0) {
+        flashcards[0].style.display = 'block';
+    }
+});
 
 function nextFlashcard() {
-    document.getElementById('flashcard' + currentFlashcard).style.display = 'none';
+    flashcards[currentFlashcard - 1].style.display = 'none';
     currentFlashcard = (currentFlashcard % totalFlashcards) + 1;
-    document.getElementById('flashcard' + currentFlashcard).style.display = 'block';
+    flashcards[currentFlashcard - 1].style.display = 'block';
 }
 
 function previousFlashcard() {
-    document.getElementById('flashcard' + currentFlashcard).style.display = 'none';
-    if (currentFlashcard === 1){
-        currentFlashcard = totalFlashcards
-    }
-    else{
+    flashcards[currentFlashcard - 1].style.display = 'none';
+    if (currentFlashcard === 1) {
+        currentFlashcard = totalFlashcards;
+    } else {
         currentFlashcard -= 1;
     }
-    document.getElementById('flashcard' + currentFlashcard).style.display = 'block';
+    flashcards[currentFlashcard - 1].style.display = 'block';
 }
