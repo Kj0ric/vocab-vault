@@ -76,10 +76,10 @@ body {
   
 input[type="text"] {
   display: block;
-  height: 100px;
+  height: 2.8em;
   width: 100%;
   text-transform: uppercase;
-  max-width: 4em;
+  max-width: 3em;
   font-size: 2em;
   text-align: center;
   box-sizing: border-box;
@@ -417,4 +417,8 @@ tr:not(:has(input:placeholder-shown, input:focus)) input {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+#retrybutton{
+  display: none;
 }
