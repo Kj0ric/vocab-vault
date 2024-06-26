@@ -18,24 +18,32 @@
     <h1>Account</h1>
     <form action="" id="profileForm"> <!--makes a form which will be needed for the backend-->
         <div class="column-left" id="editableInfo"> <!--left column with all the account elements-->
-            <label for="name">Name:</label>
-            <p id="nameDisplay">{{ user.username }}</p>
-        
-            <label for="email">Email:</label>
+            <!--Display username-->
+            <label for="usernameDisplay">Username:</label>
+            <p id="usernameDisplay">{{ user.username }}</p>
+            <!--Input for new username-->
+            <input type="text" id="usernameInput" placeholder="Enter new username" style="display:none;">
+
+            <!--Display username-->
+            <label for="emailDisplay">Email:</label>
             <p id="emailDisplay">{{ user.email }}</p>
+            <!--Input for new email-->
+            <input type="email" id="emailInput" placeholder="Enter new email" style="display:none;">
+
+
+            {% if user.userprofile.profile_picture %}
+                <!--Display profile picture-->
+                <label for="profilePic">Profile Picture:</label>
+                <img id="profilePic" src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" style = "width:100px; height:auto;">
+            {% endif %}
             
+            <!--Input for new profile picture-->
+            <input type="file" id="profilePicInput" style="display:none;" accept="image/*">
+
             <div id="errorMessage" style="display:none; color: red;"></div>
-            <button type="button" onclick="toggleEdit()">Change</button> <!--uses the change function to go from uneditable to editable-->
-            <button type="button" onclick="saveChanges()">save</button> <!--uses the Savechanges function to go from editable to uneditable and save it-->
+            <button type="button" id="changeButton">Change</button> <!--uses the change function to go from uneditable to editable-->
+            <button type="button" id="saveButton">Save</button> <!--uses the Savechanges function to go from editable to uneditable and save it-->
         </div>
-        
-        {% comment %}
-        <div class="column-right"> <!--right column with the ability to choose a picture with the displayprofilepic-->
-        <label for="photo">Change Profile Picture:</label>
-        <input class="photoinput" type="file" name="photo" id="photo" onchange="displayProfilePic()">
-        <img src="#" alt="Profile Picture" style="display: none;" id="profilePic">
-        </div> 
-        {% endcomment %}
     </form>
   </div>
 

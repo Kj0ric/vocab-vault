@@ -49,7 +49,7 @@ git clone https://github.com/VU-Applied-Programming-for-AI-2024/Group-39.git
 This repository is also available to clone through github desktop
 
 ## Architecture
-![Architecture diagram](/Screenshot%202024-06-15%20at%2023.18.12.png)
+
 
 ## How to open the webpage
 To open the webpage, use the 'Open webpage' shortcut. In case it doesn't work,
@@ -57,3 +57,6 @@ To open the webpage, use the 'Open webpage' shortcut. In case it doesn't work,
 1. Install the required software in the requirment.txt file
 2. Go into the "vocabVault" directory
 3. Run the "python manage.py runserver" command
+
+## Installing the requirements
+Use the terminal command "pip install -r requirements.txt" to install the requirements 

@@ -156,6 +156,35 @@ function calendarFunction() {
     }
 }
 
+/**
+ * Retrieves the value of a specified cookie by its name.
+ * 
+ * @param {string} name The name of the cookie to retrieve.
+ * @returns {string|null} The value of the cookie if found, otherwise `null`.
+ */
+function getCookie(name) {
+    let cookieValue = null;
+    
+    // Check for cookies 
+    if (document.cookie && document.cookie !== '') {
+        // Split into an array of individual cookie strings in the format ("name=value; name2=value2")
+        const cookies = document.cookie.split(';');
+
+        // Iterate over the array to find the cookie
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+
+            // Checks if the current cookie string starts with "name"
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {                
+                // Decode the value to correctly interpret any encoded characters
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 function displayProfilePic() {
     const input = document.getElementById('photo');
     const img = document.getElementById('profilePic');
@@ -170,66 +199,118 @@ function displayProfilePic() {
 
       reader.readAsDataURL(input.files[0]);
     }
-  }
+}
 
-  function submitForm() {
-    const formData = new FormData(document.getElementById('profileForm'));
+/* USER INFORMATION CHANGE FUNCTIONS */
+document.addEventListener('DOMContentLoaded', function() {
+    // Select the buttons by their IDs
+    const changeButton = document.getElementById('changeButton');
+    const saveButton = document.getElementById('saveButton');
 
-    for (const pair of formData.entries()) {
-      console.log(pair[0] + ': ' + pair[1]);
+    // Check if the buttons exist to avoid errors
+    if (changeButton) {
+        changeButton.addEventListener('click', toggleEdit);
     }
-  }
-/* here the acount change function start */
-  let editMode = false; // Initial state: Display mode
 
-  let savedValues = {
-      name: 'John Doe',
-      email: 'example@example.com',
-      gender: 'male',
-      age: '30'
-  };
+    if (saveButton) {
+        saveButton.addEventListener('click', saveChanges);
+    }
+});
+
+let editMode = false; // Initial state: Display mode
+
+function toggleEdit() {
+    // Toggle the edit mode state
+    editMode = !editMode;
+
+    // Get elements
+    const usernameDisplay = document.getElementById('usernameDisplay');
+    const usernameInput = document.getElementById('usernameInput');
+    const emailDisplay = document.getElementById('emailDisplay');
+    const emailInput = document.getElementById('emailInput');
+    const profilePic = document.getElementById('profilePic');
+    const profilePicInput = document.getElementById('profilePicInput');
+    // Select the buttons by their IDs
+    const changeButton = document.getElementById('changeButton');
+    const saveButton = document.getElementById('saveButton');
+
+    // Toggle visibility based on edit mode
+    if (editMode) {
+        usernameDisplay.style.display = 'none';
+        emailDisplay.style.display = 'none';
+        if (profilePic) profilePic.style.display = 'none'; // Check if profilePic exists
+        usernameInput.style.display = 'block';
+        emailInput.style.display = 'block';
+        if (profilePicInput) profilePicInput.style.display = 'block'; // Check if profilePicInput exists
+        changeButton.textContent = 'Cancel'; // Change button text to "Cancel"
+        changeButton.style.backgroundColor = 'red'; // Change background color to red
+
+        
+    } else {
+        usernameDisplay.style.display = 'block';
+        emailDisplay.style.display = 'block';
+        if (profilePic) profilePic.style.display = 'block'; // Check if profilePic exists
+        usernameInput.style.display = 'none';
+        emailInput.style.display = 'none';
+        if (profilePicInput) profilePicInput.style.display = 'none'; // Check if profilePicInput exists
+        changeButton.textContent = 'Change'; // Change button text back to "Change"
+        changeButton.style.backgroundColor = ''; // Reset background color
+
+        
+    }
+}
   
-  function toggleEdit() {
-      editMode = !editMode; // Toggle edit mode
-  
-      const nameDisplay = document.getElementById('nameDisplay');  
-      const emailDisplay = document.getElementById('emailDisplay');
-      const genderDisplay = document.getElementById('genderDisplay');
-      const ageDisplay = document.getElementById('ageDisplay');
-  
-      if (editMode) {
-          nameDisplay.innerHTML = '<input type="text" id="nameInput" value="' + savedValues.name + '">';
-          emailDisplay.innerHTML = '<input type="email" id="emailInput" value="' + savedValues.email + '">';
-          genderDisplay.innerHTML = '<select id="genderSelect"><option value="male">male</option><option value="female">female</option><option value="other">other</option></select>'; 
-          ageDisplay.innerHTML = '<input type="text" id="ageInput" value="' + savedValues.age + '">';
-          
-          document.querySelector('button').innerHTML = 'Submit';
-      } else {
-          if (confirm('Are you sure you want to discard changes?')) {
-              nameDisplay.innerHTML = savedValues.name;
-              emailDisplay.innerHTML = savedValues.email;
-              genderDisplay.innerHTML = savedValues.gender;
-              ageDisplay.innerHTML = savedValues.age;
-  
-              document.querySelector('button').innerHTML = 'Change';}
-   
-            else {
-                        editMode = true; // Stay in edit mode if the user cancels going back to view mode
-                    }
-                }
-  }
-  
-  function saveChanges() {
-      savedValues.name = document.getElementById('nameInput').value;
-      savedValues.email = document.getElementById('emailInput').value;
-      savedValues.gender = document.getElementById('genderSelect').value;
-      savedValues.age = document.getElementById('ageInput').value;
-  
-      // Update display with the new values - This section can be customized based on how you want to handle the changes visually
-      document.getElementById('nameDisplay').innerHTML = savedValues.name;
-      document.getElementById('emailDisplay').innerHTML = savedValues.email;
-      document.getElementById('genderDisplay').innerHTML = savedValues.gender;
-      document.getElementById('ageDisplay').innerHTML = savedValues.age;
-  
-      toggleEdit(); // Switch back to view mode after saving changes
-  }
+function saveChanges() {
+    const newUsername = document.getElementById('usernameInput').value;
+    const newEmail = document.getElementById('emailInput').value;
+    let newProfilePic = null;
+    const profilePicInput = document.getElementById('profilePicInput');
+    if (profilePicInput && profilePicInput.files && profilePicInput.files.length > 0) {
+        newProfilePic = profilePicInput.files[0];
+    }
+
+    const data = new FormData();
+    if (newUsername) {
+        data.append('username', newUsername);
+    }
+    if(newEmail) {
+        data.append('email', newEmail);
+    }
+    if (newProfilePic) {
+        data.append('profile_pic', newProfilePic);
+    }
+
+    fetch('/update_user_info', { // Adjust the URL based on your routing setup
+        method: 'POST',
+        body: data,
+        credentials: 'include', // Include cookies in the request
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'), // Ensure you are getting the CSRF token correctly
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success) {
+            console.log('User info updated successfully');
+            toggleEdit();
+            window.location.reload();
+        } else {
+            console.error('Error updating user info:', data.error);
+            const errorMessage = document.getElementById('errorMessage');
+            if (!errorMessage) {
+                console.error('Error message element not found');
+                return;
+            }
+            errorMessage.textContent = data.error;
+            errorMessage.style.display = 'block';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        const errorMessage = document.getElementById('errorMessage');
+        if(errorMessage) {
+            errorMessage.textContent = 'Network error or server is unreachable';
+            errorMessage.style.display = 'block';
+        }
+    });
+}

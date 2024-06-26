@@ -1,24 +1,26 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, QueryDict
 from django.core.exceptions import ValidationError
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.utils import timezone
+
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+
 from django.contrib.auth.models import User
+from .models import UserProfile
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.utils import timezone
-from .models import FavoriteWord
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.core.files.storage import default_storage
 
+from .models import FavoriteWord
 
 
 def user_register(request):
     '''
     Takes in HTTP request send by the frontend, returns appropriate HTTP response in JSON
     '''
-    
     if request.method == 'POST': 
         # If POST request, process the form data to register the user
         
@@ -31,11 +33,17 @@ def user_register(request):
             # Extract username and password from cleaned_data dictionary attribute
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
+            email = request.POST.get('email')
+            profile_picture = request.FILES.get('profile_picture')
             
             try:
                 # Create a new user instance and save it to the database
-                new_user = User.objects.create_user(username=username, password=password)
+                new_user = User.objects.create_user(username=username, password=password, email=email)
                 new_user.save()
+                
+                # Now create a UserProfile instance
+                new_profile = UserProfile(user=new_user, profile_picture=profile_picture)
+                new_profile.save()
                 
                 # Return a HTTP response with status code 201 for "Created" 
                 return JsonResponse({'username': new_user.username, 'id': new_user.id},  status=201)
@@ -48,7 +56,7 @@ def user_register(request):
             # If the form fields don't meet the criteria, send HTTP response with status code 401 ("Bad request")
             # containing the errors
         
-            # Dictionary with field-json-serializable error (key-values)
+            # Create a dictionary with field-json serializable error (key-values) using dictiınary comprehension
             errors = {field: error.get_json_data() for field, error in form.errors.items()}
             return JsonResponse({'errors': errors}, status=400)
     else: 
@@ -73,7 +81,7 @@ def user_login(request):
         if user is not None:
             login(request, user) # Creates a session handled by Django
             
-            # Return a HTTP response indicating failure
+            # Return a HTTP response indicating success
             return JsonResponse({'success': True, 'message': 'You have successfully logged in.', 'username': username}, status=200) 
         else:
             # Return a HTTP response indicating failure
@@ -96,27 +104,34 @@ def user_logout(request):
     return redirect('/homepage')
 
 @login_required
+@csrf_exempt
 def update_user_info(request):
-    if request.method == 'PUT':
-        # Django does not parse PUT request data into request.POST, so we do it manually
-        data = QueryDict(request.body)
+    if request.method == 'POST':
+        # Django doesn't handle PUT data natively, so we manually parse it
+        new_username = request.POST.get('username')
+        new_email = request.POST.get('email')
+        new_profile_pic = request.FILES.get('profile_pic')
         
         user = request.user
-        new_username = data.get('username')
-        new_email = data.get('email')
+        user_profile = UserProfile.objects.get(user=user)
         
-        # Check if the new username is already taken
-        if User.objects.exclude(pk=user.pk).filter(username=new_username).exists():
-            return JsonResponse({'success': False, 'error': 'Username already taken.'}, status=400)
-        
-        # Proceed with updating the user's username and email
-        user.username = new_username
-        user.email = new_email
-        user.save()
-        
-        return JsonResponse({'success': True}, status=200)
+        try:
+            if new_username:
+                user.username = new_username
+            if new_email:
+                user.email = new_email
+            if new_profile_pic:
+                user_profile.profile_picture = new_profile_pic
+            
+            user.save()
+            user_profile.save()
+            
+            return JsonResponse({'success' : True}, status=200)
+        except ValidationError as e:
+            return JsonResponse({'error': e.messages}, status=400)
     else:
-        return JsonResponse({'error': 'Invalid HTTP method. This endpoint requires a PUT request.'}, status=405)
+        return JsonResponse({'error:' 'Invalid request method'}, status=405)
+        
 
 def delete_favorite(request, favorite_id):
     if request.method == 'POST':

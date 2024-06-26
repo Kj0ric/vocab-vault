@@ -145,33 +145,3 @@ function initializeFormElements(){
         });
     }
 }
-
-function updateUserInfo(newUsername, newEmail) {
-    const data = new FormData();
-    data.append('username', newUsername);
-    data.append('email', newEmail);
-
-    fetch('update_user_info', { // Adjust the URL based on your routing setup
-        method: 'PUT',
-        body: new URLSearchParams(data),
-        credentials: 'include', // Include cookies in the request
-        headers: {
-            'X-CSRFToken': getCookie('csrftoken'), // Ensure you are getting the CSRF token correctly
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if(data.success) {
-            console.log('User info updated successfully');
-            window.location.reload();
-        } else {
-            console.error('Error updating user info:', data.error);
-            const errorMessage = document.getElementById('errorMessage');
-            errorMessage.textContent = data.error;
-            errorMessage.style.display = 'block';
-        }
-    })
-    .catch(error => console.error('Error:', error));
-}
-

@@ -94,23 +94,13 @@ function combinedScrollFunctions() {
     calendarFunction();
 }
 
-function calendarFunction() {
-    // Get the modal
-    var modal = document.getElementById("calendarModal");
-
-    // Get the button that opens the modal
-    var btn = document.querySelector(".floatingButtonCalendar");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-        modal.style.display = "block";
-        //Initialize the calendar
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+function initializeCalendar() {
+    // Get the html element that the calendar will be rendered
+    var calendarEl = document.getElementById('calendar');
+    
+    // Create a new instance of FullCalendar.Calendar 
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        // Pass some options
         initialView: 'dayGridMonth',
         headerToolbar: {
             left: 'prev,next',
@@ -119,60 +109,69 @@ function calendarFunction() {
         },
         handleWindowResize: true,
         contentHeight: 400,
-        events: [
-            {
-                title: 'Word of the day',
-                start: '2024-06-13', 
-                url: '../Favorite1Page/Favorite1Page.html'
-            },
-            {
-                title: 'Word of the day',
-                start: '2024-06-14', 
-                url: '../Favorite2Page/Favorite2Page.html'
-            },
-            {
-                title: 'Word of the day',
-                start: '2024-06-15', 
-                url: '../Favorite3Page/Favorite3Page.html'
-            }
-        ],
-        eventClick: function(info) {
+        events: [],
+        
+        // This function opens the event's URL in a new window and prevents the default action for the click event.
+        eventClick: function(info) {    
             window.open(info.event.url);
             info.jsEvent.preventDefault();
         }
-        });
-    
+    });
+    return calendar;
+}
+
+function calendarFunction() {
+    // Get the modal
+    var modal = document.getElementById("calendarModal");
+    // Get the button that opens the modal
+    var btn = document.querySelector(".floatingButtonCalendar");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // Initialize the calendar object 
+    var calendar = initializeCalendar();
+
+    // Event listener on the button to open the modal
+    btn.onclick = function() {
+        modal.style.display = "block"; // Make it visible
+        
+        // Render the calendar
         calendar.render();
+
+        // AJAX request with GET method to update the events of the calendar
+        $.ajax({
+            url: '/get_words/',
+            type: 'GET',
+            success: function(response) {
+                console.log('Response:', response);
+                //var words = JSON.parse(response);
+                
+                calendar.removeAllEvents(); // Remove old events
+                calendar.addEventSource(response); // Add new events
+            }
+        });
     }
-    // When the user clicks on <span> (x), close the modal
+
+    // Event listener on the <span> (x) button to close the modal
     span.onclick = function() {
         modal.style.display = "none";
     }
 
-    // When the user clicks anywhere outside of the modal, close it
+    // Event listener on anywhere outside of the modal to close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
 }
+
 window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
 window.onload = combinedScrollFunctions; //activates the adjustButtonMargins function when the browser loads
 window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
 
 
 function goToHomePage() {
-    // check for a cookie named 'isLoggedIn'
-    const isLoggedIn = document.cookie.split(';').some((item) => item.trim().startsWith('isLoggedIn='));
-
-    if (isLoggedIn) {
-        // User is logged in, redirect to the homepage or modify it as needed
-        window.location.href = "../HomePage/HomePage.html";  // Redirect to HomePage.html
-    } else {
-        // User is not logged in, redirect to the homepage or modify it as needed
-        window.location.href = "../HomePage/HomePage.html";  // Redirect to HomePage.html
-        // You might want to modify the homepage differently for not logged in users
-    }
+    window.location.href = "/homepage";  // Redirect to HomePage.html
   }
 
 document.addEventListener('DOMContentLoaded', function() {

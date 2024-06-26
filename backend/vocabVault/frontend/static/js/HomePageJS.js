@@ -158,6 +158,7 @@ function calendarFunction() {
 
     // Event listener on anywhere outside of the modal to close it
     window.onclick = function(event) {
+        // Click on the anywhere on the modal but not the content.
         if (event.target == modal) {
             modal.style.display = "none";
         }
