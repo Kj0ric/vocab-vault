@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+'''
+Django's built-in User model is a part of Django's authentication system.
+It provides a fully functional user model with commonly-used fields and methods. 
+'''
 
 
 # A custom user model extending Django's built-in User model with additional information.

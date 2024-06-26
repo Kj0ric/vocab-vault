@@ -235,8 +235,6 @@ def add_to_favorite(request):
         print(f"Error occurred: {str(e)}")
         return redirect('/homepage')  # Redirect to homepage or handle error as needed
 
-
-
 def get_words(request):
     words = Words.objects.all()
     words_list = []

@@ -17,7 +17,9 @@
     </div> {% endcomment %}
 
     <form method="post" action="{% url "users:login" %}" id="loginForm">
-        {% csrf_token %}
+        <!--Include CSRF (Cross-Site Request Forgery) token as a hidden input field within the form-->
+        <!--Ensures that the request is legitimate and originates from the same site-->
+        {% csrf_token %} 
         <div class="container">
             <label for="uname"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" id="uname" name="username" required>
