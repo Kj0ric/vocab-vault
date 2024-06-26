@@ -13,7 +13,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import default_storage
-
+from django.http import HttpResponse
 from .models import FavoriteWord
 
 
@@ -158,37 +158,50 @@ def show_favorites(request):
         return render(request, 'userloginpage.html')
 
 
-def soft_delete_favorite(request, favorite_id):
-    favorite = FavoriteWord.objects.get(id=favorite_id)
-    favorite.is_deleted = True
-    favorite.deleted_at = timezone.now()
-    favorite.save()
-    return redirect('favorites_page')
-
-def restore_favorite(request, favorite_id):
-    favorite = FavoriteWord.objects.get(id=favorite_id)
-    if favorite.is_deleted and (timezone.now() - favorite.deleted_at).days <= 1:
-        favorite.is_deleted = False
-        favorite.deleted_at = None
-        favorite.save()
-    return redirect('favorites_page')
-
 def show_favorite_words(request):
     if request.user.is_authenticated:
-        # Filter favorites for the currently logged-in user
+        edit_mode = request.session.get('edit_mode', {})  # Get edit mode from session
+
+        # Filter favorites for the logged-in user
         user_favorites = FavoriteWord.objects.filter(user=request.user)
 
-        # Print a message to log the number of favorite words for the user
-        print(f"Number of favorite words for user {request.user}: {user_favorites.count()}")
+        # Update edit mode for specific favorite based on request parameters
+        if 'edit_favorite' in request.GET:
+            favorite_id = int(request.GET['edit_favorite'])
+            if 'favorite_ids' not in edit_mode:
+                edit_mode['favorite_ids'] = []
+            if favorite_id in edit_mode['favorite_ids']:
+                edit_mode['favorite_ids'].remove(favorite_id)
+            else:
+                edit_mode['favorite_ids'].append(favorite_id)
+            request.session['edit_mode'] = edit_mode  # Update session
 
-        # Pass the user-specific favorites to the template for display
-        context = {
-            'user_favorites': user_favorites
-        }
-        return render(request, 'FavoritesPage.html', {'favorite_words': user_favorites})
+        context = {'user_favorites': user_favorites, 'edit_mode': edit_mode}
+        return render(request, 'FavoritesPage.html', context)
     else:
         # Print a message to log that the user is not authenticated
         print("User is not authenticated. Redirecting to login page.")
 
         # Handle the case when the user is not authenticated (e.g., redirect to login)
         return render(request, 'userloginpage.html')
+
+
+def edit_favorite(request, favorite_id):
+    if request.method == 'POST':
+        # Retrieve the FavoriteWord object based on the favorite_id
+        try:
+            favorite_word = FavoriteWord.objects.get(id=favorite_id)
+        except FavoriteWord.DoesNotExist:
+            return HttpResponse("Favorite entry not found.", status=404)
+
+        # Process the form data to update the favorite entry
+        form_data = request.POST
+        favorite_word.field_name = form_data.get('field_name', favorite_word.field_name)  # Update the field with the new value
+
+        # Save the updated favorite entry
+        favorite_word.save()
+
+        # Redirect to a success page or a different URL after editing
+        return redirect('/homepage')  # Redirect to a success page
+
+    return HttpResponse("Method not allowed", status=405)  # Return if the method is not allowed

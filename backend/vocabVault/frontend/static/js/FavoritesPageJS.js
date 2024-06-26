@@ -188,3 +188,4 @@ function changeColor(button) {
         textContainer.textContent = "";
     }  
 }
+

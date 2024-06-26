@@ -248,3 +248,23 @@ def get_words(request):
        })
     
     return JsonResponse(words_list, safe=False)
+
+def edit_favorite(request, favorite_id):
+    if request.method == 'POST':
+        # Retrieve the FavoriteWord object based on the favorite_id
+        try:
+            favorite_word = FavoriteWord.objects.get(id=favorite_id)
+        except FavoriteWord.DoesNotExist:
+            return HttpResponse("Favorite entry not found.", status=404)
+
+        # Process the form data to update the favorite entry
+        form_data = request.POST
+        favorite_word.word = form_data.get('word', favorite_word.word)  # Update the field with the new value
+
+        # Save the updated favorite entry
+        favorite_word.save()
+
+        # Redirect to a success page or a different URL after editing
+        return redirect('/homepage')  # Redirect to a success page
+
+    return HttpResponse("Method not allowed", status=405)  # Return if the method is not allowed
