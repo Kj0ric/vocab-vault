@@ -160,31 +160,23 @@ def show_favorites(request):
 
 def show_favorite_words(request):
     if request.user.is_authenticated:
-        edit_mode = request.session.get('edit_mode', {})  # Get edit mode from session
-
-        # Filter favorites for the logged-in user
+        # Filter favorites for the currently logged-in user
         user_favorites = FavoriteWord.objects.filter(user=request.user)
 
-        # Update edit mode for specific favorite based on request parameters
-        if 'edit_favorite' in request.GET:
-            favorite_id = int(request.GET['edit_favorite'])
-            if 'favorite_ids' not in edit_mode:
-                edit_mode['favorite_ids'] = []
-            if favorite_id in edit_mode['favorite_ids']:
-                edit_mode['favorite_ids'].remove(favorite_id)
-            else:
-                edit_mode['favorite_ids'].append(favorite_id)
-            request.session['edit_mode'] = edit_mode  # Update session
+        # Print a message to log the number of favorite words for the user
+        print(f"Number of favorite words for user {request.user}: {user_favorites.count()}")
 
-        context = {'user_favorites': user_favorites, 'edit_mode': edit_mode}
-        return render(request, 'FavoritesPage.html', context)
+        # Pass the user-specific favorites to the template for display
+        context = {
+            'user_favorites': user_favorites
+        }
+        return render(request, 'FavoritesPage.html', {'favorite_words': user_favorites})
     else:
         # Print a message to log that the user is not authenticated
         print("User is not authenticated. Redirecting to login page.")
 
         # Handle the case when the user is not authenticated (e.g., redirect to login)
         return render(request, 'userloginpage.html')
-
 
 def edit_favorite(request, favorite_id):
     if request.method == 'POST':
