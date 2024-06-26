@@ -165,7 +165,7 @@ function refresh() {
 
     This function jas no parameters and returns nothing
   */
-    window.open("WordlePage.html", "_self")
+    location.reload();
 
 }
 
@@ -193,7 +193,7 @@ function drawTable() {
   let answer = currentAnswer
 
   
-  let html = '<table>';
+  let html = '<div id="wordleContainer"><table>';
     let rows = 6
     let letterCount = answer.length;
     let cols = letterCount
@@ -216,20 +216,23 @@ function drawTable() {
         wordCounter +=1
     }
 
-    html += '</table>';
+    html += '</table></div><button onclick="refresh()" id="retrybutton">New puzzle</button><br><br><br><br><br><br><br><br>';
 
     document.body.innerHTML += html;
 }
 
+let correctWord
 function CheckInput(event) {
+    wordleDiv = document.querySelector('#wordleContainer')
     if (!usagesLeft == 0) {
-    let inputs = document.querySelectorAll('input');
+    
+      let inputs = document.querySelectorAll('input');
   
     let rows = document.querySelectorAll('table tr');
   
     inputs.forEach(function(input) {
       const userAnswer = input.value;
-      const correctWord = input.getAttribute("pattern");
+      correctWord = input.getAttribute("pattern");
       const correctLetter = input.getAttribute("data-correct-pattern");
   
       let style = window.getComputedStyle(input);
@@ -237,11 +240,11 @@ function CheckInput(event) {
   
       if (pointerEvents == 'none'){
   
-        if (userAnswer == correctLetter) {
+        if (userAnswer == correctLetter.toUpperCase() || userAnswer == correctLetter.toLowerCase()) {
           input.classList.remove("Incorrect")
           input.classList.remove("WrongPlace")
           input.classList.add("Correct")
-        } else if ((correctWord.includes(userAnswer)) && !(userAnswer == correctLetter) && !(userAnswer == '')) {
+        } else if ((correctWord.includes(userAnswer.toLowerCase()) || correctWord.includes(userAnswer.toUpperCase())) && !(userAnswer == correctLetter.toUpperCase() || userAnswer == correctLetter.toLowerCase()) && !(userAnswer == '')) {
           input.classList.remove("Incorrect")
           input.classList.remove("Correct")
           input.classList.add("WrongPlace")
@@ -253,6 +256,7 @@ function CheckInput(event) {
         
       }});
       
+      answeredInputs = 0
       rows.forEach(function(row) {
         if (!isWinner == true) {
           // Get all the input elements in this row
@@ -265,28 +269,54 @@ function CheckInput(event) {
             if (input.classList.contains('Correct')) {
               correctInputs += 1
             }
-          });
+            if (!input.value == '') {
+              answeredInputs += 1
+            }
+            });
   
-          if (correctInputs == currentAnswer.length) {
+            if (correctInputs == currentAnswer.length) {
             isWinner = true
             // Create a new element, set its text to 'You win', and insert it before the first row
             
             if (usagesLeft > 1) {
-  
-            let winMessage = document.createElement('div');
-            winMessage.textContent = 'You win';
-            winMessage.style.fontSize = '2em'; // Set the font size or any other styles as needed
-            let table = document.querySelector('table'); // Replace with your actual table selector
-            table.insertBefore(winMessage, table.firstChild);
-            usagesLeft = 1
-            } 
+              
+              let winMessage = document.createElement('div');
+              winMessage.textContent = 'You win';
+              winMessage.style.fontSize = '2em'; // Set the font size or any other styles as needed
+              let table = document.querySelector('table'); // Replace with your actual table selector
+              wordleDiv.appendChild(winMessage);
+              usagesLeft = 1
+              retrybutton = document.querySelector('#retrybutton')
+              retrybutton.style.display = 'unset'
+              
+              } 
+            }
+            console.log(answeredInputs, currentAnswer.length*6)
+            if (answeredInputs == currentAnswer.length*6 && isWinner == false) {
+              
+              // Create a new element, set its text to 'You win', and insert it before the first row
+              
+              if (usagesLeft > 1) {
+                
+                let loseMessage = document.createElement('div');
+                loseMessage.textContent = 'You lose, the correct word is was ';
+                loseMessage.textContent += correctWord
+                loseMessage.style.fontSize = '2em'; // Set the font size or any other styles as needed
+                let table = document.querySelector('table'); // Replace with your actual table selector
+                wordleDiv.appendChild(loseMessage);
+                usagesLeft = 1
+                retrybutton = document.querySelector('#retrybutton')
+                retrybutton.style.display = 'unset'
+                
+                } 
+              }
+
+          } else {
+            row.style.display = 'none';
             
-          } 
-        } else {
-          row.style.display = 'none';
-          
-        }
-        if (usagesLeft == 1) {usagesLeft = 0}
+          }
+
+          if (usagesLeft == 1) {usagesLeft = 0}
       });
     
   }}
