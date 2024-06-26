@@ -93,23 +93,13 @@ function combinedScrollFunctions() {
     calendarFunction();
 }
 
-function calendarFunction() {
-    // Get the modal
-    var modal = document.getElementById("calendarModal");
-
-    // Get the button that opens the modal
-    var btn = document.querySelector(".floatingButtonCalendar");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-        modal.style.display = "block";
-        //Initialize the calendar
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+function initializeCalendar() {
+    // Get the html element that the calendar will be rendered
+    var calendarEl = document.getElementById('calendar');
+    
+    // Create a new instance of FullCalendar.Calendar 
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        // Pass some options
         initialView: 'dayGridMonth',
         headerToolbar: {
             left: 'prev,next',
@@ -118,37 +108,55 @@ function calendarFunction() {
         },
         handleWindowResize: true,
         contentHeight: 400,
-        events: [
-            {
-                title: 'Word of the day',
-                start: '2024-06-13', 
-                url: '../Favorite1Page/Favorite1Page.html'
-            },
-            {
-                title: 'Word of the day',
-                start: '2024-06-14', 
-                url: '../Favorite2Page/Favorite2Page.html'
-            },
-            {
-                title: 'Word of the day',
-                start: '2024-06-15', 
-                url: '../Favorite3Page/Favorite3Page.html'
-            }
-        ],
-        eventClick: function(info) {
+        events: [],
+        
+        // This function opens the event's URL in a new window and prevents the default action for the click event.
+        eventClick: function(info) {    
             window.open(info.event.url);
             info.jsEvent.preventDefault();
         }
-        });
-    
+    });
+    return calendar;
+}
+
+function calendarFunction() {
+    // Get the modal
+    var modal = document.getElementById("calendarModal");
+    // Get the button that opens the modal
+    var btn = document.querySelector(".floatingButtonCalendar");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // Initialize the calendar object 
+    var calendar = initializeCalendar();
+
+    // Event listener on the button to open the modal
+    btn.onclick = function() {
+        modal.style.display = "block"; // Make it visible
+        
+        // Render the calendar
         calendar.render();
+
+        // AJAX request with GET method to update the events of the calendar
+        $.ajax({
+            url: '/get_words/',
+            type: 'GET',
+            success: function(response) {
+                console.log('Response:', response);
+                //var words = JSON.parse(response);
+                
+                calendar.removeAllEvents(); // Remove old events
+                calendar.addEventSource(response); // Add new events
+            }
+        });
     }
-    // When the user clicks on <span> (x), close the modal
+
+    // Event listener on the <span> (x) button to close the modal
     span.onclick = function() {
         modal.style.display = "none";
     }
 
-    // When the user clicks anywhere outside of the modal, close it
+    // Event listener on anywhere outside of the modal to close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
@@ -206,7 +214,10 @@ function getCookie(name) {
  * using a POST request. It handles the response by displaying success or error messages.
  */
 function register() {
+    // Select the DOM elements
     const form = document.getElementById('registerForm');
+    const errorMessageElement = document.getElementById('errorMessage'); 
+    const successMessageElement = document.getElementById('successMessage');
 
     // Listens for the submit event. When the form is submitted, the function will be executed
     form.addEventListener('submit', function(e) {
@@ -240,42 +251,16 @@ function register() {
                 for (const field in data.errors) {
                     const errorMessages = data.errors[field];
                     
-                    // Handle if errorMessages is an array
-                    if (Array.isArray(errorMessages)) {
-                        // If it is an array, iterate over it
-                        errorMessages.forEach(error => {
-                            allErrorMessages += error.message + '\n';
-                        });
-                    } 
-                    // Handle if errorMessages is a string
-                    else if (typeof errorMessages === 'string') {
-                        // Parse it as JSON
-                        try {
-                            const parsedErrorMessages = JSON.parse(errorMessages.replace(/ /g, ''));
-                            if (Array.isArray(parsedErrorMessages)) {
-                                parsedErrorMessages.forEach(error => {
-                                    allErrorMessages += error.message + '\n';
-                                });
-                            }
-                        } catch (e) {
-                            // If parsing fails, use the string directly
-                            allErrorMessages += errorMessages + '\n';
-                        }
-                    } 
-                    // If it's not an array or string, directly append it
-                    else {            
-                        allErrorMessages += errorMessages + '\n';
-                    }
+                    errorMessages.forEach(error => {
+                        allErrorMessages += error.message + '\n';
+                    });
                 }
-                
-                const errorMessageElement = document.getElementById('errorMessage'); // Select the DOM element
                 errorMessageElement.textContent = allErrorMessages; // Put the message inside the element
                 errorMessageElement.style.display = 'block'; // Ensure it's visible
             } 
             // If there are no errors in registration, display success message
             else {
                 console.log('Success:', data);
-                const successMessageElement = document.getElementById('successMessage');
                 successMessageElement.textContent = 'Successfully registered. Go to Login page.';
                 successMessageElement.style.display = 'block';
             }

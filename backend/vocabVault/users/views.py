@@ -12,13 +12,10 @@ from .models import FavoriteWord
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-
-
 def user_register(request):
     '''
     Takes in HTTP request send by the frontend, returns appropriate HTTP response in JSON
     '''
-    
     if request.method == 'POST': 
         # If POST request, process the form data to register the user
         
@@ -48,7 +45,7 @@ def user_register(request):
             # If the form fields don't meet the criteria, send HTTP response with status code 401 ("Bad request")
             # containing the errors
         
-            # Dictionary with field-json-serializable error (key-values)
+            # Create a dictionary with field-json serializable error (key-values) using dictiınary comprehension
             errors = {field: error.get_json_data() for field, error in form.errors.items()}
             return JsonResponse({'errors': errors}, status=400)
     else: 
@@ -98,25 +95,9 @@ def user_logout(request):
 @login_required
 def update_user_info(request):
     if request.method == 'PUT':
-        # Django does not parse PUT request data into request.POST, so we do it manually
-        data = QueryDict(request.body)
-        
-        user = request.user
-        new_username = data.get('username')
-        new_email = data.get('email')
-        
-        # Check if the new username is already taken
-        if User.objects.exclude(pk=user.pk).filter(username=new_username).exists():
-            return JsonResponse({'success': False, 'error': 'Username already taken.'}, status=400)
-        
-        # Proceed with updating the user's username and email
-        user.username = new_username
-        user.email = new_email
-        user.save()
         
         return JsonResponse({'success': True}, status=200)
-    else:
-        return JsonResponse({'error': 'Invalid HTTP method. This endpoint requires a PUT request.'}, status=405)
+    #else:
 
 def delete_favorite(request, favorite_id):
     if request.method == 'POST':
