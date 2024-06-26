@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, QueryDict
 from django.core.exceptions import ValidationError
 from django.contrib import messages
@@ -197,3 +197,23 @@ def edit_favorite(request, favorite_id):
         return redirect('/homepage')  # Redirect to a success page
 
     return HttpResponse("Method not allowed", status=405)  # Return if the method is not allowed
+
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import HttpResponse
+from .models import FavoriteWord
+
+
+def edit_word(request, word_id):  # Ensure the parameter name matches the URL pattern
+    word = get_object_or_404(FavoriteWord, id=word_id)
+    
+    if request.method == 'POST':
+        # Handle form submission to update the word and meaning fields
+        word.word = request.POST.get('word')
+        word.meaning = request.POST.get('meaning')
+        word.save()
+        
+        # Redirect to a success page or back to the favorites page
+        return redirect('favorites')  # Replace with your favorites URL name
+    
+    return render(request, 'editword.html', {'word': word})
+
