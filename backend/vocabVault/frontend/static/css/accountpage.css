@@ -262,6 +262,9 @@ hr {
 
 /* Styles for form container */
 .form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 20px;
 }
 
@@ -275,18 +278,14 @@ hr {
   box-sizing: border-box;
   margin-top: 20px;
   display: flex;
+  flex-direction: column;
 }
 
 /* Styles for left column in form */
-.column-left {
+.column-left, .column-right {
   flex: 1;
   padding-right: 20px;
-}
-
-/* Styles for right column in form */
-.column-right {
-  flex: 1;
-  padding-left: 20px;
+  align-items: center; /* Center vertically */
 }
 
 /* Styles for label elements in form */

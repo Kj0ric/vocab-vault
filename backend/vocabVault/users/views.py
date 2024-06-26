@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse, QueryDict
 from django.core.exceptions import ValidationError
 from django.contrib import messages
-from django.views.decorators.http import require_POST
 from django.utils import timezone
+
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth.models import User
 from .models import UserProfile
@@ -102,11 +104,34 @@ def user_logout(request):
     return redirect('/homepage')
 
 @login_required
+@csrf_exempt
 def update_user_info(request):
-    if request.method == 'PUT':
+    if request.method == 'POST':
+        # Django doesn't handle PUT data natively, so we manually parse it
+        new_username = request.POST.get('username')
+        new_email = request.POST.get('email')
+        new_profile_pic = request.FILES.get('profile_pic')
         
-        return JsonResponse({'success': True}, status=200)
-    #else:
+        user = request.user
+        user_profile = UserProfile.objects.get(user=user)
+        
+        try:
+            if new_username:
+                user.username = new_username
+            if new_email:
+                user.email = new_email
+            if new_profile_pic:
+                user_profile.profile_picture = new_profile_pic
+            
+            user.save()
+            user_profile.save()
+            
+            return JsonResponse({'success' : True}, status=200)
+        except ValidationError as e:
+            return JsonResponse({'error': e.messages}, status=400)
+    else:
+        return JsonResponse({'error:' 'Invalid request method'}, status=405)
+        
 
 def delete_favorite(request, favorite_id):
     if request.method == 'POST':
