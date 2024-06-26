@@ -38,6 +38,9 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('word/<int:word_id>/', views.wordDetail, name='wordDetail'),
     path('get_words/', views.get_words, name='getWords'),
+    path('add-to-favorites/', views.add_to_favorite, name='add_to_favorites'),
+    
+    
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

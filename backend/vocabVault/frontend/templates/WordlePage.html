@@ -1,0 +1,18 @@
+{% extends "MasterTemplate.html" %}
+{% load static %}
+
+{% block cssfile %}
+<link rel="stylesheet" href="{% static 'css/WordlePageCss.css' %}"> 
+{% endblock %}
+
+
+{% block jsfile %}
+<script type="text/javascript" src="{% static 'js/WordlePageJS.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+<h1>Wordle</h1>
+<p>You have six chances to guess a randomly selected word chosen from your list of favorites. If you have the right letter in the right spot, it shows up green. A correct letter in the wrong spot shows up yellow. A letter that isn't in the word in any spot shows up gray. </p>
+
+{% endblock %}

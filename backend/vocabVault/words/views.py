@@ -13,6 +13,7 @@ import datetime
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+
 def homepage(request):
     # Retrieve the selected language from the session (default to English if not set)
     selected_language = request.session.get('selected_language', 'English')
@@ -95,21 +96,41 @@ def addword(request):
       # Return the same template for GET requests or when form submission fails
     return render(request, 'AddNewWord.html')
 
-def favorites(request):
+def show_favorite_words(request):
+    if request.user.is_authenticated:
+        # Filter favorites for the currently logged-in user
+        user_favorites = FavoriteWord.objects.filter(user=request.user)
 
-  if request.user.is_authenticated:
-    favorites = FavoriteWord.objects.filter(user=request.user)
-    return render(request, 'FavoritesPage.html', {'favorites': favorites})
-  else:
-    return render(request, 'FavoritesPage.html', {'favorites': None})
+        # Print a message to log the number of favorite words for the user
+        print(f"Number of favorite words for user {request.user}: {user_favorites.count()}")
 
+        # Pass the user-specific favorites to the template for display
+        context = {
+            'favorite_words': user_favorites
+        }
+        print(context)
+        return render(request, 'FavoritesPage.html', context)
+    else:
+        # Print a message to log that the user is not authenticated
+        print("User is not authenticated. Redirecting to login page.")
 
+        # Handle the case when the user is not authenticated (e.g., redirect to login)
+        return render(request, 'userloginpage.html')
 
 def flashcards(request):
+    if request.user.is_authenticated:
+        user_favorites = FavoriteWord.objects.filter(user=request.user)
+        context = {
+            'favorite_words': user_favorites
+        }
+        print(context)
+        return render(request, 'flashcards.html', context)
+    else:
+        # Print a message to log that the user is not authenticated
+        print("User is not authenticated. Redirecting to login page.")
 
-  template = loader.get_template('flashcards.html')
-
-  return HttpResponse(template.render())
+        # Handle the case when the user is not authenticated (e.g., redirect to login)
+        return render(request, 'userloginpage.html')
 
 
 def quizzes(request):
@@ -120,10 +141,16 @@ def quizzes(request):
 
 
 def wordle(request):
+    if request.user.is_authenticated:
+        favorite_words = FavoriteWord.objects.filter(user=request.user)
 
-  template = loader.get_template('WordlePage.html')
+        return render(request, 'WordlePage.html', {'favorite_words': list(favorite_words)})
+    else:
+        # Print a message to log that the user is not authenticated
+        print("User is not authenticated. Redirecting to login page.")
 
-  return HttpResponse(template.render())
+        # Handle the case when the user is not authenticated (e.g., redirect to login)
+        return render(request, 'userloginpage.html')
 
 def members(request):
     return HttpResponse("Hello world!")
@@ -168,8 +195,45 @@ def wordDetail(request, word_id):
 
   return render(request, 'HomePage.html', {'word_of_the_day': word, 'today_formatted': today_formatted,})
 
+def add_to_favorite(request):
+    # Get selected language from session or default to English
+    selected_language = request.session.get('selected_language', 'English')
 
+    # Get today's date formatted as dd/mm/yyyy
+    today = date.today()
+    today_formatted = today.strftime('%d/%m/%Y')
+    user = request.user
 
+    # Determine which model to use based on selected language
+    if selected_language == 'French':
+        WordModel = FrenchWord
+    elif selected_language == 'German':
+        WordModel = GermanWord
+    else:
+        WordModel = Words  # Default to English words model
+
+    try:
+        # Retrieve the word of the day for today from the selected model
+        word_of_the_day = WordModel.objects.get(date=today_formatted)
+        
+        # Create a new FavoriteWord object and save it
+        new_favorite_word = FavoriteWord(user=user, meaning=word_of_the_day.meaning, word=word_of_the_day.word)
+        new_favorite_word.save()
+
+        # If user is authenticated, associate the favorite word with the user
+        # Redirect to the favorites page after adding the word to favorites
+        return redirect('/favorites')  # Assuming 'favorites' is the name of your favorites page URL
+
+    except WordModel.DoesNotExist:
+        # Handle case where no word matches today
+        # Redirect or render an appropriate response
+        return redirect('/homepage')  # Redirect to homepage or handle error as needed
+
+    except Exception as e:
+        print("hello")
+        # Handle any other exceptions gracefully (e.g., logging)
+        print(f"Error occurred: {str(e)}")
+        return redirect('/homepage')  # Redirect to homepage or handle error as needed
 
 def get_words(request):
     words = Words.objects.all()
