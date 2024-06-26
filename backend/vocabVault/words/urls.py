@@ -39,7 +39,7 @@ urlpatterns = [
     path('word/<int:word_id>/', views.wordDetail, name='wordDetail'),
     path('get_words/', views.get_words, name='getWords'),
     path('add-to-favorites/', views.add_to_favorite, name='add_to_favorites'),
-    path('edit_favorite/<int:favorite_id>/', views.edit_favorite, name='edit_favorite'), 
+    path('editword/<int:word_id>/', views.edit_word, name='edit_word'),
     
     
     
