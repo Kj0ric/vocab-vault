@@ -190,8 +190,6 @@ def wordDetail(request, word_id):
   return render(request, 'HomePage.html', {'word_of_the_day': word, 'today_formatted': today_formatted,})
 
 
-
-
 def get_words(request):
     words = Words.objects.all()
     words_list = []
