@@ -174,6 +174,7 @@ function goToHomePage() {
 
 document.addEventListener('DOMContentLoaded', function() {
     register();
+    displayUploadedPic();
 });
 
 
@@ -270,4 +271,22 @@ function register() {
             console.error('Error:', error);
         });
     });
+}
+
+function displayUploadedPic() {
+    const input = document.getElementById('profilePic');
+    const img = document.getElementById('uploadedPic');
+
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            img.src = e.target.result;
+            img.style.display = 'block';
+            img.style.width = '200px';
+            img.style.height= '200px';
+            img.style.objectFit = 'cover'; // Ensure the aspect ratio is maintained and the image is covered within the dimensions
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 }

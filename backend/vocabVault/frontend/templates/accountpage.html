@@ -18,12 +18,18 @@
     <h1>Account</h1>
     <form action="" id="profileForm"> <!--makes a form which will be needed for the backend-->
         <div class="column-left" id="editableInfo"> <!--left column with all the account elements-->
-            <label for="name">Name:</label>
+            <!--Display username-->
+            <label for="nameDisplay">Username:</label>
             <p id="nameDisplay">{{ user.username }}</p>
-        
-            <label for="email">Email:</label>
+            
+            <!--Display username-->
+            <label for="emailDisplay">Email:</label>
             <p id="emailDisplay">{{ user.email }}</p>
             
+            <!--Display profile picture-->
+            <label for="profilePicture">Profile Picture:</label>
+            <img id="profilePicture" src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" style = "width:100px; height:auto;">
+
             <div id="errorMessage" style="display:none; color: red;"></div>
             <button type="button" onclick="toggleEdit()">Change</button> <!--uses the change function to go from uneditable to editable-->
             <button type="button" onclick="saveChanges()">save</button> <!--uses the Savechanges function to go from editable to uneditable and save it-->

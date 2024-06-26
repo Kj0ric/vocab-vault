@@ -1,16 +1,19 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, QueryDict
 from django.core.exceptions import ValidationError
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.utils import timezone
-from .models import FavoriteWord
-from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth.models import User
+from .models import UserProfile
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.core.files.storage import default_storage
+
+from .models import FavoriteWord
+
 
 def user_register(request):
     '''
@@ -28,11 +31,17 @@ def user_register(request):
             # Extract username and password from cleaned_data dictionary attribute
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
+            email = request.POST.get('email')
+            profile_picture = request.FILES.get('profile_picture')
             
             try:
                 # Create a new user instance and save it to the database
-                new_user = User.objects.create_user(username=username, password=password)
+                new_user = User.objects.create_user(username=username, password=password, email=email)
                 new_user.save()
+                
+                # Now create a UserProfile instance
+                new_profile = UserProfile(user=new_user, profile_picture=profile_picture)
+                new_profile.save()
                 
                 # Return a HTTP response with status code 201 for "Created" 
                 return JsonResponse({'username': new_user.username, 'id': new_user.id},  status=201)
@@ -70,7 +79,7 @@ def user_login(request):
         if user is not None:
             login(request, user) # Creates a session handled by Django
             
-            # Return a HTTP response indicating failure
+            # Return a HTTP response indicating success
             return JsonResponse({'success': True, 'message': 'You have successfully logged in.', 'username': username}, status=200) 
         else:
             # Return a HTTP response indicating failure
