@@ -46,10 +46,10 @@
     </div> 
     
     <!---This is the search bar-->
-<div id="search">
-    <form id="search-form" action="{% url 'index' %}" method="get">
-        <div class="search-container">
-            <select name="filter" id="filter">
+    <div type = "search" id="search">
+        <form id="search-form" action="{% url 'index' %}" method="get">
+            <input type="text" name="search" placeholder="Search for a word or meaning" value="{{ request.GET.title }}" id="searchbar">
+            <select name="filter">
                 <option value="">Filter Options</option>
                 <option value="noun" {% if filter_by == 'noun' %}selected{% endif %}>Noun</option>
                 <option value="verb" {% if filter_by == 'verb' %}selected{% endif %}>Verb</option>
