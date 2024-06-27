@@ -291,10 +291,6 @@ input[type=radio]{
   cursor: pointer;
 }
 
-#NewWordTitle {
-  margin-top: 500px;
-}
-
 select {
   padding: 8px;
   font-size: 16px;
@@ -333,3 +329,4 @@ button:hover {
   float: left;
   padding: 0px;
 }
+

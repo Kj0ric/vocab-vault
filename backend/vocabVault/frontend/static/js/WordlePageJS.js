@@ -93,23 +93,19 @@ function combinedScrollFunctions() {
   calendarFunction();
 }
 
-function calendarFunction() {
-  // Get the modal
-  var modal = document.getElementById("calendarModal");
+function initializeCalendar() {
+  /*  
+  This function creates and initializes a callendar using the Fullcallendar javascript library.
 
-  // Get the button that opens the modal
-  var btn = document.querySelector(".floatingButtonCalendar");
+  This function has no parameters and returns the created library.
+  */
 
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
-
-  // When the user clicks the button, open the modal 
-  btn.onclick = function() {
-      modal.style.display = "block";
-      //Initialize the calendar
-      var calendarEl = document.getElementById('calendar');
-
-      var calendar = new FullCalendar.Calendar(calendarEl, {
+  // Get the html element that the calendar will be rendered
+  var calendarEl = document.getElementById('calendar');
+  
+  // Create a new instance of FullCalendar.Calendar 
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+      // Pass some options
       initialView: 'dayGridMonth',
       headerToolbar: {
           left: 'prev,next',
@@ -118,43 +114,66 @@ function calendarFunction() {
       },
       handleWindowResize: true,
       contentHeight: 400,
-      events: [
-          {
-              title: 'Word of the day',
-              start: '2024-06-13', 
-              url: '../Favorite1Page/Favorite1Page.html'
-          },
-          {
-              title: 'Word of the day',
-              start: '2024-06-14', 
-              url: '../Favorite2Page/Favorite2Page.html'
-          },
-          {
-              title: 'Word of the day',
-              start: '2024-06-15', 
-              url: '../Favorite3Page/Favorite3Page.html'
-          }
-      ],
-      eventClick: function(info) {
+      events: [],
+      
+      // This function opens the event's URL in a new window and prevents the default action for the click event.
+      eventClick: function(info) {    
           window.open(info.event.url);
           info.jsEvent.preventDefault();
       }
-      });
+  });
+  return calendar;
+}
+
+function calendarFunction() {
+  /*
+  makes a calendar with words and links to their corresponding pages appear when the calendar button is clicked
+
+  this function has no parameters and returns nothing
+  */
+  // Get the modal
+  var modal = document.getElementById("calendarModal");
+  // Get the button that opens the modal
+  var btn = document.querySelector(".floatingButtonCalendar");
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
   
+  // Initialize the calendar object 
+  var calendar = initializeCalendar();
+
+  // Event listener on the button to open the modal
+  btn.onclick = function() {
+      modal.style.display = "block"; // Make it visible
+      
+      // Render the calendar
       calendar.render();
+
+      // AJAX request with GET method to update the events of the calendar
+      $.ajax({
+          url: '/get_words/',
+          type: 'GET',
+          success: function(response) {
+              console.log('Response:', response);
+              
+              calendar.removeAllEvents(); // Remove old events
+              calendar.addEventSource(response); // Add new events
+          }
+      });
   }
-  // When the user clicks on <span> (x), close the modal
+
+  // Event listener on the <span> (x) button to close the modal
   span.onclick = function() {
       modal.style.display = "none";
   }
 
-  // When the user clicks anywhere outside of the modal, close it
+  // Event listener on anywhere outside of the modal to close it
   window.onclick = function(event) {
       if (event.target == modal) {
           modal.style.display = "none";
       }
   }
 }
+
 
 function refresh() {
   /* 
@@ -166,58 +185,82 @@ function refresh() {
 
 }
 
-function drawTable() {
+function drawTable()  {
+  /*
+  This function creates the table used to play the wordle game.
+
+  This function has no parameters and returns nothing.
+  */
   
+  //get the answer of the puzzle
   let answer = currentAnswer
 
   
   let html = '<div id="wordleContainer"><table>';
-    let rows = 6
-    let letterCount = answer.length;
-    let cols = letterCount
+  let rows = 6
+  let letterCount = answer.length;
+  let cols = letterCount
 
-    let counter = 0
-    let wordCounter = 0
+  let counter = 0
+  let wordCounter = 0
 
-    for(let i = 0; i < rows; i++) {
-        html += '<tr>';
-        let letterCounter = -1
-        for(let j = 0; j < cols; j++) {
-            counter += 1
-            letterCounter += 1
-            let correctLetter = answer.charAt(letterCounter)
-            
-            html += '<td><label for="input' + counter + '">Word ' + (wordCounter+1) + ' Letter ' + (letterCounter+1) + ':</label><input onkeyup="moveForward(this, event)" class="Incorrect" type="text" id="input' + counter + '" name="input' + counter + '" maxlength="1" pattern="' + answer + '" data-correct-pattern="' + correctLetter + '" placeholder=" "></td>';
-
-        }
-        html += '</tr>';
-        wordCounter +=1
+  //create 6 rows
+  for(let i = 0; i < rows; i++) {
+    html += '<tr>';
+    let letterCounter = -1
+    //create an label and input element for for each letter in the answer
+    for(let j = 0; j < cols; j++) {
+      counter += 1
+      letterCounter += 1
+      let correctLetter = answer.charAt(letterCounter)
+      
+      html += '<td><label for="input' + counter + '">Word ' + (wordCounter+1) + ' Letter ' + (letterCounter+1) + ':</label><input onkeyup="moveForward(this, event)" class="Incorrect" type="text" id="input' + counter + '" name="input' + counter + '" maxlength="1" pattern="' + answer + '" data-correct-pattern="' + correctLetter + '" placeholder=" "></td>';
     }
 
-    html += '</table></div><button onclick="refresh()" id="retrybutton">New puzzle</button><br><br><br><br><br><br><br><br>';
+    html += '</tr>';
+    wordCounter +=1
+  }
 
-    document.body.innerHTML += html;
+  //has some extra wite lines to enable scrolling for a better viewing experience
+  html += '</table></div><button onclick="refresh()" id="retrybutton">New puzzle</button><br><br><br><br><br><br><br><br>';
+
+  //adds the html code to the page
+  document.body.innerHTML += html;
 }   
 
 let correctWord
-function CheckInput(event) {
-    wordleDiv = document.querySelector('#wordleContainer')
-    if (!usagesLeft == 0) {
-    
-      let inputs = document.querySelectorAll('input');
+function CheckInput() {
+  /*
+  This function checks input elements for the correct letters
+  It also marks input elements with the corresponding classes and checks to see if the user has won or lost.
+
+  This function has no parameters and returns nothing.
+  */
+  //gets the dic element that contains the wordle game
+  wordleDiv = document.querySelector('#wordleContainer')
+  //stops the function from doing something when it shouldn't, mainly to prevent it from constantly adding the winmessage or losemessage to the page.
+  if (!usagesLeft == 0) {
   
+    //gets all input elements
+    let inputs = document.querySelectorAll('input');
+
+    //gets all rows of the table
     let rows = document.querySelectorAll('table tr');
-  
+
+    //marks each input element
     inputs.forEach(function(input) {
+      
       const userAnswer = input.value;
       correctWord = input.getAttribute("pattern");
       const correctLetter = input.getAttribute("data-correct-pattern");
   
       let style = window.getComputedStyle(input);
       let pointerEvents = style.getPropertyValue('pointer-events');
-  
+      
+      
       if (pointerEvents == 'none'){
-  
+        
+        //adds the correct class if the letter is in the correct place, adds the WrongPlace class if the letter is in the wrong place and the incorrect class if the letter is not in the word.
         if (userAnswer == correctLetter.toUpperCase() || userAnswer == correctLetter.toLowerCase()) {
           input.classList.remove("Incorrect")
           input.classList.remove("WrongPlace")
@@ -233,43 +276,69 @@ function CheckInput(event) {
         }
         
       }});
-      
-      answeredInputs = 0
-      rows.forEach(function(row) {
-        if (!isWinner == true) {
-          // Get all the input elements in this row
-          let inputs = row.querySelectorAll('input');
-  
-          let correctInputs = 0
-  
-          inputs.forEach(function(input) {
-            // If this input does not have the 'Correct' class, set allCorrect to false
-            if (input.classList.contains('Correct')) {
-              correctInputs += 1
-            }
-            if (!input.value == '') {
-              answeredInputs += 1
-            }
-            });
-  
-            if (correctInputs == currentAnswer.length) {
-            isWinner = true
-            // Create a new element, set its text to 'You win', and insert it before the first row
+    
+    answeredInputs = 0
+    //does the following for each row
+    rows.forEach(function(row) {
+      if (!isWinner == true) {
+        // Get all the input elements in this row
+        let inputs = row.querySelectorAll('input');
+
+        let correctInputs = 0
+        
+        //does the following for each input
+        inputs.forEach(function(input) {
+          
+          if (input.classList.contains('Correct')) {
+            correctInputs += 1
+          }
+          
+          if (!input.value == '') {
+            answeredInputs += 1
+          }
+          });
+
+          //checks to see if user has won
+          if (correctInputs == currentAnswer.length) {
+          isWinner = true
+          
+          //this is to make sure that it doesn't add the winmessage to the page repeatedly
+          if (usagesLeft > 1) {
             
+            //adds a you win message to the page when the user has won, also makes the 'new puzzle' button appear
+            let winMessage = document.createElement('div');
+            winMessage.textContent = 'You win';
+            winMessage.style.fontSize = '2em'; // Set the font size or any other styles as needed
+            let table = document.querySelector('table'); // Replace with your actual table selector
+            wordleDiv.appendChild(winMessage);
+            usagesLeft = 1
+            retrybutton = document.querySelector('#retrybutton')
+            retrybutton.style.display = 'unset'
+            
+            } 
+          }
+          
+          //checks to see if user has lost
+          if (answeredInputs == currentAnswer.length*6 && isWinner == false) {
+            
+            
+            //his is to make sure that it doesn't add the losemessage to the page repeatedly
             if (usagesLeft > 1) {
               
-              let winMessage = document.createElement('div');
-              winMessage.textContent = 'You win';
-              winMessage.style.fontSize = '2em'; // Set the font size or any other styles as needed
+              //adds a you lose message to the page when the user has lost, also makes the 'new puzzle' button appear
+              let loseMessage = document.createElement('div');
+              loseMessage.textContent = 'You lose, the correct word is was ';
+              loseMessage.textContent += correctWord
+              loseMessage.style.fontSize = '2em'; // Set the font size or any other styles as needed
               let table = document.querySelector('table'); // Replace with your actual table selector
-              wordleDiv.appendChild(winMessage);
+              wordleDiv.appendChild(loseMessage);
               usagesLeft = 1
               retrybutton = document.querySelector('#retrybutton')
               retrybutton.style.display = 'unset'
               
               } 
             }
-            console.log(answeredInputs, currentAnswer.length*6)
+
             if (answeredInputs == currentAnswer.length*6 && isWinner == false) {
               
               // Create a new element, set its text to 'You win', and insert it before the first row
@@ -289,41 +358,28 @@ function CheckInput(event) {
                 } 
               }
 
-          } else {
-            row.style.display = 'none';
-            
-          }
+        } else {
+          //hides all unused rows
+          row.style.display = 'none';
+          
+        }
 
-          if (usagesLeft == 1) {usagesLeft = 0}
-      });
+        if (usagesLeft == 1) {usagesLeft = 0}
+    });
     
-  }}
+  }
+}
 
-  function combinedOnloadFunctions() {
-    /*
-    This function combines the drawTable, adjustButtonMArgins, and calendarFunction functions so they can both be called when the page loads
-    
+function combinedOnloadFunctions() {
+  /*
+  This function combines the drawTable, adjustButtonMArgins, and calendarFunction functions so they can both be called when the page loads
+  
 
-    This function has no parameters and returns nothing
-    */
+  This function has no parameters and returns nothing
+  */
   drawTable();
   adjustButtonMargins();
   calendarFunction();
-}
-
-function moveForward(input, event) {
-  if (input.value.length >= input.maxLength) {
-      var next = input.nextElementSibling;
-      if (next && next.tagName === "INPUT") {
-          next.focus();
-      }
-  } else if (event.key === "Backspace") {
-      var previous = input.previousElementSibling;
-      if (previous && previous.tagName === "INPUT") {
-        previous.value = ''; 
-        previous.focus();
-      }
-  }
 }
 
 let isWinner = false
@@ -331,7 +387,9 @@ let usagesLeft = 2
 
 let currentAnswer = ''
 
+//grabs all the favorites from the html page
 var allFavorites = document.querySelectorAll('div.FavoriteEntry');
+//shows a message if the user has no favorite words, otherwise selects a random word from their favorites to be used for the wordle puzzle
 if (allFavorites.length == 0) {
   html = "<h4>looks like you have no favorite words, you can add words to your favorites by clicking the 'add to favorites' button</h4>"
   document.body.innerHTML += html;
