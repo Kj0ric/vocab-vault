@@ -194,12 +194,11 @@ def wordDetail(request, word_id):
   return render(request, 'HomePage.html', {'word_of_the_day': word, 'today_formatted': today_formatted,})
 
 def add_to_favorite(request):
+    word_to_add = request.POST.get('word')
+    word_meaning = request.POST.get('meaning')
     # Get selected language from session or default to English
     selected_language = request.session.get('selected_language', 'English')
 
-    # Get today's date formatted as dd/mm/yyyy
-    today = date.today()
-    today_formatted = today.strftime('%d/%m/%Y')
     user = request.user
 
     # Determine which model to use based on selected language
@@ -211,16 +210,18 @@ def add_to_favorite(request):
         WordModel = Words  # Default to English words model
 
     try:
-        # Retrieve the word of the day for today from the selected model
-        word_of_the_day = WordModel.objects.get(date=today_formatted)
-        
-        # Create a new FavoriteWord object and save it
-        new_favorite_word = FavoriteWord(user=user, meaning=word_of_the_day.meaning, word=word_of_the_day.word)
-        new_favorite_word.save()
+        existing_favorite = FavoriteWord.objects.filter(user=user, word=word_to_add).first()
 
-        # If user is authenticated, associate the favorite word with the user
-        # Redirect to the favorites page after adding the word to favorites
-        return redirect('/favorites')  # Assuming 'favorites' is the name of your favorites page URL
+        if existing_favorite:
+            return redirect('/favorites')
+        else:
+            # Create a new FavoriteWord object and save it
+            new_favorite_word = FavoriteWord(user=user, meaning=word_meaning, word=word_to_add)
+            new_favorite_word.save()
+
+            # If user is authenticated, associate the favorite word with the user
+            # Redirect to the favorites page after adding the word to favorites
+            return redirect('/favorites')  # Assuming 'favorites' is the name of your favorites page URL
 
     except WordModel.DoesNotExist:
         # Handle case where no word matches today
