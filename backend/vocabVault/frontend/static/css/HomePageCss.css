@@ -83,8 +83,9 @@ body {
     margin-right: 8px;
     margin-left: 8px;
     font-size: 17px;
-    width: 80px;
+    width: 60px;
     border-radius: 5px;
+    max-width: 150px;
   }
 
   /* This makes the account button be at the right side of the navbar */
@@ -369,6 +370,8 @@ select {
   font-size: 16px;
   border: 1px solid #ffffff;
   border-radius: 4px;
+  margin-top: 8px;
+  height: 30px;
 }
 
 /* Style for dropdown button */
@@ -384,4 +387,8 @@ button {
 /* Hover effect for button */
 button:hover {
   background-color: #0056b3;
+}
+
+#search-container {
+  float: right;
 }
