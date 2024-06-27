@@ -94,6 +94,12 @@ function combinedScrollFunctions() {
 }
 
 function initializeCalendar() {
+    /*  
+    This function creates and initializes a callendar using the Fullcallendar javascript library.
+  
+    This function has no parameters and returns the created library.
+    */
+  
     // Get the html element that the calendar will be rendered
     var calendarEl = document.getElementById('calendar');
     
@@ -117,58 +123,67 @@ function initializeCalendar() {
         }
     });
     return calendar;
-}
+  }
+  
+  function calendarFunction() {
+    /*
+    makes a calendar with words and links to their corresponding pages appear when the calendar button is clicked
 
-function calendarFunction() {
+    this function has no parameters and returns nothing
+    */
     // Get the modal
     var modal = document.getElementById("calendarModal");
     // Get the button that opens the modal
     var btn = document.querySelector(".floatingButtonCalendar");
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
-
+    
     // Initialize the calendar object 
     var calendar = initializeCalendar();
-
+  
     // Event listener on the button to open the modal
     btn.onclick = function() {
         modal.style.display = "block"; // Make it visible
         
         // Render the calendar
         calendar.render();
-
+  
         // AJAX request with GET method to update the events of the calendar
         $.ajax({
             url: '/get_words/',
             type: 'GET',
             success: function(response) {
                 console.log('Response:', response);
-                //var words = JSON.parse(response);
                 
                 calendar.removeAllEvents(); // Remove old events
                 calendar.addEventSource(response); // Add new events
             }
         });
     }
-
+  
     // Event listener on the <span> (x) button to close the modal
     span.onclick = function() {
         modal.style.display = "none";
     }
-
+  
     // Event listener on anywhere outside of the modal to close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
-}
+  }
 window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
 window.onload = combinedScrollFunctions; //activates the combinedScrollFunctions function when the browser loads
 window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
 
 
 function goToHomePage() {
+    /* 
+    redirects the user to the home page
+    
+    This function has no parameters and returns nothing
+    */
     window.location.href = "/homepage";  // Redirect to HomePage.html
   }
 
