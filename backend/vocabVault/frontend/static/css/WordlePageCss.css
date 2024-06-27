@@ -426,3 +426,42 @@ tr:not(:has(input:placeholder-shown, input:focus)) input {
 #mustbehidden {
   display:none
 }
+
+select {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  margin-top: 8px;
+  height: 30px;
+}
+
+/* Style for dropdown button */
+button {
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Hover effect for button */
+button:hover {
+  background-color: #0056b3;
+}
+
+#search-container {
+  
+  float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#searchform {
+  float: left;
+  padding: 0px;
+}

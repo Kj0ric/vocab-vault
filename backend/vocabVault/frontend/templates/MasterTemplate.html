@@ -46,7 +46,7 @@
     </div> 
     
     <!---This is the search bar-->
-    <div type = "search" id="search">
+    <div type = "search" id="searchform">
         <form id="search-form" action="{% url 'index' %}" method="get">
             <input type="text" name="search" placeholder="Search for a word or meaning" value="{{ request.GET.title }}" id="searchbar">
             <select name="filter">
@@ -55,12 +55,9 @@
                 <option value="verb" {% if filter_by == 'verb' %}selected{% endif %}>Verb</option>
                 <option value="adjective" {% if filter_by == 'adjective' %}selected{% endif %}>Adjective</option>
             </select>
-
-            <input type="text" name="search" placeholder="Search.." value="{{ request.GET.title }}" id="searchbar">
-            
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+    
     
     {% if not user.is_authenticated %}
         <!-- Links to show when the user is not logged in -->

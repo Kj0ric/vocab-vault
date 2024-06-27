@@ -144,6 +144,7 @@ def delete_favorite(request, favorite_id):
     return redirect('favorites_page')  #
 
 def show_favorites(request):
+    
     if request.user.is_authenticated:
         # Filter favorites for the currently logged-in user
         user_favorites = FavoriteWord.objects.filter(user=request.user)
@@ -159,6 +160,17 @@ def show_favorites(request):
 
 
 def show_favorite_words(request):
+    """
+    This function shows the words that the user has stored as favorite. It filters throught the favoritewords model with the user id and then sends the words it has to the page that it renders.
+
+    parameters:
+    request (HttpRequest): The HTTP request object containing metadata about the request.
+
+    returns:
+    HttpResponse: A redirect to the favorites page or a 404 response if the word does not exist.
+
+
+    """
     if request.user.is_authenticated:
         # Filter favorites for the currently logged-in user
         user_favorites = FavoriteWord.objects.filter(user=request.user)
@@ -179,6 +191,18 @@ def show_favorite_words(request):
         return render(request, 'userloginpage.html')
 
 def edit_favorite(request, favorite_id):
+    """
+    This function handles the editing of a favorite word entry identified by its ID. If the request method is POST,
+    it retrieves the favorite word, updates its fields with the new values from the form data, and saves the changes.
+    It then redirects the user to the homepage. If the favorite word does not exist, it returns a 404 response.
+
+    Parameters:
+    request (HttpRequest): The HTTP request object containing metadata about the request.
+    favorite_id (int): The ID of the favorite word to be edited.
+
+    Returns:
+    HttpResponse: A redirect to the homepage or a 404 response if the favorite word does not exist.
+    """
     if request.method == 'POST':
         # Retrieve the FavoriteWord object based on the favorite_id
         try:
@@ -204,6 +228,18 @@ from .models import FavoriteWord
 
 
 def edit_word(request, word_id):  # Ensure the parameter name matches the URL pattern
+    """
+    This function handles the editing of a word entry identified by its ID. If the request method is POST, it retrieves
+    the word, updates its fields with the new values from the form data, and saves the changes. It then redirects the
+    user to the favorites page. If the word does not exist, it returns a 404 response.
+
+    Parameters:
+    request (HttpRequest): The HTTP request object containing metadata about the request.
+    word_id (int): The ID of the word to be edited.
+
+    Returns:
+    HttpResponse: A redirect to the favorites page or a 404 response if the word does not exist.
+    """
     word = get_object_or_404(FavoriteWord, id=word_id)
     
     if request.method == 'POST':
