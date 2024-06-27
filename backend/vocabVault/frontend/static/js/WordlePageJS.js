@@ -174,7 +174,9 @@ function calendarFunction() {
   }
 }
 
-
+/**
+ * Refreshes the page to reset the Wordle puzzle. This function has no parameters and returns nothing.
+ */
 function refresh() {
   /* 
     This function refreshes the page to reset the wordle puzzle
@@ -185,6 +187,11 @@ function refresh() {
 
 }
 
+/**
+ * Dynamically generates a Wordle game board as an HTML table based on the current answer. It creates a 6xN grid
+ * where N is the length of the answer. Each cell contains an input for a letter with placeholders and labels indicating
+ * the word and letter position. At the bottom, a "New puzzle" button is added to allow refreshing the game.
+ */
 function drawTable()  {
   /*
   This function creates the table used to play the wordle game.
@@ -229,6 +236,11 @@ function drawTable()  {
 }   
 
 let correctWord
+/**
+ * Checks the user's input against the correct answer. For each input, it updates the class to reflect whether the
+ * letter is correct, in the wrong place, or incorrect. It also handles win/lose conditions by displaying appropriate
+ * messages and revealing the retry button.
+ */
 function CheckInput() {
   /*
   This function checks input elements for the correct letters
@@ -370,6 +382,10 @@ function CheckInput() {
   }
 }
 
+/**
+ * Combines multiple functions to be called on page load. Specifically, it initializes the Wordle game board,
+ * adjusts button margins, and activates any additional functions like a calendar widget.
+ */
 function combinedOnloadFunctions() {
   /*
   This function combines the drawTable, adjustButtonMArgins, and calendarFunction functions so they can both be called when the page loads
