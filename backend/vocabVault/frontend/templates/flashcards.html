@@ -16,6 +16,12 @@
 
 <!--container with the flashcard information-->
 <div class="flashcards">
+{% if favorite_words|length == 0 %}
+<div id="Message" class="Message">
+    <h1>You don't have any favorite words</h1>
+    <h3>Add them through the add favorites button</h3>
+</div>
+{% else %}
     {% for favorite in favorite_words %}
     <div class="flashcard" data-index="{{ forloop.counter }}" style="display: none;"> <!--important for the scroll function-->
         <label>
@@ -36,6 +42,7 @@
         </label>
     </div>
     {% endfor %}
+{% endif %}
 </div>
 
 

@@ -15,6 +15,19 @@ from django.utils import timezone
 
 
 def homepage(request):
+    """
+    Render the homepage with the word of the day.
+
+    This function retrieves the language in the url of the user session. Then it calculates today date in the dd/mm/yyyy format to retrieve the word on that date.
+    With the langauge of the session it chooses the correct model to take the word from.
+    It then renders the homepage.html with additional context, like the day in formatted form, the language of the page, and the word information.
+
+    Parameters:
+    request (HttpRequest)
+
+    Returns:
+    HttpResponse: The rendered homepage with context data.
+    """
     # Retrieve the selected language from the session (default to English if not set)
     selected_language = request.session.get('selected_language', 'English')
     print(f"Selected Language: {selected_language}")
@@ -47,6 +60,16 @@ def homepage(request):
     return render(request, 'HomePage.html', context)
 
 def select_language(request, language):
+    """
+    This function sets the selected language in the user session and redirects the user to the homepage
+
+    Parameters:
+    request (HttpRequest)
+    language specified in the url
+
+    Returns:
+    HttpResponse: The rendered homepage with context data.
+    """
     request.session['selected_language'] = language
     return redirect('/homepage/')
 
@@ -63,6 +86,19 @@ def account(request):
   return render(request, 'accountpage.html')
 
 def addword(request):
+    """
+    This function processes the form submission to add a new word to the user's favorites. If the request method is POST
+    and the user is authenticated, it retrieves the form data, creates a new FavoriteWord instance, and saves it to the
+    database. It then redirects the user to the favorites page. If the request method is GET, it renders the 'AddNewWord.html'
+    template.
+
+    Parameters:
+    request (HttpRequest)
+
+    Returns:
+    HttpResponse
+    addword.html
+    """
     if request.method == 'POST':
       # Retrieve the form data from the POST request
       word_name = request.POST.get('word_name')  # Assuming 'word_name' is the name attribute of the word input field
@@ -97,6 +133,17 @@ def addword(request):
     return render(request, 'AddNewWord.html')
 
 def show_favorite_words(request):
+    """
+    This function retrieves the favorite words for the currently logged-in user and renders the 'FavoritesPage.html' template
+    with the favorite words passed in the context. If the user is not authenticated, it redirects to the login page.
+
+    Parameters:
+    request (HttpRequest)
+
+    Returns:
+    HttpResponse
+    user_favorite_words dictionary
+    """
     if request.user.is_authenticated:
         # Filter favorites for the currently logged-in user
         user_favorites = FavoriteWord.objects.filter(user=request.user)
@@ -118,6 +165,17 @@ def show_favorite_words(request):
         return render(request, 'userloginpage.html')
 
 def flashcards(request):
+    """
+    This function retrieves the favorite words for the currently logged-in user and renders the 'flashcards.html' template
+    with the favorite words passed in the context. If the user is not authenticated, it redirects to the login page.
+
+    Parameters:
+    request (HttpRequest)
+
+    Returns:
+    HttpResponse
+    user favorite words dictionary
+    """
     if request.user.is_authenticated:
         user_favorites = FavoriteWord.objects.filter(user=request.user)
         context = {
@@ -134,10 +192,8 @@ def flashcards(request):
 
 
 def quizzes(request):
-
-  template = loader.get_template('QuizzesPage.html')
-
-  return HttpResponse(template.render())
+  # template = loader.get_template('QuizzesPage.html')
+  return render(request, 'QuizzesPage.html', {'request': request})
 
 
 def wordle(request):
@@ -153,9 +209,21 @@ def wordle(request):
         return render(request, 'userloginpage.html')
 
 def members(request):
-    return HttpResponse("Hello world!")
+     return HttpResponse("Hello world!")
 
 def delete_favorite(request, favorite_id):
+    """
+    This function handles the deletion of a favorite word entry identified by its ID. If the request method is POST,
+    it retrieves the favorite word, deletes it, and redirects the user to the favorites page. If the favorite word
+    does not exist, it handles the exception gracefully.
+
+    Parameters:
+    request (HttpRequest)
+    favorite_id (int): The ID of the favorite word to be deleted.
+
+    Returns:
+    HttpResponse: A redirect to the favorites page.
+    """
     if request.method == 'POST':
         try:
             favorite = FavoriteWord.objects.get(id=favorite_id)
@@ -167,10 +235,10 @@ def delete_favorite(request, favorite_id):
 
 
 def index(request):
-    print('ah yes something')
     queryset = Words.objects.all()
     query = request.GET.get('search')
-    print(f"Seach query: {query}")
+    filter_by = request.GET.get('filter')
+
     if query:
         queryset = queryset.filter(
             Q(phonetic__icontains=query) |
@@ -178,14 +246,17 @@ def index(request):
             Q(function__icontains=query) |
             Q(word__icontains=query) |
             Q(date__icontains=query)
-            
         )
-    print(f"Queryset: {queryset}")
+    
+    if filter_by:
+        queryset = queryset.filter(function=filter_by)
+
     context = {
         "object_list": queryset,
+        "query": query,
+        "filter_by": filter_by,
     }
     return render(request, "newSearchResults.html", context)
-
 
 def wordDetail(request, word_id):
 
@@ -196,12 +267,11 @@ def wordDetail(request, word_id):
   return render(request, 'HomePage.html', {'word_of_the_day': word, 'today_formatted': today_formatted,})
 
 def add_to_favorite(request):
+    word_to_add = request.POST.get('word')
+    word_meaning = request.POST.get('meaning')
     # Get selected language from session or default to English
     selected_language = request.session.get('selected_language', 'English')
 
-    # Get today's date formatted as dd/mm/yyyy
-    today = date.today()
-    today_formatted = today.strftime('%d/%m/%Y')
     user = request.user
 
     # Determine which model to use based on selected language
@@ -213,16 +283,18 @@ def add_to_favorite(request):
         WordModel = Words  # Default to English words model
 
     try:
-        # Retrieve the word of the day for today from the selected model
-        word_of_the_day = WordModel.objects.get(date=today_formatted)
-        
-        # Create a new FavoriteWord object and save it
-        new_favorite_word = FavoriteWord(user=user, meaning=word_of_the_day.meaning, word=word_of_the_day.word)
-        new_favorite_word.save()
+        existing_favorite = FavoriteWord.objects.filter(user=user, word=word_to_add).first()
 
-        # If user is authenticated, associate the favorite word with the user
-        # Redirect to the favorites page after adding the word to favorites
-        return redirect('/favorites')  # Assuming 'favorites' is the name of your favorites page URL
+        if existing_favorite:
+            return redirect('/favorites')
+        else:
+            # Create a new FavoriteWord object and save it
+            new_favorite_word = FavoriteWord(user=user, meaning=word_meaning, word=word_to_add)
+            new_favorite_word.save()
+
+            # If user is authenticated, associate the favorite word with the user
+            # Redirect to the favorites page after adding the word to favorites
+            return redirect('/favorites')  # Assuming 'favorites' is the name of your favorites page URL
 
     except WordModel.DoesNotExist:
         # Handle case where no word matches today
@@ -248,3 +320,37 @@ def get_words(request):
        })
     
     return JsonResponse(words_list, safe=False)
+
+def edit_favorite(request, favorite_id):
+    if request.method == 'POST':
+        # Retrieve the FavoriteWord object based on the favorite_id
+        try:
+            favorite_word = FavoriteWord.objects.get(id=favorite_id)
+        except FavoriteWord.DoesNotExist:
+            return HttpResponse("Favorite entry not found.", status=404)
+
+        # Process the form data to update the favorite entry
+        form_data = request.POST
+        favorite_word.word = form_data.get('word', favorite_word.word)  # Update the field with the new value
+
+        # Save the updated favorite entry
+        favorite_word.save()
+
+        # Redirect to a success page or a different URL after editing
+        return redirect('/homepage')  # Redirect to a success page
+
+    return HttpResponse("Method not allowed", status=405)  # Return if the method is not allowed
+
+def edit_word(request, word_id):  # Ensure the parameter name matches the URL pattern
+    word = get_object_or_404(FavoriteWord, id=word_id)
+    
+    if request.method == 'POST':
+        # Handle form submission to update the word and meaning fields
+        word.word = request.POST.get('word')
+        word.meaning = request.POST.get('meaning')
+        word.save()
+        
+        # Redirect to a success page or back to the favorites page
+        return redirect('favorites')  # Replace with your favorites URL name
+    
+    return render(request, 'editwordPage.html', {'word': word})

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, QueryDict
 from django.core.exceptions import ValidationError
 from django.contrib import messages
@@ -13,7 +13,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import default_storage
-
+from django.http import HttpResponse
 from .models import FavoriteWord
 
 
@@ -134,6 +134,16 @@ def update_user_info(request):
         
 
 def delete_favorite(request, favorite_id):
+    """
+    This function deletes the words that the user has stored as favorite. It filters throught the favoritewords model with the word id provided in the website and then redirect the user back to the page.
+
+    parameters:
+    request (HttpRequest): The HTTP request object containing metadata about the request.
+
+    returns:
+    HttpResponse: A redirect to the favorites page or a it passes and the redirects
+
+    """
     if request.method == 'POST':
         try:
             favorite = FavoriteWord.objects.get(id=favorite_id)
@@ -144,6 +154,18 @@ def delete_favorite(request, favorite_id):
     return redirect('favorites_page')  #
 
 def show_favorites(request):
+    """
+    This function shows the words that the user has stored as favorite. It filters throught the favoritewords model with the user id and then sends the words it has to the page that it renders.
+    it is a secondary show favorites function for if the primary on doesnt. it switches from sending the dictionary with favorites words in the request to sending it as a variable
+
+    parameters:
+    request (HttpRequest): The HTTP request object containing metadata about the request.
+
+    returns:
+    HttpResponse: A redirect to the favorites page or a 404 response if the word does not exist.
+
+    """
+    
     if request.user.is_authenticated:
         # Filter favorites for the currently logged-in user
         user_favorites = FavoriteWord.objects.filter(user=request.user)
@@ -158,22 +180,17 @@ def show_favorites(request):
         return render(request, 'userloginpage.html')
 
 
-def soft_delete_favorite(request, favorite_id):
-    favorite = FavoriteWord.objects.get(id=favorite_id)
-    favorite.is_deleted = True
-    favorite.deleted_at = timezone.now()
-    favorite.save()
-    return redirect('favorites_page')
-
-def restore_favorite(request, favorite_id):
-    favorite = FavoriteWord.objects.get(id=favorite_id)
-    if favorite.is_deleted and (timezone.now() - favorite.deleted_at).days <= 1:
-        favorite.is_deleted = False
-        favorite.deleted_at = None
-        favorite.save()
-    return redirect('favorites_page')
-
 def show_favorite_words(request):
+    """
+    This function shows the words that the user has stored as favorite. It filters throught the favoritewords model with the user id and then sends the words it has to the page that it renders.
+
+    parameters:
+    request (HttpRequest): The HTTP request object containing metadata about the request.
+
+    returns:
+    HttpResponse: A redirect to the favorites page or a 404 response if the word does not exist.
+
+    """
     if request.user.is_authenticated:
         # Filter favorites for the currently logged-in user
         user_favorites = FavoriteWord.objects.filter(user=request.user)
@@ -192,3 +209,67 @@ def show_favorite_words(request):
 
         # Handle the case when the user is not authenticated (e.g., redirect to login)
         return render(request, 'userloginpage.html')
+
+def edit_favorite(request, favorite_id):
+    """
+    This function handles the editing of a favorite word entry identified by its ID. If the request method is POST,
+    it retrieves the favorite word, updates its fields with the new values from the form data, and saves the changes.
+    It then redirects the user to the homepage. If the favorite word does not exist, it returns a 404 response.
+
+    Parameters:
+    request (HttpRequest): The HTTP request object containing metadata about the request.
+    favorite_id (int): The ID of the favorite word to be edited.
+
+    Returns:
+    HttpResponse: A redirect to the homepage or a 404 response if the favorite word does not exist.
+    """
+    if request.method == 'POST':
+        # Retrieve the FavoriteWord object based on the favorite_id
+        try:
+            favorite_word = FavoriteWord.objects.get(id=favorite_id)
+        except FavoriteWord.DoesNotExist:
+            return HttpResponse("Favorite entry not found.", status=404)
+
+        # Process the form data to update the favorite entry
+        form_data = request.POST
+        favorite_word.field_name = form_data.get('field_name', favorite_word.field_name)  # Update the field with the new value
+
+        # Save the updated favorite entry
+        favorite_word.save()
+
+        # Redirect to a success page or a different URL after editing
+        return redirect('/homepage')  # Redirect to a success page
+
+    return HttpResponse("Method not allowed", status=405)  # Return if the method is not allowed
+
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import HttpResponse
+from .models import FavoriteWord
+
+
+def edit_word(request, word_id):  # Ensure the parameter name matches the URL pattern
+    """
+    This function handles the editing of a word entry identified by its ID. If the request method is POST, it retrieves
+    the word, updates its fields with the new values from the form data, and saves the changes. It then redirects the
+    user to the favorites page. If the word does not exist, it returns a 404 response.
+
+    Parameters:
+    request (HttpRequest): The HTTP request object containing metadata about the request.
+    word_id (int): The ID of the word to be edited.
+
+    Returns:
+    HttpResponse: A redirect to the favorites page or a 404 response if the word does not exist.
+    """
+    word = get_object_or_404(FavoriteWord, id=word_id)
+    
+    if request.method == 'POST':
+        # Handle form submission to update the word and meaning fields
+        word.word = request.POST.get('word')
+        word.meaning = request.POST.get('meaning')
+        word.save()
+        
+        # Redirect to a success page or back to the favorites page
+        return redirect('favorites')  # Replace with your favorites URL name
+    
+    return render(request, 'editword.html', {'word': word})
+

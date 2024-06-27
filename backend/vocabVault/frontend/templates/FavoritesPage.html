@@ -23,6 +23,10 @@
             {% csrf_token %}
             <button type="submit">Delete</button>
         </form>
+        <form action="{% url 'edit_word' word_id=favorite.id %}" method="get">
+        {% csrf_token %}
+        <button type="submit">Edit</button>
+        </form>
     </div>
 {% endfor %}
 

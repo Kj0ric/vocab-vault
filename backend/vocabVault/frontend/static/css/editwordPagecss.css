@@ -66,7 +66,7 @@ body {
   
   /* This turns the buttons in the dropdown menus grey when hovered over */
   .dropdown-content a:hover {
-    background-color: #ddd;
+    background-color: #bebebe;
   }
 
   /* This makes dropdown menu content visible when hovered over */
@@ -138,7 +138,7 @@ body {
     height: 70px;
     border-radius: 50%; /* The 'border-radius' is set to 50%, making the element circular. */
     background-color: #aaaaaa;
-    background-image: url('/static/images/plus-icon.png');
+    background-image: url(../images/plus-icon.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 60%;
@@ -172,80 +172,72 @@ body {
   padding-top: 60px;
 } 
 
+
+h3 {
+  margin-left: 10px;
+}
+
+p {
+  margin-left: 10px;
+
+}
+
+/* This changes the style of Favorites title */
+#NewWordTitle {
+  margin-top: 60px;
+  padding-left: 120px;
+  padding-top: 10px;
+  width: 380px;
+  height: 50px;
+  border-style:ridge;
+  border-width: 4px;
+}
+
 .sticky .dropdown-content{
   position: fixed;
 }
 
-/* Styles for form elements */
-form {border: 3px solid #f1f1f1;}
-
-/* Styles for text and password input fields */
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+/* This changes the style of the word of the day box */
+.TextContainer {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  width: 900px;
+  word-break: break-word;
 }
 
-/* Styles for button elements */
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
-
-/* Styles for button elements on hover */
-button:hover {
-  opacity: 0.8;
-}
-
-/* Styles for cancel button */
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
-
-/* Styles for image container */
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
-
-/* Styles for avatar images */
-img.avatar {
-  width: 20%;
-  border-radius: 50%;
-}
-
-/* Styles for container class */
-.container {
-  padding: 16px;
-}
-
-/* Styles for password hint */
-span.psw {
+/* This changes the style of the remove button*/
+.RemoveWordButton {
   float: right;
-  padding-top: 16px;
+  margin-right: 10px;
+  margin-top: 10px;
 }
 
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  /* Styles for password hint on small screens */
-  span.psw {
-     display: block;
-     float: none;
-  }
-  /* Styles for cancel button on small screens */
-  .cancelbtn {
-     width: 100%;
-  }
+/* This changes the style of the favorite word container */
+.FavoritesContainer {
+  width: 1000px;
+  border-style: solid;
+  border-color: #9a9a9a;
+  border-width: 1px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: background-color 0.5s;
+}
+
+.FavoritesContainer.red {
+  background-color: rgb(254, 82, 82);
+  color: white;
+  font-weight: bold;
+}
+
+/* This changes the style of the search result title class */
+.SearchResultTitle {
+  margin-left: 10px;
+  margin-top: 18.72px;
+  margin-bottom: 18.72px;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
 }
 
 /* Calendar popup styles */
@@ -254,7 +246,7 @@ span.psw {
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 999; /* Sit on top */
+  z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -311,6 +303,50 @@ span.psw {
   cursor: pointer;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    margin: 20px;
+}
+.edit-word-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10%;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+label {
+    font-weight: bold;
+}
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+button[type="submit"] {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button[type="submit"]:hover {
+    background-color: #3b3b3b;
+}
 select {
   padding: 8px;
   font-size: 16px;
