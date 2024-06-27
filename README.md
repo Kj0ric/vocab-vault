@@ -53,7 +53,7 @@ This repository is also available to clone through github desktop
 
 ## Installing the requirements
 1. Go to the root directory of the project where the requirements.txt file is located.
-2. Use the terminal command "pip install -r requirements.txt" to install the requirements 
+2. Use the terminal command `pip install -r requirements.txt`to install the requirements 
 
 ## How to open the webpage
 To open the webpage, use the 'Open webpage' shortcut. In case it doesn't work,
@@ -61,12 +61,20 @@ To open the webpage, use the 'Open webpage' shortcut. In case it doesn't work,
 1. Clone the repository using the command provided in the README.md file.
 2. Navigate to the project directory.
 3. Create a Python virtual environment:
-` python -m venv myenv
+  ```
+  python -m venv myenv
+  ```
 4. Activate the virtual environment:
-- On Windows: `myenv\Scripts\activate
-- On macOS and Linux: `source myenv/bin/activate
-5. Install the required software in the requirment.txt file: `pip install -r requirements.txt
-2. Go into the "vocabVault" directory: `cd backend/vocabVault
-3. Run the Django server: `python manage.py runserver
-4. Go to http://127.0.0.1:8000/homepage address in your browser
+- On Windows: `myenv\Scripts\activate`
+- On macOS and Linux: `source myenv/bin/activate`
+5. Install the required software in the requirment.txt file:
+  ```
+  pip install -r requirements.txt
+  ```
+6. Go into the "vocabVault" directory: `cd backend/vocabVault`
+7. Run the Django server:
+  ```
+  python manage.py runserver
+  ```
+8. Go to http://127.0.0.1:8000/homepage address in your browser
 
