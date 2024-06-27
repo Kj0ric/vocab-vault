@@ -156,40 +156,18 @@ function calendarFunction() {
   }
 }
 
-
-
-
 function refresh() {
   /* 
     This function refreshes the page to reset the wordle puzzle
 
     This function jas no parameters and returns nothing
   */
-    location.reload();
+    location.reload(true);
 
-}
-
-function getRandomAnswer() {
-    let min = Math.ceil(1);
-    let max = Math.floor(4);
-    let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-
-    if (randomNumber == 1) {
-    answer = a
-  } else if (randomNumber == 2) {
-    answer = b
-  } else if (randomNumber == 3) {
-    answer = c
-  } else {
-    answer = d
-  }
-    
-
-    return answer
 }
 
 function drawTable() {
-    
+  
   let answer = currentAnswer
 
   
@@ -209,7 +187,7 @@ function drawTable() {
             letterCounter += 1
             let correctLetter = answer.charAt(letterCounter)
             
-            html += '<td><label for="input' + counter + '">Word ' + (wordCounter+1) + ' Letter ' + (letterCounter+1) + ':</label><input oninput="CheckInput()" class="Incorrect" type="text" id="input' + counter + '" name="input' + counter + '" maxlength="1" pattern="' + answer + '" data-correct-pattern="' + correctLetter + '" placeholder=" "></td>';
+            html += '<td><label for="input' + counter + '">Word ' + (wordCounter+1) + ' Letter ' + (letterCounter+1) + ':</label><input onkeyup="moveForward(this, event)" class="Incorrect" type="text" id="input' + counter + '" name="input' + counter + '" maxlength="1" pattern="' + answer + '" data-correct-pattern="' + correctLetter + '" placeholder=" "></td>';
 
         }
         html += '</tr>';
@@ -219,7 +197,7 @@ function drawTable() {
     html += '</table></div><button onclick="refresh()" id="retrybutton">New puzzle</button><br><br><br><br><br><br><br><br>';
 
     document.body.innerHTML += html;
-}
+}   
 
 let correctWord
 function CheckInput(event) {
@@ -333,21 +311,90 @@ function CheckInput(event) {
   calendarFunction();
 }
 
-
-let a = 'lodestone'   //9
-let b = 'foment'      //6
-let c = 'efficacious' //11
-let d = 'consternation'   //13
+function moveForward(input, event) {
+  if (input.value.length >= input.maxLength) {
+      var next = input.nextElementSibling;
+      if (next && next.tagName === "INPUT") {
+          next.focus();
+      }
+  } else if (event.key === "Backspace") {
+      var previous = input.previousElementSibling;
+      if (previous && previous.tagName === "INPUT") {
+        previous.value = ''; 
+        previous.focus();
+      }
+  }
+}
 
 let isWinner = false
 let usagesLeft = 2
 
-let currentAnswer = getRandomAnswer();
+var allFavorites = document.querySelectorAll('div.FavoriteEntry');
+var randomIndex = Math.floor(Math.random() * allFavorites.length);
+var randomFavoriteDiv = allFavorites[randomIndex];
+let currentAnswer = randomFavoriteDiv.querySelector('p').textContent
+
 
 window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
 window.onload = combinedOnloadFunctions; //activates the adjustButtonMargins function when the browser loads
 window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
 
-document.addEventListener('click', CheckInput);
-document.addEventListener('keydown', CheckInput);
+// makes the cursor jump to the next input window when a button (presumabally a letter) is pressed
+document.addEventListener('keyup', function(event) {
+  var input = event.target;
+  if (input.tagName === "INPUT") {
+      if (input.value.length >= input.maxLength) {
+          var nextTd = input.parentElement.nextElementSibling;
+          if (nextTd) {
+              var nextInput = nextTd.querySelector('input');
+              if (nextInput) {
+                  nextInput.focus();
+              }
+          }
+      }
+  }
+});
 
+// makes the backspace button remove the value in the previous input window when pressed and makes it function normally when the current input element already has a value
+document.addEventListener('keydown', function(event) {
+  var input = event.target;
+  if (input.tagName === "INPUT" && event.key === "Backspace") {
+      var previousTd = input.parentElement.previousElementSibling;
+      if (previousTd) {
+          var previousInput = previousTd.querySelector('input');
+          if (previousInput) {
+              if (!input.value == '') {
+                  input.value = '';
+              } else {
+                previousInput.value = '';
+                previousInput.focus();
+              }
+          }
+      }
+  }
+});
+
+//makes the enter button move the cursor to the next row and check the word for correct letters
+document.addEventListener('keydown', function(event) {
+  var input = event.target;
+  if (input.tagName === "INPUT" && event.key === "Enter") {
+      event.preventDefault(); // prevent form submission
+      var currentTd = input.parentElement;
+      var nextTr = currentTd.parentElement.nextElementSibling;
+      var currentTr = currentTd.parentElement;
+      var lastTd = currentTr.querySelector('td:last-of-type');
+      if (currentTd == lastTd && !input.value == '') {
+        continueWhile = true;
+        inputElement = currentTd.querySelector('input');
+        currentTr.style.pointerEvents = 'none'
+        CheckInput()
+        if (nextTr) {
+          var nextInput = nextTr.querySelector('input');
+          if (nextInput) {
+              nextInput.focus();
+          }
+        }
+      } 
+      
+    }
+});
