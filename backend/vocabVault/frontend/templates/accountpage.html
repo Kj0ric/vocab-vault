@@ -13,22 +13,25 @@
 
 {% block content %}
 
+<h1 style="text-align: center; font-size: 48px;">Account</h1>
+<p style="text-align: center; font-size: 20px; margin-top: 10px;">Here you can update your username, email, and profile picture.</p>
+
+
 <!--form container keeps everything structured and together-->
 <div class="form-container">
-    <h1>Account</h1>
     <form action="" id="profileForm"> <!--makes a form which will be needed for the backend-->
         <div class="column-left" id="editableInfo"> <!--left column with all the account elements-->
             <!--Display username-->
             <label for="usernameDisplay">Username:</label>
             <p id="usernameDisplay">{{ user.username }}</p>
             <!--Input for new username-->
-            <input type="text" id="usernameInput" placeholder="Enter new username" style="display:none;">
+            <input type="text" id="usernameInput" class="editable-input" placeholder="Enter new username" style="display:none;">
 
             <!--Display username-->
             <label for="emailDisplay">Email:</label>
             <p id="emailDisplay">{{ user.email }}</p>
             <!--Input for new email-->
-            <input type="email" id="emailInput" placeholder="Enter new email" style="display:none;">
+            <input type="email" id="emailInput" class="editable-input" placeholder="Enter new email" style="display:none;">
 
 
             {% if user.userprofile.profile_picture %}
@@ -38,11 +41,14 @@
             {% endif %}
             
             <!--Input for new profile picture-->
-            <input type="file" id="profilePicInput" style="display:none;" accept="image/*">
+            <input type="file" id="profilePicInput" class="editable-input" style="display:none;" accept="image/*">
 
             <div id="errorMessage" style="display:none; color: red;"></div>
-            <button type="button" id="changeButton">Change</button> <!--uses the change function to go from uneditable to editable-->
-            <button type="button" id="saveButton">Save</button> <!--uses the Savechanges function to go from editable to uneditable and save it-->
+            <div class="buttons-container">
+                <button type="button" class="action-button" id="changeButton" >Change</button> <!--uses the change function to go from uneditable to editable-->
+                <button type="button" class="action-button" id="saveButton">Save</button> <!--uses the Savechanges function to go from editable to uneditable and save it-->
+            </div>
+
         </div>
     </form>
   </div>
