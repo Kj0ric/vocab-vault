@@ -49,7 +49,7 @@
     <div type = "search" id="searchform">
         <form id="search-form" action="{% url 'index' %}" method="get">
             <input type="text" name="search" placeholder="Search for a word or meaning" value="{{ request.GET.title }}" id="searchbar">
-            <select name="filter">
+            <select name="filter" style="font-size: 10px";>
                 <option value="">Filter Options</option>
                 <option value="noun" {% if filter_by == 'noun' %}selected{% endif %}>Noun</option>
                 <option value="verb" {% if filter_by == 'verb' %}selected{% endif %}>Verb</option>
