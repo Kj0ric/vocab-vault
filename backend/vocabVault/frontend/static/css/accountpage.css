@@ -263,7 +263,8 @@ hr {
 /* Styles for form container */
 .form-container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
   align-items: center;
   margin: 0 20px;
 }
@@ -283,9 +284,38 @@ hr {
 
 /* Styles for left column in form */
 .column-left, .column-right {
-  flex: 1;
-  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
   align-items: center; /* Center vertically */
+  width: auto; /* Adjusts width based on content */
+  padding-right: 20px; 
+}
+
+.buttons-container {
+  display: flex; /* This will place the buttons side by side */
+  justify-content: center; /* Center the buttons container horizontally */
+  gap: 10px; /* Adds some space between the buttons */
+  margin-top: 20px;
+}
+
+/* Styles for action buttons (Save and Change) */
+.action-button {
+  background-color: #393d39; /* Example: Blue background */
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.action-button:hover {
+  background-color: #4caf50; /* Darker blue on hover */
+}
+
+.editable-input,
+.editable-label {
+  margin-bottom: 20px;
 }
 
 /* Styles for label elements in form */
