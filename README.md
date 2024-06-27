@@ -1,14 +1,14 @@
 # Project Title 
 VocabVault
 
-<img src="/frontend/images/Screenshot%202024-06-15%20at%2023.47.18.png" alt="Homepage" width="600"/>
-<img src="/frontend/images/Screenshot%202024-06-15%20at%2023.47.35.png" alt="Quizzes page" width="600"/>
-<img src="/frontend/images/Screenshot%202024-06-15%20at%2023.48.05.png" alt="Favorites page" width="600"/>
-## Brief description of the project
-VocabVault focusses on broadening the users vocabulary through fun and educational features. The web application has a home page containing the word of the day with the meaning, function and phonetics of the specific word. This word can be ranked and added to favorites which stores the users favorite word. The favorite words can be trained through the quizzes page with wordle and flashcards available. Words that have passed can be searched through date and your own favorite words can be added through the adds new word page.
+<img src="/website_images/homepage_img.png" alt="Homepage" width="400"/>
+<img src="/website_images/favorites_img.png" alt="Favorites page" width="400"/>
+<img src="/website_images/quizzes_img.png" alt="Quizzes page" width="400"/>
+<img src="/website_images/wordle_img.png" alt="Wordle game" width="400"/>
 
-username: test
-password: 1234
+## Brief description of the project
+VocabVault focusses on broadening the users vocabulary through fun and educational features. The web application has a homepage containing the word of the day with the meaning, function and phonetics of the specific word. After the user registered and logged in with their account, this word can be added to favorites, which stores the user's favorite words. The user can create custom favorite words as well as read, delete, and update their existing favorite words. Words of the previous days are accessible through a simple calendar pop up. Finally, the favorite words can be studied through the quizzes page with wordle and flashcards available.
+
 ## Team members
 Michael Manso mma766
 
@@ -43,7 +43,7 @@ Clone the Repository:
 
 7. Type git clone, paste the URL you copied, and press Enter.
 
-Copy code
+Copy code:
 git clone https://github.com/VU-Applied-Programming-for-AI-2024/Group-39.git
 
 This repository is also available to clone through github desktop
@@ -57,6 +57,7 @@ To open the webpage, use the 'Open webpage' shortcut. In case it doesn't work,
 1. Install the required software in the requirment.txt file
 2. Go into the "vocabVault" directory
 3. Run the "python manage.py runserver" command
+4. Go to http://127.0.0.1:8000/homepage address on your browser
 
 ## Installing the requirements
 Use the terminal command "pip install -r requirements.txt" to install the requirements 
