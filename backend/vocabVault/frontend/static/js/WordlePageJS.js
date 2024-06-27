@@ -329,15 +329,24 @@ function moveForward(input, event) {
 let isWinner = false
 let usagesLeft = 2
 
+let currentAnswer = ''
+
 var allFavorites = document.querySelectorAll('div.FavoriteEntry');
-var randomIndex = Math.floor(Math.random() * allFavorites.length);
-var randomFavoriteDiv = allFavorites[randomIndex];
-let currentAnswer = randomFavoriteDiv.querySelector('p').textContent
+if (allFavorites.length == 0) {
+  html = "<h4>looks like you have no favorite words, you can add words to your favorites by clicking the 'add to favorites' button</h4>"
+  document.body.innerHTML += html;
+
+} else {
+  var randomIndex = Math.floor(Math.random() * allFavorites.length);
+  var randomFavoriteDiv = allFavorites[randomIndex];
+  currentAnswer = randomFavoriteDiv.querySelector('p').textContent
+}
 
 
 window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
 window.onload = combinedOnloadFunctions; //activates the adjustButtonMargins function when the browser loads
 window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
+
 
 // makes the cursor jump to the next input window when a button (presumabally a letter) is pressed
 document.addEventListener('keyup', function(event) {
