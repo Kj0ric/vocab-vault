@@ -277,7 +277,7 @@ function CheckInput(event) {
               if (usagesLeft > 1) {
                 
                 let loseMessage = document.createElement('div');
-                loseMessage.textContent = 'You lose, the correct word is was ';
+                loseMessage.textContent = 'You lose, the correct word is ';
                 loseMessage.textContent += correctWord
                 loseMessage.style.fontSize = '2em'; // Set the font size or any other styles as needed
                 let table = document.querySelector('table'); // Replace with your actual table selector
