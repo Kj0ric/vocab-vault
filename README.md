@@ -60,4 +60,5 @@ To open the webpage, use the 'Open webpage' shortcut. In case it doesn't work,
 4. Go to http://127.0.0.1:8000/homepage address on your browser
 
 ## Installing the requirements
-Use the terminal command "pip install -r requirements.txt" to install the requirements 
+1. Go to the root directory of the project where the requirements.txt file is located.
+2. Use the terminal command "pip install -r requirements.txt" to install the requirements 
