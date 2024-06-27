@@ -13,22 +13,21 @@
 
 {% block content %}
 
-<h1 style="text-align: center; font-size: 48px;">Account</h1>
+<h1 style="color: blue; text-align: center; font-size: 48px; border-style:ridge; border-width: 4px;">Account</h1>
 <p style="text-align: center; font-size: 20px; margin-top: 10px;">Here you can update your username, email, and profile picture.</p>
-
 
 <!--form container keeps everything structured and together-->
 <div class="form-container">
     <form action="" id="profileForm"> <!--makes a form which will be needed for the backend-->
         <div class="column-left" id="editableInfo"> <!--left column with all the account elements-->
             <!--Display username-->
-            <label for="usernameDisplay">Username:</label>
+            <label for="usernameDisplay" style="color:blue">Username:</label>
             <p id="usernameDisplay">{{ user.username }}</p>
             <!--Input for new username-->
             <input type="text" id="usernameInput" class="editable-input" placeholder="Enter new username" style="display:none;">
 
             <!--Display username-->
-            <label for="emailDisplay">Email:</label>
+            <label for="emailDisplay" style="color:blue">Email:</label>
             <p id="emailDisplay">{{ user.email }}</p>
             <!--Input for new email-->
             <input type="email" id="emailInput" class="editable-input" placeholder="Enter new email" style="display:none;">
@@ -36,7 +35,7 @@
 
             {% if user.userprofile.profile_picture %}
                 <!--Display profile picture-->
-                <label for="profilePic">Profile Picture:</label>
+                <label for="profilePic" style="color:blue" >Profile Picture:</label>
                 <img id="profilePic" src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" style = "width:100px; height:auto;">
             {% endif %}
             

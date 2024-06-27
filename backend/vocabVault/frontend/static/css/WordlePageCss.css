@@ -422,3 +422,7 @@ tr:not(:has(input:placeholder-shown, input:focus)) input {
 #retrybutton{
   display: none;
 }
+
+#mustbehidden {
+  display:none
+}
