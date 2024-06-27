@@ -134,6 +134,16 @@ def update_user_info(request):
         
 
 def delete_favorite(request, favorite_id):
+    """
+    This function deletes the words that the user has stored as favorite. It filters throught the favoritewords model with the word id provided in the website and then redirect the user back to the page.
+
+    parameters:
+    request (HttpRequest): The HTTP request object containing metadata about the request.
+
+    returns:
+    HttpResponse: A redirect to the favorites page or a it passes and the redirects
+
+    """
     if request.method == 'POST':
         try:
             favorite = FavoriteWord.objects.get(id=favorite_id)
@@ -144,6 +154,17 @@ def delete_favorite(request, favorite_id):
     return redirect('favorites_page')  #
 
 def show_favorites(request):
+    """
+    This function shows the words that the user has stored as favorite. It filters throught the favoritewords model with the user id and then sends the words it has to the page that it renders.
+    it is a secondary show favorites function for if the primary on doesnt. it switches from sending the dictionary with favorites words in the request to sending it as a variable
+
+    parameters:
+    request (HttpRequest): The HTTP request object containing metadata about the request.
+
+    returns:
+    HttpResponse: A redirect to the favorites page or a 404 response if the word does not exist.
+
+    """
     
     if request.user.is_authenticated:
         # Filter favorites for the currently logged-in user
@@ -168,7 +189,6 @@ def show_favorite_words(request):
 
     returns:
     HttpResponse: A redirect to the favorites page or a 404 response if the word does not exist.
-
 
     """
     if request.user.is_authenticated:
