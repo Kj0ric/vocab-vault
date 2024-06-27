@@ -94,6 +94,13 @@ function combinedScrollFunctions() {
     calendarFunction();
 }
 
+/**
+ * Initializes and returns a FullCalendar instance attached to a specified HTML element.
+ * The calendar is configured with basic options. It also defines an
+ * eventClick handler to open event URLs in a new window.
+ * 
+ * @returns {FullCalendar.Calendar} A FullCalendar.Calendar instance.
+ */
 function initializeCalendar() {
     // Get the html element that the calendar will be rendered
     var calendarEl = document.getElementById('calendar');
@@ -120,6 +127,11 @@ function initializeCalendar() {
     return calendar;
 }
 
+/**
+ * Sets up the calendar modal functionality including displaying the modal, initializing
+ * the calendar, rendering it, and handling the modal close actions. It also defines an
+ * AJAX GET request to '/get_words/' to fetch and update the calendar events dynamically.
+ */
 function calendarFunction() {
     // Get the modal
     var modal = document.getElementById("calendarModal");
@@ -159,6 +171,7 @@ function calendarFunction() {
 
     // Event listener on anywhere outside of the modal to close it
     window.onclick = function(event) {
+        // Click on the anywhere on the modal but not the content.
         if (event.target == modal) {
             modal.style.display = "none";
         }
@@ -169,7 +182,9 @@ window.onresize = adjustButtonMargins; //activates the adjustButtonMargins funct
 window.onload = combinedScrollFunctions; //activates the adjustButtonMargins function when the browser loads
 window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
 
-
+/**
+ * Redirects the user to the homepage by changing the current window's location.
+ */
 function goToHomePage() {
     window.location.href = "/homepage";  // Redirect to HomePage.html
   }

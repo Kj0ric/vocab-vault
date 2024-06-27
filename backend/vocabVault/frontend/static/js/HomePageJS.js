@@ -93,6 +93,13 @@ function combinedScrollFunctions() {
     calendarFunction();
 }
 
+/**
+ * Initializes and returns a FullCalendar instance attached to a specified HTML element.
+ * The calendar is configured with basic options. It also defines an
+ * eventClick handler to open event URLs in a new window.
+ * 
+ * @returns {FullCalendar.Calendar} A FullCalendar.Calendar instance.
+ */
 function initializeCalendar() {
     /*  
     This function creates and initializes a callendar using the Fullcallendar javascript library.
@@ -123,14 +130,14 @@ function initializeCalendar() {
         }
     });
     return calendar;
-  }
-  
-  function calendarFunction() {
-    /*
-    makes a calendar with words and links to their corresponding pages appear when the calendar button is clicked
+}
 
-    this function has no parameters and returns nothing
-    */
+/**
+ * Sets up the calendar modal functionality including displaying the modal, initializing
+ * the calendar, rendering it, and handling the modal close actions. It also defines an
+ * AJAX GET request to '/get_words/' to fetch and update the calendar events dynamically.
+ */
+function calendarFunction() {
     // Get the modal
     var modal = document.getElementById("calendarModal");
     // Get the button that opens the modal

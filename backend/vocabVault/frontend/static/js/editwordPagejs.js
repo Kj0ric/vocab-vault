@@ -93,66 +93,90 @@ function combinedScrollFunctions() {
     calendarFunction();
 }
 
-var calendarEl = document.getElementById('calendar');
-var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    headerToolbar: {
-        left: 'prev,next',
-        center: 'title',
-        right: 'today'
-    },
-    handleWindowResize: true,
-    contentHeight: 400,
-    events: [],
-    eventClick: function(info) {
-        window.open(info.event.url);
-        info.jsEvent.preventDefault();
-    }
-});
+/**
+ * Initializes and returns a FullCalendar instance attached to a specified HTML element.
+ * The calendar is configured with basic options. It also defines an
+ * eventClick handler to open event URLs in a new window.
+ * 
+ * @returns {FullCalendar.Calendar} A FullCalendar.Calendar instance.
+ */
+function initializeCalendar() {
+    // Get the html element that the calendar will be rendered
+    var calendarEl = document.getElementById('calendar');
+    
+    // Create a new instance of FullCalendar.Calendar 
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        // Pass some options
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'today'
+        },
+        handleWindowResize: true,
+        contentHeight: 400,
+        events: [],
+        
+        // This function opens the event's URL in a new window and prevents the default action for the click event.
+        eventClick: function(info) {    
+            window.open(info.event.url);
+            info.jsEvent.preventDefault();
+        }
+    });
+    return calendar;
+}
 
+/**
+ * Sets up the calendar modal functionality including displaying the modal, initializing
+ * the calendar, rendering it, and handling the modal close actions. It also defines an
+ * AJAX GET request to '/get_words/' to fetch and update the calendar events dynamically.
+ */
 function calendarFunction() {
     // Get the modal
     var modal = document.getElementById("calendarModal");
-
     // Get the button that opens the modal
     var btn = document.querySelector(".floatingButtonCalendar");
-
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-        modal.style.display = "block";
+    // Initialize the calendar object 
+    var calendar = initializeCalendar();
 
+    // Event listener on the button to open the modal
+    btn.onclick = function() {
+        modal.style.display = "block"; // Make it visible
         
         // Render the calendar
         calendar.render();
 
+        // AJAX request with GET method to update the events of the calendar
         $.ajax({
             url: '/get_words/',
             type: 'GET',
             success: function(response) {
                 console.log('Response:', response);
                 //var words = JSON.parse(response);
-                // Update the events of the calendar
+                
                 calendar.removeAllEvents(); // Remove old events
                 calendar.addEventSource(response); // Add new events
             }
         });
     }
 
-    // When the user clicks on <span> (x), close the modal
+    // Event listener on the <span> (x) button to close the modal
     span.onclick = function() {
         modal.style.display = "none";
     }
 
-    // When the user clicks anywhere outside of the modal, close it
+    // Event listener on anywhere outside of the modal to close it
     window.onclick = function(event) {
+        // Click on the anywhere on the modal but not the content.
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
 }
+
 window.onresize = adjustButtonMargins; //activates the adjustButtonMargins function when resizing the browser window
 window.onload = combinedScrollFunctions; //activates the combinedScrollFunctions function when the browser loads
 window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctions function when scrolling
@@ -160,6 +184,13 @@ window.onscroll = combinedScrollFunctions; //activates the combinedScrollFunctio
 let wordName = '';
 let wordDescription = '';
 
+/**
+ * Toggles a word entry's visual state between "deleted" and normal. Changes background color,
+ * button text, and temporarily alters the word's display to indicate deletion status.
+ * 
+ * @param {HTMLElement} button - The button element that triggered the function. This button is
+ *                               part of the word entry container that will have its visual state toggled.
+ */
 function changeColor(button) {
     const container = button.parentNode;
     const textContainer = container.querySelector('.TextContainer');

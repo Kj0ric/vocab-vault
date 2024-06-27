@@ -103,53 +103,69 @@ function initializeCalendar() {
     */
   
     // Get the html element that the calendar will be rendered
-    var calendarEl = document.getElementById('calendar');
+/**
+ * Initializes and returns a FullCalendar instance attached to a specified HTML element.
+ * The calendar is configured with basic options. It also defines an
+ * eventClick handler to open event URLs in a new window.
+ * 
+ * @returns {FullCalendar.Calendar} A FullCalendar.Calendar instance.
+ */
+function initializeCalendar() {
+    // Get the html element that the calendar will be rendered
+        var calendarEl = document.getElementById('calendar');
     
+    // Create a new instance of FullCalendar.Calendar 
+        
     // Create a new instance of FullCalendar.Calendar 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         // Pass some options
+            // Pass some options
         initialView: 'dayGridMonth',
-        headerToolbar: {
-            left: 'prev,next',
-            center: 'title',
-            right: 'today'
-        },
-        handleWindowResize: true,
-        contentHeight: 400,
-        events: [],
+            headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'today'
+            },
+            handleWindowResize: true,
+            contentHeight: 400,
+            events: [],
         
         // This function opens the event's URL in a new window and prevents the default action for the click event.
-        eventClick: function(info) {    
-            window.open(info.event.url);
-            info.jsEvent.preventDefault();
-        }
-    });
+            
+        // This function opens the event's URL in a new window and prevents the default action for the click event.
+        eventClick: function(info) {        
+                window.open(info.event.url);
+                info.jsEvent.preventDefault();
+            }
+        });
+    return calendar;
+}
     return calendar;
   }
   
+/**
+ * Sets up the calendar modal functionality including displaying the modal, initializing
+ * the calendar, rendering it, and handling the modal close actions. It also defines an
+ * AJAX GET request to '/get_words/' to fetch and update the calendar events dynamically.
+ */
   function calendarFunction() {
-    /*
-    makes a calendar with words and links to their corresponding pages appear when the calendar button is clicked
-
-    this function has no parameters and returns nothing
-    */
     // Get the modal
     var modal = document.getElementById("calendarModal");
     // Get the button that opens the modal
     var btn = document.querySelector(".floatingButtonCalendar");
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
-    
+
     // Initialize the calendar object 
     var calendar = initializeCalendar();
-  
+
     // Event listener on the button to open the modal
     btn.onclick = function() {
         modal.style.display = "block"; // Make it visible
         
         // Render the calendar
         calendar.render();
-  
+
         // AJAX request with GET method to update the events of the calendar
         $.ajax({
             url: '/get_words/',
@@ -162,14 +178,15 @@ function initializeCalendar() {
             }
         });
     }
-  
+
     // Event listener on the <span> (x) button to close the modal
     span.onclick = function() {
         modal.style.display = "none";
     }
-  
+
     // Event listener on anywhere outside of the modal to close it
     window.onclick = function(event) {
+        // Click on the anywhere on the modal but not the content.
         if (event.target == modal) {
             modal.style.display = "none";
         }
@@ -205,6 +222,12 @@ function getCookie(name) {
     return cookieValue;
 }
 
+/**
+ * Displays the selected profile picture in the `<img>` element with the ID 'profilePic'.
+ * This function is triggered when a new file is selected in the input element with the ID 'photo'.
+ * It reads the selected file as a Data URL and sets it as the source of the 'profilePic' image,
+ * making the image visible if it was previously hidden.
+ */
 function displayProfilePic() {
     const input = document.getElementById('photo');
     const img = document.getElementById('profilePic');
@@ -239,6 +262,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 let editMode = false; // Initial state: Display mode
 
+/**
+ * Toggles the edit mode on the user account page. When edit mode is enabled, it hides the display elements
+ * (username, email, and profile picture) and shows the corresponding input fields for these elements, allowing
+ * the user to edit their information. It also changes the text and background color of the change button to
+ * indicate a cancel action. When edit mode is disabled, it reverts these changes, showing the display elements
+ * and hiding the input fields, and resets the change button to its original state.
+ */
 function toggleEdit() {
     // Toggle the edit mode state
     editMode = !editMode;
@@ -279,7 +309,14 @@ function toggleEdit() {
         
     }
 }
-  
+
+/**
+ * Saves the changes made to the user's information by sending a POST request with the updated username,
+ * email, and profile picture to the server. It constructs a FormData object with the new values and sends
+ * it as the request body. If the update is successful, it toggles off the edit mode and reloads the page.
+ * In case of an error, it displays an error message to the user. This function also handles network errors
+ * or server unreachability by displaying a generic error message.
+ */  
 function saveChanges() {
     const newUsername = document.getElementById('usernameInput').value;
     const newEmail = document.getElementById('emailInput').value;
