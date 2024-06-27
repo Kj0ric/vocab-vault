@@ -165,10 +165,10 @@ def delete_favorite(request, favorite_id):
 
 
 def index(request):
-    print('ah yes something')
     queryset = Words.objects.all()
     query = request.GET.get('search')
-    print(f"Seach query: {query}")
+    filter_by = request.GET.get('filter')
+
     if query:
         queryset = queryset.filter(
             Q(phonetic__icontains=query) |
@@ -176,14 +176,17 @@ def index(request):
             Q(function__icontains=query) |
             Q(word__icontains=query) |
             Q(date__icontains=query)
-            
         )
-    print(f"Queryset: {queryset}")
+    
+    if filter_by:
+        queryset = queryset.filter(function=filter_by)
+
     context = {
         "object_list": queryset,
+        "query": query,
+        "filter_by": filter_by,
     }
     return render(request, "newSearchResults.html", context)
-
 
 def wordDetail(request, word_id):
 

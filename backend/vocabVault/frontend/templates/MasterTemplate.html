@@ -8,6 +8,7 @@
 
     <!--Include favicon-->
     <link rel="icon" href ="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--Include HomePage styles-->
     {% block cssfile %}{% endblock %}
@@ -46,8 +47,20 @@
     
     <!---This is the search bar-->
     <div type = "search" id="search">
+    <!--
         <form action="{% url 'index' %}" method="get">
             <input type="text" name="search" placeholder="Search.." value="{{request.GET.title}}" id="searchbar">
+        </form>
+    -->
+        <form id="search-form" action="{% url 'index' %}" method="get">
+            <input type="text" name="search" placeholder="Search.." value="{{ request.GET.title }}" id="searchbar">
+            <select name="filter">
+                <option value="">Filter Options</option>
+                <option value="noun" {% if filter_by == 'noun' %}selected{% endif %}>Noun</option>
+                <option value="verb" {% if filter_by == 'verb' %}selected{% endif %}>Verb</option>
+                <option value="adjective" {% if filter_by == 'adjective' %}selected{% endif %}>Adjective</option>
+            </select>
+            <button type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div> 
     

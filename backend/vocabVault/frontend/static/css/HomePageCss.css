@@ -363,3 +363,25 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
+
+select {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+}
+
+/* Style for dropdown button */
+button {
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Hover effect for button */
+button:hover {
+  background-color: #0056b3;
+}
