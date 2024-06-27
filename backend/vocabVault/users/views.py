@@ -106,6 +106,18 @@ def user_logout(request):
 @login_required
 @csrf_exempt
 def update_user_info(request):
+    """
+    Updates user's username, email, and profile picture on POST request.
+
+    Expects 'username', 'email', and 'profile_pic' in POST data. On success, returns a JsonResponse
+    indicating success. On failure, returns a JsonResponse with an error message.
+
+    Parameters:
+    - request (HttpRequest): The request object with POST data and files.
+
+    Returns:
+    - JsonResponse: Indicates success or failure of the update.
+    """
     if request.method == 'POST':
         # Django doesn't handle PUT data natively, so we manually parse it
         new_username = request.POST.get('username')
