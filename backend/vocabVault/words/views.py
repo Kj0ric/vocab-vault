@@ -134,10 +134,8 @@ def flashcards(request):
 
 
 def quizzes(request):
-
-  template = loader.get_template('QuizzesPage.html')
-
-  return HttpResponse(template.render())
+  # template = loader.get_template('QuizzesPage.html')
+  return render(request, 'QuizzesPage.html', {'request': request})
 
 
 def wordle(request):
@@ -153,7 +151,7 @@ def wordle(request):
         return render(request, 'userloginpage.html')
 
 def members(request):
-    return HttpResponse("Hello world!")
+     return HttpResponse("Hello world!")
 
 def delete_favorite(request, favorite_id):
     if request.method == 'POST':
