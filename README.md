@@ -51,7 +51,6 @@ This repository is also available to clone through github desktop
 ## Architecture
 
 ## How to open the webpage
-To open the webpage, use the 'Open webpage' shortcut. In case it doesn't work,
 
 1. Clone the repository using the command provided in the README.md file.
 2. Navigate to the project directory: `cd Group-39`
