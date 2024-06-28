@@ -59,7 +59,7 @@ This repository is also available to clone through github desktop
 To open the webpage, use the 'Open webpage' shortcut. In case it doesn't work,
 
 1. Clone the repository using the command provided in the README.md file.
-2. Navigate to the project directory.
+2. Navigate to the project directory: `cd Group-39`
 3. Create a Python virtual environment:
   ```
   python -m venv myenv
