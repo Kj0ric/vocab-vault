@@ -50,11 +50,6 @@ This repository is also available to clone through github desktop
 
 ## Architecture
 
-
-## Installing the requirements
-1. Go to the root directory of the project where the requirements.txt file is located.
-2. Use the terminal command `pip install -r requirements.txt`to install the requirements 
-
 ## How to open the webpage
 To open the webpage, use the 'Open webpage' shortcut. In case it doesn't work,
 
@@ -78,3 +73,7 @@ To open the webpage, use the 'Open webpage' shortcut. In case it doesn't work,
   ```
 8. Go to http://127.0.0.1:8000/homepage address in your browser
 
+## Installing the requirements
+1. Create a Python virtual environment
+2. Go to the root directory of the project where the requirements.txt file is located.
+3. Use the terminal command `pip install -r requirements.txt` to install the requirements 
