@@ -66,6 +66,8 @@ This repository is also available to clone through github desktop
 
 ## Architecture
 
+<img src="/website_images/architecture.png" alt="Homepage" width="400"/>
+
 ## How to open the webpage
 
 1. Clone the repository using the command provided in the README.md file.
