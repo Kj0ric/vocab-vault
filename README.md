@@ -24,7 +24,7 @@
 </table>
 
 ## Brief description of the project
-VocabVault focusses on broadening the users vocabulary through fun and educational features. The web application has a homepage containing the word of the day with the meaning, function and phonetics of the specific word. After the user registered and logged in with their account, this word can be added to favorites, which stores the user's favorite words. The user can create custom favorite words as well as read, delete, and update their existing favorite words. Words of the previous days are accessible through a simple calendar pop up. Finally, the favorite words can be studied through the quizzes page with wordle and flashcards available.
+VocabVault focuses on broadening the users vocabulary through fun and educational features. The web application has a homepage containing the word of the day with the meaning, function and phonetics of the specific word. After the user registered and logged in with their account, this word can be added to favorites, which stores the user's favorite words. The user can create custom favorite words as well as read, delete, and update their existing favorite words. Words of the previous days are accessible through a simple calendar pop up. Finally, the favorite words can be studied through the quizzes page with wordle and flashcards available.
 
 ### Technology Stack
 This project utilizes the following technologies:
