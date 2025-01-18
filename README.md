@@ -1,5 +1,4 @@
-# Project Title 
-**VocabVault**
+# VocabVault
 
 <table>
   <tr>
