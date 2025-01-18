@@ -1,4 +1,19 @@
-# VocabVault
+<h1 align="center">
+    VocabVault 
+</h1>
+
+<div align="center">
+
+[![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)]()
+[![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)]()
+[![JS](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)]()
+[![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)]()
+[![Status](https://img.shields.io/badge/status-completed-green?style=for-the-badge)]()
+[![License](https://img.shields.io/badge/license-MIT-red?style=for-the-badge)](/LICENSE)
+
+</div>
+
+An interactive web application that enriches vocabulary learning through daily words, personalized collections, and engaging study tools.
 
 <table>
   <tr>
@@ -10,7 +25,6 @@
     </td>
   </tr>
 </table>
-
 <table>
   <tr>
     <td>
@@ -22,74 +36,104 @@
   </tr>
 </table>
 
-## Brief description of the project
-VocabVault focuses on broadening the users vocabulary through fun and educational features. The web application has a homepage containing the word of the day with the meaning, function and phonetics of the specific word. After the user registered and logged in with their account, this word can be added to favorites, which stores the user's favorite words. The user can create custom favorite words as well as read, delete, and update their existing favorite words. Words of the previous days are accessible through a simple calendar pop up. Finally, the favorite words can be studied through the quizzes page with wordle and flashcards available.
+## Overview
 
-### Technology Stack
-This project utilizes the following technologies:
+VocabVault focuses on broadening users' vocabulary through fun and educational features. The web application offers:
 
-- Frontend: HTML, CSS, and JavaScript
-- Backend: Django, a Python-based web framework
+- Daily word showcase with meaning, function, and phonetics
+- User authentication system for personalized experience
+- Favorite words collection with CRUD operations
+- Historical word access through an interactive calendar
+- Interactive learning through Wordle-style games and flashcards
 
-## Team members
+## Technology Stack
+
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Django (Python web framework)
+
+## Team Members
+
 - **Indigo cheuk-a-lam** (ich104)
 - **Harun Yılmaz** (cnf877)
 - **Michael Manso** (mma766)
-
-## Installation details
-This project can be runned locally by cloning this repository
-
-Git needs to be dowloaded to clone repository!!
-Guide to download git:
-https://github.com/git-guides/install-git
-
-Steps of cloning this repository through terminal
-1. Navigate to the Repository
-
-2. Go to the main page of the repository on GitHub.com. 
-
-3. Click the "Code" button above the list of files.
-
-4. Choose your preferred cloning method (HTTPS, SSH, or GitHub CLI) and copy the URL.
-
-5. Open your terminal application.
-
-6. Navigate to the directory where you want to clone the repository.
-
-7. Type git clone, paste the URL you copied, and press Enter.
-  ```
-  git clone https://github.com/VU-Applied-Programming-for-AI-2024/Group-39.git
-  ```
-
-This repository is also available to clone through github desktop
 
 ## Architecture
 
 <img src="/website_images/architecture.png" alt="Homepage" width="400"/>
 
-## How to open the webpage
+## Installation Guide
 
-1. Clone the repository using the command provided in the README.md file.
-2. Navigate to the project directory: `cd Group-39`
-3. Create a Python virtual environment:
-  ```
-  python -m venv myenv
-  ```
-4. Activate the virtual environment:
-- On Windows: `myenv\Scripts\activate`
-- On macOS and Linux: `source myenv/bin/activate`
-5. Install the required software in the requirment.txt file:
-  ```
-  pip install -r requirements.txt
-  ```
-6. Go into the "vocabVault" directory: `cd backend/vocabVault`
-7. Run the Django server:
-  ```
-  python manage.py runserver
-  ```
-8. Go to http://127.0.0.1:8000/homepage address in your browser
+### Prerequisites
 
-## Installing the requirements
-1. Create a Python virtual environment
-2. Go to the root directory of the project where the requirements.txt file is located.
-3. Use the terminal command `pip install -r requirements.txt` to install the requirements 
+- Git ([Installation Guide](https://github.com/git-guides/install-git))
+- Python 3.x
+
+### Cloning the Repository
+
+Choose one of the following methods:
+
+#### Option 1: Command Line
+1. Open your terminal
+2. Navigate to your desired directory
+3. Run:
+```bash
+git clone https://github.com/VU-Applied-Programming-for-AI-2024/Group-39.git
+```
+
+#### Option 2: GitHub Desktop
+Clone directly through GitHub desktop interface
+
+### Setting Up the Environment
+
+1. Navigate to the project directory:
+```bash
+cd vocab-vault
+```
+
+2. Create a Python virtual environment:
+```bash
+python -m venv myenv
+```
+
+3. Activate the virtual environment:
+- Windows:
+```bash
+myenv\Scripts\activate
+```
+- macOS/Linux:
+```bash
+source myenv/bin/activate
+```
+
+4. Install required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+### Running the Application
+
+1. Navigate to the Django project directory:
+```bash
+cd backend/vocabVault
+```
+
+2. Start the development server:
+```bash
+python manage.py runserver
+```
+
+3. Access the application at [http://127.0.0.1:8000/homepage](http://127.0.0.1:8000/homepage)
+
+## Contributing
+
+Feel free to fork this repository and submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
+
+## Acknowledgements
+
+This project is a product of team work facilitated by the Applied Programming for AI course at VU Amsterdam.
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for details.
+
